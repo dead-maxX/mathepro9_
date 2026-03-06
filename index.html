@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -438,6 +439,13 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
       <div><div class="set-label">Design zurücksetzen</div><div class="set-desc">Alle Einstellungen auf Standard</div></div>
       <button onclick="resetSettings()" style="background:var(--sf2);border:1px solid var(--bd);color:var(--mu);border-radius:8px;padding:6px 13px;cursor:pointer;font-family:var(--fd);font-size:.78rem;font-weight:600">Reset</button>
     </div>
+  </div>
+
+  <!-- SECRET -->
+  <div style="margin-top:80px;text-align:center;opacity:0.15;transition:opacity .4s" onmouseenter="this.style.opacity='.9'" onmouseleave="this.style.opacity='.15'">
+    <div style="font-size:.6rem;color:var(--mu);font-family:var(--fm);letter-spacing:2px;margin-bottom:8px">· · · · ·</div>
+    <button onclick="devStartFT()" style="background:transparent;border:1px dashed var(--mu);color:var(--mu);border-radius:8px;padding:7px 16px;cursor:pointer;font-family:var(--fm);font-size:.7rem;letter-spacing:1px">🧪 dev: test starten</button>
+    <div style="font-size:.58rem;color:var(--mu);margin-top:6px;font-family:var(--fm)">überspringt freischaltung</div>
   </div>
 </div>
 
@@ -923,8 +931,11 @@ function renderFTQ(){
   const LB=['A','B','C','D'];
   let h=`<div class="qcard"><div class="qtxt" style="font-size:.95rem">${esc(q.q)}</div><div class="opts">`;
   q.opts.forEach((o,i)=>h+=`<button class="obtn" id="fto${i}" onclick="ftAnswer(${i})"><span class="olbl">${LB[i]}</span>${esc(o)}</button>`);
-  h+=`</div><div class="fbbox" id="ftfb"></div><button class="btnnxt" id="ftbn" onclick="ftNext()">Weiter →</button></div>`;
+  h+=`</div><div class="fbbox" id="ftfb"></div><button class="btnnxt" id="ftbn" onclick="ftNext()">Weiter →</button>`;
+  h+=iCalcHTML();
+  h+=`</div>`;
   document.getElementById('ft-content').innerHTML=h;
+  icE='';
 }
 function ftAnswer(idx){
   if(FTAns)return;FTAns=true;
@@ -1217,6 +1228,12 @@ function setCompact(v){CFG.compact=v;saveCFG();applyCFG();}
 function resetSettings(){
   CFG={theme:'dark',ac:'#6ee7f7',ac2:'#a78bfa',ac3:'#34d399',layout:'desktop',fontSize:100,anim:true,grid:true,compact:false};
   saveCFG();applyCFG();initSettingsUI();showToast('🔧 Design zurückgesetzt','');
+}
+
+function devStartFT(){
+  S.ft={ti:0,att:[0,0,0],passed:false};
+  showToast('🧪 Dev: Finaltest gestartet','warn');
+  setTimeout(()=>startFT(),300);
 }
 
 // ===================== INIT =====================
