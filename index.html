@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MathePro 9</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root{--bg:#0a0e1a;--sf:#111827;--sf2:#1a2236;--ac:#6ee7f7;--ac2:#a78bfa;--ac3:#34d399;--warn:#f97316;--red:#f87171;--txt:#e2e8f0;--mu:#64748b;--bd:#1e2d45;--r:14px;--fd:'Syne',sans-serif;--fm:'Space Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:var(--fd);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(110,231,247,var(--grid-opacity,0.03)) 1px,transparent 1px),linear-gradient(90deg,rgba(110,231,247,var(--grid-opacity,0.03)) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+/* COMPACT MODE */
+body.compact .set-section{padding:11px 14px;margin-bottom:8px}
+body.compact .page{padding:12px 10px}
+body.compact .rmn{margin-bottom:10px}
+body.compact .rmc{padding:10px 12px}
+body.compact .qcard{padding:14px}
+body.compact .ch-grid{gap:7px}
+body.compact .ch-card{padding:10px 12px}
+nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--bd);padding:0 14px;display:flex;align-items:center;gap:2px;height:54px;overflow-x:auto}
+.nl{font-size:.95rem;font-weight:800;color:var(--ac);margin-right:8px;letter-spacing:-.5px;white-space:nowrap}
+.nt{padding:5px 9px;border-radius:7px;border:none;background:transparent;color:var(--mu);font-family:var(--fd);font-size:.76rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.nt:hover{color:var(--txt);background:var(--sf2)}
+.nt.active{color:var(--ac);background:rgba(110,231,247,.1)}
+.nscore{margin-left:auto;display:flex;align-items:center;gap:5px;font-family:var(--fm);font-size:.72rem;color:var(--ac3);flex-shrink:0}
+.sb{background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.3);padding:3px 9px;border-radius:20px;white-space:nowrap}
+.page{display:none;padding:22px 14px;max-width:860px;margin:0 auto;position:relative;z-index:1}
+.page.active{display:block}
+.hero{text-align:center;padding:32px 0 20px}
+.hero h1{font-size:clamp(1.6rem,5vw,2.7rem);font-weight:800;letter-spacing:-2px;line-height:1.1}
+.hero h1 span{color:var(--ac)}
+.hero p{color:var(--mu);margin-top:8px;font-size:.88rem}
+/* ROADMAP */
+.rm{position:relative;padding:0 0 40px}
+.rm-line{position:absolute;left:50%;transform:translateX(-50%);top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--ac) 0%,var(--bd) 100%);z-index:0}
+.rmn{position:relative;z-index:1;display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.rmn:nth-child(even){flex-direction:row-reverse}
+.rmc{flex:1;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:16px 18px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;max-width:calc(50% - 34px)}
+.rmc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--nc,var(--ac)) 0%,transparent 60%);opacity:.05;transition:opacity .25s}
+.rmc:hover:not(.lk)::before{opacity:.12}
+.rmc:hover:not(.lk){transform:translateY(-2px);border-color:var(--nc,var(--ac))}
+.rmc.lk{cursor:not-allowed;opacity:.42}
+.rmc.dn{border-color:rgba(52,211,153,.35)}
+.rmd{width:42px;height:42px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem;border:3px solid var(--bd);background:var(--sf);z-index:2;transition:all .3s}
+.rmd.on{border-color:var(--nc,var(--ac));box-shadow:0 0 12px rgba(110,231,247,.25)}
+.rmd.dn{background:rgba(52,211,153,.12);border-color:var(--ac3)}
+.rmd.off{opacity:.35}
+.ndt{font-size:.88rem;font-weight:700;margin-bottom:3px}
+.nds{font-size:.7rem;color:var(--mu)}
+.ndm{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}
+.ndb{font-size:.66rem;font-family:var(--fm);padding:2px 7px;border-radius:20px}
+.ndb.pts{background:rgba(52,211,153,.12);color:var(--ac3);border:1px solid rgba(52,211,153,.2)}
+.ndb.lk2{background:rgba(100,116,139,.18);color:var(--mu);border:1px solid var(--bd)}
+.ndb.ok{background:rgba(52,211,153,.12);color:var(--ac3)}
+.cpd{display:flex;gap:4px;margin-top:6px}
+.cpd-dot{width:6px;height:6px;border-radius:50%;background:var(--bd);transition:all .3s}
+.cpd-dot.dn{background:var(--ac3)}
+.cpd-dot.cur{background:var(--ac);box-shadow:0 0 5px var(--ac)}
+/* FINAL TEST NODE */
+.ft-conn{width:2px;height:28px;background:linear-gradient(180deg,var(--ac3),var(--bd));margin:0 auto}
+.ft-node{display:flex;flex-direction:column;align-items:center;position:relative;z-index:1}
+.ft-card{width:100%;max-width:440px;background:var(--sf);border:2px solid var(--bd);border-radius:var(--r);padding:20px 22px;text-align:center;transition:all .25s;position:relative;overflow:hidden}
+.ft-card.ft-lk{opacity:.5;cursor:not-allowed}
+.ft-card.ft-lk.ft-prep{cursor:pointer;opacity:.7}
+.ft-card.ft-lk.ft-prep:hover{opacity:1;border-color:var(--mu)}
+.ft-card.ft-open{border-color:rgba(251,191,36,.6);cursor:pointer;background:linear-gradient(135deg,rgba(251,191,36,.04),transparent)}
+.ft-card.ft-open:hover{border-color:#fbbf24;transform:translateY(-2px);box-shadow:0 0 22px rgba(251,191,36,.18)}
+.ft-card.ft-pass{border-color:rgba(52,211,153,.5);cursor:pointer}
+.ft-card.ft-pass:hover{transform:translateY(-2px);box-shadow:0 0 18px rgba(52,211,153,.2)}
+.ft-icon{font-size:2.2rem;margin-bottom:7px}
+.ft-title{font-size:1rem;font-weight:800}
+.ft-sub{font-size:.74rem;color:var(--mu);margin-top:3px}
+.ft-prog-txt{font-size:.72rem;font-family:var(--fm);color:var(--warn);margin-top:7px}
+.ft-pbar{height:4px;background:var(--bd);border-radius:2px;margin-top:7px;overflow:hidden}
+.ft-pfill{height:100%;background:linear-gradient(90deg,var(--warn),#fbbf24);border-radius:2px;transition:width .6s}
+.ft-dots{display:flex;gap:7px;justify-content:center;margin-top:10px}
+.ft-dot{width:13px;height:13px;border-radius:50%;background:var(--bd);border:2px solid var(--bd);transition:all .3s}
+.ft-dot.used{background:var(--red);border-color:var(--red)}
+.ft-dot.avail{border-color:var(--mu)}
+/* CHAPTERS */
+.ch-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin-top:5px}
+@media(max-width:480px){.ch-grid{grid-template-columns:1fr}}
+.ch-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:15px 17px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.ch-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--cc,var(--ac)) 0%,transparent 70%);opacity:.05;transition:opacity .2s}
+.ch-card:hover:not(.cc-lk)::before{opacity:.12}
+.ch-card:hover:not(.cc-lk){border-color:var(--cc,var(--ac));transform:translateY(-1px)}
+.ch-card.cc-lk{cursor:not-allowed;opacity:.38}
+.ch-card.cc-dn{border-color:rgba(52,211,153,.3)}
+.cc-num{font-size:.66rem;text-transform:uppercase;letter-spacing:1px;color:var(--mu);margin-bottom:3px;font-family:var(--fm)}
+.cc-name{font-size:.92rem;font-weight:700}
+.cc-info{font-size:.72rem;color:var(--mu);margin-top:3px}
+.cc-pts{font-size:.7rem;font-family:var(--fm);color:var(--ac3);margin-top:4px}
+/* QUIZ */
+.qtop{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.qi{font-size:.76rem;color:var(--mu)}
+.qi strong{color:var(--txt)}
+.qpw{margin-bottom:18px}
+.qplbls{display:flex;justify-content:space-between;font-size:.68rem;color:var(--mu);margin-bottom:4px;font-family:var(--fm)}
+.qpbar{height:5px;background:var(--bd);border-radius:3px;overflow:hidden}
+.qpfill{height:100%;background:linear-gradient(90deg,var(--ac),var(--ac2));border-radius:3px;transition:width .4s}
+.qcard{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:20px;animation:fadeUp .28s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.qhdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.ptsbdg{font-family:var(--fm);font-size:.7rem;color:var(--ac2);background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.2);padding:3px 8px;border-radius:20px}
+.ptsbdg.hlv{color:var(--warn);background:rgba(249,115,22,.08);border-color:rgba(249,115,22,.22)}
+.qtxt{font-size:1rem;font-weight:600;line-height:1.6;margin-bottom:16px}
+.opts{display:grid;gap:7px}
+.obtn{background:var(--sf2);border:1px solid var(--bd);border-radius:9px;padding:11px 13px;text-align:left;cursor:pointer;color:var(--txt);font-family:var(--fd);font-size:.86rem;font-weight:500;transition:all .18s;display:flex;align-items:center;gap:9px}
+.obtn:hover:not(:disabled){border-color:var(--ac);background:rgba(110,231,247,.04)}
+.obtn.ok{border-color:var(--ac3);background:rgba(52,211,153,.08);color:var(--ac3)}
+.obtn.bad{border-color:var(--red);background:rgba(248,113,113,.07);color:var(--red)}
+.obtn:disabled{cursor:default}
+.olbl{width:23px;height:23px;border-radius:5px;background:var(--bd);display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:.7rem;font-weight:700;flex-shrink:0}
+.inpw{display:flex;gap:7px;margin-top:4px}
+.inpa{flex:1;background:var(--sf2);border:1px solid var(--bd);border-radius:9px;padding:10px 13px;color:var(--txt);font-family:var(--fm);font-size:.92rem;outline:none;transition:border .2s}
+.inpa:focus{border-color:var(--ac)}
+.btnchk{background:var(--ac);color:var(--bg);border:none;border-radius:9px;padding:10px 16px;font-family:var(--fd);font-size:.82rem;font-weight:700;cursor:pointer;transition:opacity .2s}
+.btnchk:hover{opacity:.85}
+.fbbox{margin-top:12px;padding:11px 14px;border-radius:9px;font-size:.83rem;line-height:1.6;display:none}
+.fbbox.ok{background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.24);color:var(--ac3)}
+.fbbox.bad{background:rgba(248,113,113,.07);border:1px solid rgba(248,113,113,.24);color:var(--red)}
+.qacts{margin-top:11px;display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.btnhint{background:transparent;border:1px solid rgba(249,115,22,.35);color:var(--warn);border-radius:8px;padding:6px 13px;font-family:var(--fd);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btnhint:hover{background:rgba(249,115,22,.07)}
+.btnhint:disabled{opacity:.25;cursor:default}
+.btnnxt{background:linear-gradient(135deg,var(--ac),var(--ac2));color:var(--bg);border:none;border-radius:9px;padding:10px 22px;font-family:var(--fd);font-size:.86rem;font-weight:700;cursor:pointer;display:none;transition:opacity .2s;margin-left:auto}
+.btnnxt:hover{opacity:.88}
+.hintbox{margin-top:10px;padding:10px 13px;background:rgba(249,115,22,.07);border:1px solid rgba(249,115,22,.22);border-radius:9px;font-size:.8rem;color:var(--warn);line-height:1.6;display:none}
+/* INLINE CALC */
+.icalc{margin-top:14px;background:var(--sf2);border:1px solid var(--bd);border-radius:11px;padding:11px}
+.icalc-ttl{font-size:.65rem;color:var(--mu);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;font-family:var(--fm)}
+.icalc-d{background:var(--bg);border:1px solid var(--bd);border-radius:7px;padding:8px 11px;font-family:var(--fm);font-size:1rem;text-align:right;min-height:40px;word-break:break-all;margin-bottom:7px;color:var(--ac)}
+.icalc-ex{font-size:.62rem;color:var(--mu)}
+.icalc-btns{display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
+.cb{background:var(--sf);border:1px solid var(--bd);border-radius:6px;padding:7px 3px;color:var(--txt);font-family:var(--fm);font-size:.72rem;cursor:pointer;transition:all .12s}
+.cb:hover{background:var(--bd);color:var(--ac)}
+.cb.op{color:var(--ac2)}.cb.sp{color:var(--ac);font-size:.66rem}
+.cb.eq{background:var(--ac);color:var(--bg);font-weight:700}.cb.eq:hover{opacity:.85}
+.cb.cl{color:var(--red)}
+/* CH RESULT */
+.chr{text-align:center;padding:30px 0}
+.chr-em{font-size:3rem;margin-bottom:10px}
+.chr-t{font-size:1.6rem;font-weight:800}
+.chr-s{color:var(--mu);margin-top:4px;font-size:.88rem}
+.chr-p{font-size:1rem;color:var(--ac3);font-weight:700;margin-top:11px;font-family:var(--fm)}
+.chr-b{font-size:.8rem;color:var(--warn);margin-top:3px}
+/* FINAL TEST */
+.ft-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);border-radius:20px;padding:3px 12px;font-size:.74rem;font-weight:700;color:#fbbf24;font-family:var(--fm);margin-bottom:10px}
+/* GRADE */
+.grade-wrap{text-align:center;padding:32px 16px}
+.grade-n{font-size:4.5rem;font-weight:800;font-family:var(--fm);line-height:1}
+.g1{color:#34d399}.g2{color:#6ee7f7}.g3{color:#a78bfa}.g4{color:#fbbf24}.g5{color:#f97316}.g6{color:#f87171}
+.grade-lbl{font-size:1.2rem;font-weight:700;margin-top:6px}
+.grade-pct{font-size:.88rem;color:var(--mu);margin-top:4px;font-family:var(--fm)}
+.grade-msg{font-size:.9rem;margin-top:14px;line-height:1.6;max-width:360px;margin-left:auto;margin-right:auto}
+/* PREP LIST */
+.prep-list{display:grid;gap:7px;margin-top:14px;max-height:400px;overflow-y:auto}
+.prep-item{background:var(--sf);border:1px solid var(--bd);border-radius:9px;padding:12px 14px}
+.pi-topic{font-size:.66rem;text-transform:uppercase;letter-spacing:.8px;color:var(--mu);margin-bottom:3px;font-family:var(--fm)}
+.pi-q{font-size:.82rem;font-weight:500}
+/* TOOLS */
+.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+@media(max-width:600px){.tools-grid{grid-template-columns:1fr}}
+.tool-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:15px}
+.tool-ttl{font-size:.88rem;font-weight:700;margin-bottom:11px;color:var(--ac);display:flex;align-items:center;gap:6px}
+.tcdisp{background:var(--bg);border:1px solid var(--bd);border-radius:7px;padding:9px 12px;font-family:var(--fm);font-size:1.1rem;text-align:right;min-height:44px;word-break:break-all;margin-bottom:8px;color:var(--ac)}
+.tcex{font-size:.65rem;color:var(--mu)}
+.tcbtns{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.grin{display:flex;gap:6px;margin-bottom:8px}
+.grinp{flex:1;background:var(--sf2);border:1px solid var(--bd);border-radius:7px;padding:8px 10px;color:var(--txt);font-family:var(--fm);font-size:.82rem;outline:none;transition:border .2s}
+.grinp:focus{border-color:var(--ac)}
+.btnplot{background:var(--ac2);color:#fff;border:none;border-radius:7px;padding:8px 11px;font-family:var(--fd);font-size:.78rem;font-weight:600;cursor:pointer;white-space:nowrap}
+.btnplot:hover{opacity:.85}
+.btnclrg{background:var(--sf2);color:var(--red);border:1px solid var(--bd);border-radius:7px;padding:8px 10px;cursor:pointer;font-size:.78rem}
+.gcw{border-radius:7px;overflow:hidden;border:1px solid var(--bd);background:var(--bg)}
+.gerr{color:var(--red);font-size:.73rem;margin-top:4px;min-height:14px;font-family:var(--fm)}
+.gfuncs{margin-top:7px;display:flex;flex-wrap:wrap;gap:4px}
+.gtag{padding:2px 7px;border-radius:20px;font-family:var(--fm);font-size:.65rem;display:flex;align-items:center;gap:3px;cursor:pointer}
+.gtag:hover{opacity:.7}
+/* STATS */
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:20px}
+.sc{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:15px;text-align:center}
+.sn{font-size:1.6rem;font-weight:800;font-family:var(--fm);color:var(--ac)}
+.sl{font-size:.72rem;color:var(--mu);margin-top:2px}
+.ag{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px}
+.ac{background:var(--sf);border:1px solid var(--bd);border-radius:9px;padding:12px;display:flex;align-items:center;gap:9px;opacity:.3;transition:opacity .3s}
+.ac.u{opacity:1;border-color:rgba(167,139,250,.3)}
+.ai{font-size:1.4rem}.an{font-size:.78rem;font-weight:600}.ad{font-size:.68rem;color:var(--mu)}
+/* SETTINGS */
+.set-section{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:18px 20px;margin-bottom:14px}
+.set-section-title{font-size:.72rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--mu);font-family:var(--fm);margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.set-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bd)}
+.set-row:last-child{border-bottom:none;padding-bottom:0}
+.set-row:first-of-type{padding-top:0}
+.set-label{font-size:.88rem;font-weight:600}
+.set-desc{font-size:.72rem;color:var(--mu);margin-top:2px}
+/* Toggle switch */
+.toggle{position:relative;width:44px;height:24px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0;position:absolute}
+.toggle-track{position:absolute;inset:0;background:var(--bd);border-radius:12px;cursor:pointer;transition:background .25s}
+.toggle input:checked+.toggle-track{background:var(--ac)}
+.toggle-thumb{position:absolute;top:3px;left:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:transform .25s;pointer-events:none}
+.toggle input:checked~.toggle-thumb{transform:translateX(20px)}
+/* Theme previews */
+.theme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:4px}
+.theme-btn{border-radius:10px;border:2px solid transparent;padding:10px 8px;cursor:pointer;transition:all .22s;text-align:center;position:relative;overflow:hidden}
+.theme-btn.active-theme{border-color:var(--ac);box-shadow:0 0 12px rgba(110,231,247,.25)}
+.theme-btn:hover:not(.active-theme){border-color:var(--mu);transform:translateY(-1px)}
+.theme-preview{width:100%;height:32px;border-radius:6px;margin-bottom:6px}
+.theme-name{font-size:.72rem;font-weight:700}
+/* Accent color dots */
+.accent-grid{display:flex;gap:9px;flex-wrap:wrap;margin-top:4px}
+.ac-dot{width:32px;height:32px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .2s;position:relative}
+.ac-dot.active-ac{border-color:#fff;box-shadow:0 0 10px rgba(255,255,255,.3)}
+.ac-dot:hover:not(.active-ac){transform:scale(1.1)}
+/* Font size slider */
+.slider-wrap{display:flex;align-items:center;gap:10px;margin-top:4px}
+.slider{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:3px;background:var(--bd);outline:none;cursor:pointer}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:var(--ac);cursor:pointer;border:2px solid var(--bg)}
+.slider-val{font-family:var(--fm);font-size:.78rem;color:var(--ac);min-width:30px;text-align:right}
+/* Mobile layout preview */
+.layout-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:4px}
+.layout-btn{border-radius:10px;border:2px solid var(--bd);padding:12px 8px;cursor:pointer;transition:all .22s;text-align:center;background:var(--sf2)}
+.layout-btn.active-layout{border-color:var(--ac);background:rgba(110,231,247,.05)}
+.layout-btn:hover:not(.active-layout){border-color:var(--mu)}
+.layout-icon{font-size:1.6rem;margin-bottom:4px}
+.layout-name{font-size:.76rem;font-weight:700}
+.layout-desc{font-size:.66rem;color:var(--mu);margin-top:2px}
+/* MODALS */
+.mov{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.68);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:14px}
+.mov.show{display:flex}
+.mbox{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:26px;max-width:390px;width:100%;text-align:center;animation:fadeUp .22s ease}
+.mico{font-size:2.6rem;margin-bottom:9px}
+.mttl{font-size:1.05rem;font-weight:800;margin-bottom:6px}
+.mbdy{color:var(--mu);font-size:.85rem;line-height:1.6;margin-bottom:18px}
+.mbdy strong{color:var(--warn)}
+.mbtns{display:flex;gap:8px}
+.mcancel{flex:1;background:var(--sf2);border:1px solid var(--bd);color:var(--txt);border-radius:9px;padding:9px;font-family:var(--fd);font-size:.86rem;font-weight:600;cursor:pointer}
+.mconfirm{flex:1;background:var(--warn);color:#fff;border:none;border-radius:9px;padding:9px;font-family:var(--fd);font-size:.86rem;font-weight:700;cursor:pointer}
+/* TOAST */
+.toast{position:fixed;bottom:18px;right:18px;z-index:9999;background:var(--sf2);border:1px solid var(--bd);border-radius:11px;padding:10px 15px;font-size:.82rem;font-weight:600;transform:translateY(80px);opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1);max-width:250px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.pts{border-color:rgba(52,211,153,.4);color:var(--ac3)}
+.toast.warn{border-color:rgba(249,115,22,.4);color:var(--warn)}
+/* MISC */
+.sect{font-size:1rem;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.sect::after{content:'';flex:1;height:1px;background:var(--bd)}
+.btnback{background:var(--sf2);border:1px solid var(--bd);border-radius:7px;padding:6px 11px;color:var(--mu);cursor:pointer;font-family:var(--fd);font-size:.76rem}
+.btnback:hover{color:var(--txt)}
+.btna{background:linear-gradient(135deg,var(--ac),var(--ac2));color:var(--bg);border:none;border-radius:9px;padding:9px 20px;font-family:var(--fd);font-size:.86rem;font-weight:700;cursor:pointer}
+.btna:hover{opacity:.88}
+.btns{background:var(--sf2);border:1px solid var(--bd);color:var(--txt);border-radius:9px;padding:9px 20px;font-family:var(--fd);font-size:.86rem;cursor:pointer}
+.btnw{background:var(--warn);color:#fff;border:none;border-radius:9px;padding:9px 20px;font-family:var(--fd);font-size:.86rem;font-weight:700;cursor:pointer}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nl">∑ MathePro 9</span>
+  <button class="nt active" onclick="showPage('home')">🏠 Start</button>
+  <button class="nt" onclick="showPage('tools')">🔢 Rechner</button>
+  <button class="nt" onclick="showPage('stats')">📊 Stats</button>
+  <button class="nt" onclick="showPage('settings')">⚙️ Einstellungen</button>
+  <div class="nscore">⭐<span class="sb" id="tscore">0 Pkt</span></div>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="hero"><h1>Mathe lernen.<br><span>Level up.</span></h1><p>Klasse 9 · Quadratische Funktionen & Kreisberechnungen</p></div>
+  <div class="sect">🗺️ Dein Lernpfad</div>
+  <div class="rm" id="roadmap"><div class="rm-line"></div></div>
+</div>
+
+<!-- CHAPTERS -->
+<div class="page" id="page-chapters">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px">
+    <button class="btnback" onclick="showPage('home')">← Zurück</button>
+    <div><div id="ch-lbl" style="font-size:.68rem;color:var(--mu);text-transform:uppercase;letter-spacing:1px"></div><div id="ch-ttl" style="font-size:1rem;font-weight:800;margin-top:2px"></div></div>
+  </div>
+  <div class="ch-grid" id="ch-grid"></div>
+</div>
+
+<!-- QUIZ -->
+<div class="page" id="page-quiz">
+  <div class="qtop">
+    <div class="qi"><strong id="qch-name"></strong> · <span id="qq-num"></span></div>
+    <button class="btnback" onclick="confirmLeave()">✕</button>
+  </div>
+  <div class="qpw"><div class="qplbls"><span id="qpl"></span><span id="qpr"></span></div><div class="qpbar"><div class="qpfill" id="qpf"></div></div></div>
+  <div id="quiz-content"></div>
+</div>
+
+<!-- FINAL TEST -->
+<div class="page" id="page-finaltest">
+  <div class="qtop">
+    <div><div class="ft-badge" id="ft-badge">🎯 Finaltest</div></div>
+    <button class="btnback" onclick="confirmLeaveFT()">✕</button>
+  </div>
+  <div class="qpw"><div class="qplbls"><span id="ftpl"></span><span id="ftpr"></span></div><div class="qpbar"><div class="qpfill" id="ftpf"></div></div></div>
+  <div id="ft-content"></div>
+</div>
+
+<!-- TOOLS -->
+<div class="page" id="page-tools">
+  <div class="sect" style="margin-bottom:14px">🔢 Werkzeuge</div>
+  <div class="tools-grid">
+    <div class="tool-card">
+      <div class="tool-ttl">⌨️ Taschenrechner</div>
+      <div class="tcdisp"><div class="tcex" id="tc-ex"></div><div id="tc-val">0</div></div>
+      <div class="tcbtns" id="tc-btns"></div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-ttl">📈 Grafikrechner</div>
+      <div class="grin">
+        <input class="grinp" id="g-in" placeholder="z.B. 2*x^2-3" onkeydown="if(event.key==='Enter')plotG()"/>
+        <button class="btnplot" onclick="plotG()">Zeichnen</button>
+        <button class="btnclrg" onclick="clrG()">✕</button>
+      </div>
+      <div class="gerr" id="g-err"></div>
+      <div class="gfuncs" id="g-funcs"></div>
+      <div class="gcw"><canvas id="g-canvas" height="230"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="page" id="page-stats">
+  <div class="sect">📊 Fortschritt</div>
+  <div class="sg" id="sg"></div>
+  <div class="sect" style="margin-top:20px">🏅 Errungenschaften</div>
+  <div class="ag" id="ag"></div>
+  <div style="margin-top:20px;text-align:center">
+    <button onclick="resetAll()" style="background:transparent;border:1px solid var(--red);color:var(--red);border-radius:7px;padding:7px 15px;cursor:pointer;font-family:var(--fd);font-size:.78rem;opacity:.55">Fortschritt zurücksetzen</button>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div class="page" id="page-settings">
+  <div class="sect" style="margin-bottom:16px">⚙️ Einstellungen</div>
+
+  <!-- LAYOUT -->
+  <div class="set-section">
+    <div class="set-section-title">📱 Layout</div>
+    <div class="layout-grid">
+      <div class="layout-btn active-layout" id="layout-desktop" onclick="setLayout('desktop')">
+        <div class="layout-icon">🖥️</div>
+        <div class="layout-name">Desktop</div>
+        <div class="layout-desc">Roadmap links/rechts</div>
+      </div>
+      <div class="layout-btn" id="layout-mobile" onclick="setLayout('mobile')">
+        <div class="layout-icon">📱</div>
+        <div class="layout-name">Mobile</div>
+        <div class="layout-desc">Alles einspaltig</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THEME -->
+  <div class="set-section">
+    <div class="set-section-title">🎨 Farbthema</div>
+    <div class="theme-grid">
+      <div class="theme-btn active-theme" id="theme-dark" onclick="setTheme('dark')">
+        <div class="theme-preview" style="background:linear-gradient(135deg,#0a0e1a,#1a2236)"></div>
+        <div class="theme-name">🌑 Dark</div>
+      </div>
+      <div class="theme-btn" id="theme-midnight" onclick="setTheme('midnight')">
+        <div class="theme-preview" style="background:linear-gradient(135deg,#0d0d1a,#1a0d2e)"></div>
+        <div class="theme-name">🌌 Midnight</div>
+      </div>
+      <div class="theme-btn" id="theme-forest" onclick="setTheme('forest')">
+        <div class="theme-preview" style="background:linear-gradient(135deg,#0a1a0e,#1a2e1a)"></div>
+        <div class="theme-name">🌿 Forest</div>
+      </div>
+      <div class="theme-btn" id="theme-ocean" onclick="setTheme('ocean')">
+        <div class="theme-preview" style="background:linear-gradient(135deg,#0a1220,#0d2340)"></div>
+        <div class="theme-name">🌊 Ocean</div>
+      </div>
+      <div class="theme-btn" id="theme-sunset" onclick="setTheme('sunset')">
+        <div class="theme-preview" style="background:linear-gradient(135deg,#1a0e0a,#2e1a0d)"></div>
+        <div class="theme-name">🌅 Sunset</div>
+      </div>
+      <div class="theme-btn" id="theme-light" onclick="setTheme('light')">
+        <div class="theme-preview" style="background:linear-gradient(135deg,#f0f4f8,#e2e8f0);border:1px solid #cbd5e1"></div>
+        <div class="theme-name" style="color:#1e293b">☀️ Hell</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCENT COLOR -->
+  <div class="set-section">
+    <div class="set-section-title">✨ Akzentfarbe</div>
+    <div class="accent-grid" id="accent-grid">
+      <div class="ac-dot active-ac" style="background:#6ee7f7" onclick="setAccent('#6ee7f7','#a78bfa','#34d399')" title="Cyan"></div>
+      <div class="ac-dot" style="background:#a78bfa" onclick="setAccent('#a78bfa','#6ee7f7','#34d399')" title="Lila"></div>
+      <div class="ac-dot" style="background:#34d399" onclick="setAccent('#34d399','#6ee7f7','#a78bfa')" title="Grün"></div>
+      <div class="ac-dot" style="background:#f97316" onclick="setAccent('#f97316','#fbbf24','#34d399')" title="Orange"></div>
+      <div class="ac-dot" style="background:#f43f5e" onclick="setAccent('#f43f5e','#a78bfa','#fbbf24')" title="Pink"></div>
+      <div class="ac-dot" style="background:#fbbf24" onclick="setAccent('#fbbf24','#f97316','#34d399')" title="Gelb"></div>
+      <div class="ac-dot" style="background:#38bdf8" onclick="setAccent('#38bdf8','#818cf8','#34d399')" title="Blau"></div>
+      <div class="ac-dot" style="background:#e879f9" onclick="setAccent('#e879f9','#a78bfa','#34d399')" title="Magenta"></div>
+    </div>
+  </div>
+
+  <!-- FONT SIZE -->
+  <div class="set-section">
+    <div class="set-section-title">🔡 Schriftgröße</div>
+    <div class="slider-wrap">
+      <span style="font-size:.75rem;color:var(--mu)">A</span>
+      <input class="slider" type="range" min="85" max="120" value="100" id="font-slider" oninput="setFontSize(this.value)">
+      <span style="font-size:1rem;color:var(--mu)">A</span>
+      <span class="slider-val" id="font-val">100%</span>
+    </div>
+  </div>
+
+  <!-- DISPLAY OPTIONS -->
+  <div class="set-section">
+    <div class="set-section-title">👁️ Anzeige</div>
+    <div class="set-row">
+      <div><div class="set-label">Animationen</div><div class="set-desc">Übergänge & Einblendeffekte</div></div>
+      <label class="toggle"><input type="checkbox" id="tog-anim" checked onchange="setAnim(this.checked)"><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+    </div>
+    <div class="set-row">
+      <div><div class="set-label">Rastermuster</div><div class="set-desc">Hintergrund-Gittermuster</div></div>
+      <label class="toggle"><input type="checkbox" id="tog-grid" checked onchange="setGrid(this.checked)"><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+    </div>
+    <div class="set-row">
+      <div><div class="set-label">Kompakter Modus</div><div class="set-desc">Weniger Abstände, mehr Inhalt</div></div>
+      <label class="toggle"><input type="checkbox" id="tog-compact" onchange="setCompact(this.checked)"><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+    </div>
+  </div>
+
+  <!-- RESET -->
+  <div class="set-section">
+    <div class="set-section-title">🔧 Zurücksetzen</div>
+    <div class="set-row">
+      <div><div class="set-label">Design zurücksetzen</div><div class="set-desc">Alle Einstellungen auf Standard</div></div>
+      <button onclick="resetSettings()" style="background:var(--sf2);border:1px solid var(--bd);color:var(--mu);border-radius:8px;padding:6px 13px;cursor:pointer;font-family:var(--fd);font-size:.78rem;font-weight:600">Reset</button>
+    </div>
+  </div>
+</div>
+
+<!-- HINT MODAL -->
+<div class="mov" id="m-hint">
+  <div class="mbox">
+    <div class="mico">⚠️</div>
+    <div class="mttl">Tipp benutzen?</div>
+    <div class="mbdy">Wenn du den Tipp verwendest, verlierst du den <strong>Doppelpunkte-Bonus</strong> für dieses Kapitel und kannst für diese Frage <strong>maximal 1 Punkt</strong> erhalten.</div>
+    <div class="mbtns"><button class="mcancel" onclick="closeM('m-hint')">Abbrechen</button><button class="mconfirm" onclick="doHint()">Tipp anzeigen</button></div>
+  </div>
+</div>
+
+<!-- LAST ATTEMPT WARNING -->
+<div class="mov" id="m-last">
+  <div class="mbox">
+    <div class="mico">💀</div>
+    <div class="mttl">Letzter Versuch!</div>
+    <div class="mbdy">Dies ist dein <strong>allerletzter Versuch</strong>. Wenn du diesen Test nicht bestehst, wird <strong>dein gesamter Fortschritt zurückgesetzt</strong>!</div>
+    <div class="mbtns">
+      <button class="mcancel" onclick="closeM('m-last');showPage('home')">Abbrechen</button>
+      <button class="mconfirm" style="background:var(--red)" onclick="closeM('m-last');startFT()">Trotzdem starten</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ===================== DATA =====================
+const TOPICS=[
+  {id:'qb',title:'Grundlagen quadratischer Funktionen',icon:'📐',color:'#6ee7f7',chapters:[
+    {name:'Was ist eine Parabel?',questions:[
+      {type:'mc',q:'Welche Form hat eine quadratische Funktion in Normalform?',opts:['f(x)=mx+b','f(x)=ax²+bx+c','f(x)=a/x','f(x)=ax³'],cor:1,hint:'Suche den Term mit x².',ex:'Normalform: f(x)=ax²+bx+c, a≠0.'},
+      {type:'mc',q:'Welchen Wert darf "a" in f(x)=ax²+bx+c NICHT haben?',opts:['a=1','a=–2','a=0','a=0,5'],cor:2,hint:'Ohne diesen Term ist es keine quadratische Funktion.',ex:'Bei a=0 fällt x² weg – die Funktion wäre linear.'},
+      {type:'mc',q:'Eine Parabel mit a<0 öffnet sich...',opts:['nach oben','nach unten','nach links','nach rechts'],cor:1,hint:'Je größer x², desto negativer der Wert.',ex:'Ist a negativ, zeigen die Arme nach unten (Hochpunkt).'},
+    ]},
+    {name:'Koeffizienten & Werte',questions:[
+      {type:'mc',q:'Was beschreibt "a" in f(x)=ax²+bx+c?',opts:['y-Achsenabschnitt','Streckung/Stauchung & Öffnungsrichtung','Scheitelpunkt','Nullstellen'],cor:1,hint:'|a|>1 → schmal, 0<|a|<1 → breit.',ex:'Vorzeichen=Öffnungsrichtung, |a|=Streckung/Stauchung.'},
+      {type:'inp',q:'Berechne f(2) für f(x)=x²–3x+1.',calc:true,cor:'-1',tol:0,hint:'Setze x=2: 4–6+1.',ex:'f(2)=4–6+1=–1'},
+      {type:'mc',q:'y-Achsenabschnitt von f(x)=2x²–5x+3?',opts:['y=–5','y=2','y=3','y=0'],cor:2,hint:'Setze x=0.',ex:'f(0)=c=3.'},
+    ]},
+    {name:'Nullstellen & Scheitel',questions:[
+      {type:'mc',q:'Formel für x_S aus f(x)=ax²+bx+c?',opts:['x=b/(2a)','x=–b/(2a)','x=–c/a','x=b²–4ac'],cor:1,hint:'Ableiten: f\'(x)=2ax+b=0.',ex:'x_S=–b/(2a).'},
+      {type:'inp',q:'Berechne x_S für f(x)=2x²–8x+3.',calc:true,cor:'2',tol:0,hint:'x_S=–(–8)/(4).',ex:'x_S=8/4=2'},
+      {type:'mc',q:'Wie viele Nullstellen hat f(x)=x²+1?',opts:['Keine reellen','Genau eine','Zwei','Unendlich viele'],cor:0,hint:'x²=–1 – kann das sein?',ex:'x²=–1 hat keine reelle Lösung.'},
+    ]},
+    {name:'Anwendung Grundlagen',questions:[
+      {type:'mc',q:'Parabel S(0|–4), a=1. Gleichung?',opts:['f(x)=x²+4','f(x)=x²–4','f(x)=(x–4)²','f(x)=(x+4)²'],cor:1,hint:'f(x)=a(x–d)²+e, d=0, e=–4.',ex:'f(x)=(x–0)²+(–4)=x²–4'},
+      {type:'mc',q:'y-Wert des Scheitelpunkts von f(x)=–x²+4x–1?',calc:true,opts:['y=3','y=–1','y=4','y=1'],cor:0,hint:'x_S=–4/(–2)=2; f(2).',ex:'f(2)=–4+8–1=3 → S(2|3)'},
+      {type:'inp',q:'f(x)=x²–4. Berechne f(3).',cor:'5',tol:0,hint:'9–4.',ex:'f(3)=9–4=5'},
+    ]},
+  ]},
+  {id:'qf',title:'Normal- & Scheitelpunktform',icon:'🔄',color:'#a78bfa',chapters:[
+    {name:'Scheitelpunktform lesen',questions:[
+      {type:'mc',q:'Wie lautet die Scheitelpunktform?',opts:['ax²+bx+c','a(x–d)²+e','(x–r)(x–s)','ax+b'],cor:1,hint:'S(d|e) steckt darin.',ex:'f(x)=a(x–d)²+e; S(d|e).'},
+      {type:'mc',q:'Scheitelpunkt von f(x)=2(x–3)²+5?',opts:['S(–3|5)','S(3|–5)','S(3|5)','S(–3|–5)'],cor:2,hint:'Direkt: d=3, e=5.',ex:'S(3|5).'},
+      {type:'mc',q:'f(x)=–(x+2)²–1. Scheitelpunkt?',opts:['S(2|–1)','S(–2|–1)','S(–2|1)','S(2|1)'],cor:1,hint:'(x+2)²=(x–(–2))² → d=–2.',ex:'d=–2, e=–1 → S(–2|–1).'},
+    ]},
+    {name:'Quadratische Ergänzung',questions:[
+      {type:'mc',q:'Ziel der quadratischen Ergänzung?',opts:['Nullstellen','Normalform→Scheitelpunktform','y-Achsenabschnitt','Ableiten'],cor:1,hint:'Man ergänzt (b/2)².',ex:'Durch Ergänzen wandelt man ax²+bx+c in a(x–d)²+e um.'},
+      {type:'mc',q:'x²–6x+5 in Scheitelpunktform. Scheitel?',opts:['S(3|5)','S(–3|5)','S(3|–4)','S(–3|–4)'],cor:2,hint:'(x–3)²=x²–6x+9.',ex:'(x–3)²–9+5=(x–3)²–4 → S(3|–4).'},
+      {type:'mc',q:'Normalform von f(x)=(x+2)²–1?',opts:['x²+4x+3','x²+4x–3','x²–4x+3','x²+2x+3'],cor:0,hint:'(x+2)²=x²+4x+4.',ex:'x²+4x+4–1=x²+4x+3.'},
+    ]},
+    {name:'Scheitel berechnen',questions:[
+      {type:'mc',q:'f(x)=x²–4x+7. Scheitelpunkt?',opts:['S(2|3)','S(–2|3)','S(2|–3)','S(4|7)'],cor:0,hint:'x_S=4/2=2; f(2).',ex:'f(2)=4–8+7=3 → S(2|3).'},
+      {type:'inp',q:'f(x)=x²+6x+10. y-Wert des Scheitelpunkts?',calc:true,cor:'1',tol:0,hint:'x_S=–6/2=–3; f(–3)=9–18+10.',ex:'f(–3)=1 → S(–3|1).'},
+      {type:'mc',q:'f(x)=–x²+2x+3. Scheitel?',calc:true,opts:['S(1|4)','S(–1|4)','S(1|2)','S(2|3)'],cor:0,hint:'x_S=–2/(–2)=1; f(1).',ex:'f(1)=4 → S(1|4).'},
+    ]},
+    {name:'Hin und zurück',questions:[
+      {type:'mc',q:'Normalform von f(x)=3(x–1)²+2?',opts:['3x²–6x+5','3x²–6x–1','3x²+6x+5','3x²–2x+5'],cor:0,hint:'3(x²–2x+1)+2.',ex:'3x²–6x+3+2=3x²–6x+5.'},
+      {type:'mc',q:'Scheitelpunkt von f(x)=2x²+4x–6?',calc:true,opts:['S(–1|–8)','S(1|0)','S(–1|0)','S(2|–6)'],cor:0,hint:'x_S=–4/4=–1; f(–1).',ex:'f(–1)=2–4–6=–8 → S(–1|–8).'},
+      {type:'inp',q:'f(x)=(x–5)²+3. x-Wert des Scheitelpunkts?',cor:'5',tol:0,hint:'Direkt ablesen: d=?',ex:'d=5.'},
+    ]},
+  ]},
+  {id:'qa',title:'Funktionsgleichung aufstellen',icon:'📌',color:'#34d399',chapters:[
+    {name:'3-Punkte-Methode',questions:[
+      {type:'mc',q:'Wie viele Punkte braucht man für ax²+bx+c eindeutig?',opts:['1','2','3','4'],cor:2,hint:'Zähle Unbekannte: a,b,c.',ex:'3 Unbekannte → 3 Punkte.'},
+      {type:'mc',q:'P(0|4) auf Parabel. Was gilt?',opts:['a=4','b=4','c=4','a+b+c=0'],cor:2,hint:'x=0 einsetzen.',ex:'f(0)=c=4.'},
+      {type:'mc',q:'Was entsteht beim Einsetzen dreier Punkte?',opts:['Tabelle','LGS (3 Gleichungen)','Quadratische Gleichung','Bruchterm'],cor:1,hint:'Jeder Punkt → eine Gleichung.',ex:'3 Punkte → LGS in a,b,c.'},
+    ]},
+    {name:'Scheitelpunkt + Punkt',questions:[
+      {type:'mc',q:'Schnellste Methode wenn Scheitel und ein Punkt bekannt?',opts:['3-Punkte-LGS','Scheitelpunktform einsetzen','Normalform erraten','Quad. Ergänzung'],cor:1,hint:'Nur noch eine Unbekannte: a.',ex:'f(x)=a(x–d)²+e → Punkt einsetzen → a.'},
+      {type:'mc',q:'S(2|3), P(0|7). Gleichung?',opts:['(x–2)²+3','2(x–2)²+3','–2(x–2)²+3','(x+2)²+3'],cor:0,hint:'f(0)=a·4+3=7 → a=1.',ex:'f(x)=(x–2)²+3.'},
+      {type:'inp',q:'S(1|0), P(0|3). Berechne a.',cor:'3',tol:0,hint:'f(0)=a·1+0=a.',ex:'a=3.'},
+    ]},
+    {name:'Nullstellen & Faktorform',questions:[
+      {type:'mc',q:'x₁=1, x₂=4. Faktorform (a=1)?',opts:['(x+1)(x+4)','(x–1)(x–4)','(x–1)(x+4)','(x+1)(x–4)'],cor:1,hint:'a(x–x₁)(x–x₂).',ex:'(x–1)(x–4)=x²–5x+4.'},
+      {type:'mc',q:'f(x)=(x–2)(x–6). Scheitelpunkt?',opts:['S(4|–4)','S(2|0)','S(6|0)','S(8|–4)'],cor:0,hint:'x_S=(2+6)/2=4.',ex:'f(4)=(2)(–2)=–4 → S(4|–4).'},
+      {type:'mc',q:'Parabel mit Doppelnullstelle x=3, a=1?',opts:['(x–3)²','(x+3)²','x²–3','x²+3'],cor:0,hint:'Doppelte Nullstelle → Scheitel auf x-Achse.',ex:'f(x)=(x–3)².'},
+    ]},
+    {name:'Sachkontext',questions:[
+      {type:'mc',q:'Brücke f(x)=–0,05x²+5. Höhe der Mitte?',opts:['5 m','0 m','–0,05 m','10 m'],cor:0,hint:'Scheitel bei x=0.',ex:'f(0)=5 m.'},
+      {type:'mc',q:'h(t)=–5t²+20t+1. Wann maximal?',calc:true,opts:['t=1 s','t=2 s','t=4 s','t=5 s'],cor:1,hint:'t_S=–20/(–10).',ex:'t_S=2 s.'},
+      {type:'mc',q:'G(x)=–2x²+40x–50. Gewinnmaximum bei?',calc:true,opts:['x=10','x=20','x=5','x=40'],cor:0,hint:'x_S=–40/(–4).',ex:'x_S=10.'},
+    ]},
+  ]},
+  {id:'kr',title:'Kreis – Fläche & Umfang',icon:'⭕',color:'#f97316',chapters:[
+    {name:'Grundformeln',questions:[
+      {type:'mc',q:'Formel für den Umfang?',opts:['U=πr²','U=2πr','U=πd²','U=r²π'],cor:1,hint:'U enthält r linear.',ex:'U=2πr=πd.'},
+      {type:'mc',q:'Formel für den Flächeninhalt?',opts:['A=2πr','A=πd','A=πr²','A=r²/π'],cor:2,hint:'A enthält r².',ex:'A=πr².'},
+      {type:'inp',q:'r=5 cm. Umfang? (2 Dez., ohne Einheit)',calc:true,cor:'31.42',tol:0.02,hint:'U=2·π·5.',ex:'U=2π·5≈31,42 cm.'},
+    ]},
+    {name:'Berechnen & Umformen',questions:[
+      {type:'inp',q:'d=10 cm. Flächeninhalt? (2 Dez., ohne Einheit)',calc:true,cor:'78.54',tol:0.02,hint:'r=5; A=π·25.',ex:'A≈78,54 cm².'},
+      {type:'mc',q:'Radius verdoppelt. Wie ändert sich die Fläche?',opts:['Verdoppelt','Verdreifacht','Vervierfacht','Bleibt gleich'],cor:2,hint:'A=πr² → A(2r)=π(2r)².',ex:'π(2r)²=4πr² → ×4.'},
+      {type:'mc',q:'U=12π cm. Radius?',calc:true,opts:['r=6 cm','r=12 cm','r=3 cm','r=4 cm'],cor:0,hint:'r=U/(2π).',ex:'r=12π/(2π)=6 cm.'},
+    ]},
+    {name:'Zusammengesetzte Figuren',questions:[
+      {type:'mc',q:'Quadrat 4×4 cm mit einbeschriebenem Kreis. Radius?',opts:['r=4 cm','r=2 cm','r=8 cm','r=1 cm'],cor:1,hint:'r=Seite/2.',ex:'r=2 cm.'},
+      {type:'mc',q:'Quadrat (s=6) minus einbeschriebener Kreis (r=3)?',calc:true,opts:['≈7,73 cm²','≈36 cm²','≈28,27 cm²','≈3,73 cm²'],cor:0,hint:'36–π·9.',ex:'36–π·9≈7,73 cm².'},
+      {type:'inp',q:'Pizza d=32 cm. Fläche (ganze Zahl)?',calc:true,cor:'804',tol:1,hint:'r=16; A=π·256.',ex:'A≈804 cm².'},
+    ]},
+    {name:'Sachkontext Kreis',questions:[
+      {type:'mc',q:'Springbrunnen U≈18,85 m. Radius?',calc:true,opts:['r≈2 m','r≈3 m','r≈4 m','r≈6 m'],cor:1,hint:'r=18,85/(2π).',ex:'r≈3 m.'},
+      {type:'mc',q:'Kreisbeet r=4 m. Fläche?',calc:true,opts:['≈50,3 m²','≈25,1 m²','≈12,6 m²','≈201 m²'],cor:0,hint:'A=π·16.',ex:'A≈50,27 m².'},
+      {type:'inp',q:'A=100π cm². Radius?',cor:'10',tol:0,hint:'πr²=100π → r²=100.',ex:'r=10 cm.'},
+    ]},
+  ]},
+  {id:'ka',title:'Kreisausschnitt & Kreisbogen',icon:'🥧',color:'#f43f5e',chapters:[
+    {name:'Bogenlänge',questions:[
+      {type:'mc',q:'Formel für Bogenlänge b?',opts:['πr²·α/360°','2πr·α/360°','πr·α/180°','r·α'],cor:1,hint:'Anteil α/360° des Umfangs.',ex:'b=(α/360°)·2πr.'},
+      {type:'inp',q:'r=6 cm, α=90°. Bogenlänge? (2 Dez.)',calc:true,cor:'9.42',tol:0.02,hint:'(90/360)·2π·6.',ex:'b≈9,42 cm.'},
+      {type:'mc',q:'r=4 cm, b=π cm. Winkel α?',calc:true,opts:['22,5°','45°','90°','180°'],cor:1,hint:'α=b·360/(2πr).',ex:'α=45°.'},
+    ]},
+    {name:'Flächeninhalt Ausschnitt',questions:[
+      {type:'mc',q:'Formel für Flächeninhalt eines Kreisausschnitts?',opts:['2πr·α/360°','πr²·α/360°','πr·α/180°','r²·α'],cor:1,hint:'Anteil α/360° der Fläche πr².',ex:'A=(α/360°)·πr².'},
+      {type:'inp',q:'r=4 cm, α=180°. Fläche? (2 Dez.)',calc:true,cor:'25.13',tol:0.02,hint:'0,5·π·16.',ex:'A≈25,13 cm².'},
+      {type:'mc',q:'r=6 cm, α=60°. Fläche? (π≈3,14)',calc:true,opts:['≈18,85 cm²','≈12,57 cm²','≈6,28 cm²','≈37,70 cm²'],cor:0,hint:'(1/6)·π·36.',ex:'≈18,85 cm².'},
+    ]},
+    {name:'Mittelpunktswinkel',questions:[
+      {type:'mc',q:'Winkel eines Viertelkreises?',opts:['180°','45°','90°','120°'],cor:2,hint:'360°/4.',ex:'90°.'},
+      {type:'mc',q:'b=2πr/3. Welcher Winkel α?',opts:['60°','90°','120°','180°'],cor:2,hint:'α/360=1/3.',ex:'α=120°.'},
+      {type:'inp',q:'A=9π cm², r=6 cm. α in Grad?',calc:true,cor:'90',tol:0,hint:'9π=(α/360)·π·36.',ex:'α=90°.'},
+    ]},
+    {name:'Sachkontext Ausschnitte',questions:[
+      {type:'mc',q:'Uhrzeiger l=8 cm dreht 15 Min. Bogenlänge?',calc:true,opts:['≈6,28 cm','≈12,57 cm','≈3,14 cm','≈25,13 cm'],cor:1,hint:'15 Min=90°.',ex:'b=0,25·16π≈12,57 cm.'},
+      {type:'mc',q:'Torte r=15 cm, 6 Stücke. Fläche pro Stück?',calc:true,opts:['≈117,8 cm²','≈706,9 cm²','≈235,6 cm²','≈58,9 cm²'],cor:0,hint:'α=60°; A=(1/6)·π·225.',ex:'≈117,8 cm².'},
+      {type:'inp',q:'α=120°, b=4π cm. Radius r?',calc:true,cor:'6',tol:0,hint:'4π=(1/3)·2πr.',ex:'r=6 cm.'},
+    ]},
+  ]},
+  {id:'sk',title:'Anwendungsaufgaben',icon:'🌍',color:'#eab308',chapters:[
+    {name:'Quadratische Funktionen im Alltag',questions:[
+      {type:'mc',q:'G(x)=–x²+10x–16 > 0. Für welche x?',opts:['2<x<8','x<2 oder x>8','x>0','Alle x'],cor:0,hint:'Nullstellen berechnen.',ex:'x=2, x=8; zwischen ihnen ist G>0.'},
+      {type:'mc',q:'h(t)=–5t²+20t+1. Höhe nach t=1?',calc:true,opts:['16 m','15 m','21 m','1 m'],cor:0,hint:'h(1)=–5+20+1.',ex:'h(1)=16 m.'},
+      {type:'inp',q:'h(t)=–5t²+20t. Wann Boden? (t>0)',cor:'4',tol:0,hint:'0=t(–5t+20).',ex:'t=4 s.'},
+    ]},
+    {name:'Kreisberechnungen im Kontext',questions:[
+      {type:'mc',q:'Brunnen r=2,5 m. Zaunlänge?',calc:true,opts:['≈15,71 m','≈19,63 m','≈7,85 m','≈31,42 m'],cor:0,hint:'U=2π·2,5.',ex:'≈15,71 m.'},
+      {type:'mc',q:'Fahrrad r=35 cm. Weg pro Umdrehung?',calc:true,opts:['≈2,20 m','≈1,10 m','≈3,46 m','≈0,55 m'],cor:0,hint:'Eine Umdrehung=Umfang.',ex:'U=2π·0,35≈2,20 m.'},
+      {type:'inp',q:'Kreisbahn r=100 m. Runde in Metern (ganze Zahl)?',calc:true,cor:'628',tol:1,hint:'U=2π·100.',ex:'U≈628 m.'},
+    ]},
+    {name:'Gemischte Sachaufgaben',questions:[
+      {type:'mc',q:'Dach f(x)=–0,5x²+4,5. Maximale Höhe?',opts:['4,5 m','0 m','9 m','–0,5 m'],cor:0,hint:'Scheitel bei x=0.',ex:'S(0|4,5): max. 4,5 m.'},
+      {type:'mc',q:'Wasserstrahl h(x)=–0,1x²+2x. Wie weit?',calc:true,opts:['x=20 m','x=10 m','x=5 m','x=2 m'],cor:0,hint:'0=x(–0,1x+2).',ex:'x=20 m.'},
+      {type:'mc',q:'r=10 cm, α=36°. Bogenlänge?',calc:true,opts:['≈6,28 cm','≈3,14 cm','≈12,57 cm','≈1,57 cm'],cor:0,hint:'(36/360)·2π·10.',ex:'≈6,28 cm.'},
+    ]},
+    {name:'Optimierung',questions:[
+      {type:'mc',q:'Ball: h(t)=–5t²+30t. Maximale Höhe?',calc:true,opts:['45 m','30 m','60 m','15 m'],cor:0,hint:'t_S=3; h(3).',ex:'h(3)=–45+90=45 m.'},
+      {type:'mc',q:'Kreisausschnitt r=12 cm, A=24π cm². α?',calc:true,opts:['60°','90°','120°','45°'],cor:0,hint:'24π=(α/360)·π·144.',ex:'α=60°.'},
+      {type:'mc',q:'f(x)=–x²+9. Nullstellen?',opts:['x=±3','x=±9','x=3','x=9'],cor:0,hint:'x²=9.',ex:'x=±3.'},
+    ]},
+  ]},
+];
+
+// ===================== FINAL TESTS =====================
+const FT=[
+  {label:'Finaltest 1',diff:'Schwer',questions:[
+    {q:'f(x)=–2(x+3)²+8. Maximaler Wert?',opts:['8','–3','2','–2'],cor:0,ex:'Scheitelpunkt S(–3|8): max=8.'},
+    {q:'f(x)=3x²–12x+9. Scheitelpunkt?',opts:['S(2|–3)','S(–2|3)','S(2|3)','S(4|9)'],cor:0,ex:'x_S=2; f(2)=12–24+9=–3 → S(2|–3).'},
+    {q:'Parabel mit Nullstellen x=–1 und x=5, a=1?',opts:['x²–4x–5','x²+4x–5','x²–4x+5','–x²+4x+5'],cor:0,ex:'(x+1)(x–5)=x²–4x–5.'},
+    {q:'Kreisausschnitt r=10cm, α=72°. Bogenlänge?',opts:['4π cm','2π cm','10π cm','8π cm'],cor:0,ex:'b=(1/5)·2π·10=4π cm.'},
+    {q:'f(x)=x²–2x–8<0. Für welche x?',opts:['–2<x<4','x<–2 oder x>4','x>0','Alle x'],cor:0,ex:'Nullstellen x=–2,x=4. Dazwischen ist f<0.'},
+    {q:'Kreis A=49π cm². Umfang?',opts:['14π cm','7π cm','49π cm','28π cm'],cor:0,ex:'r=7; U=14π cm.'},
+    {q:'3 Punkte P₁(0|3), P₂(1|2), P₃(–1|6). Wert a?',opts:['a=1','a=2','a=3','a=–1'],cor:0,ex:'c=3; Aus den Gleichungen folgt a=1.'},
+    {q:'f(x)=–x²+6x. Maximale Höhe?',opts:['9','6','3','12'],cor:0,ex:'x_S=3; f(3)=9.'},
+    {q:'Torte r=20cm, 8 Stücke. Bogenlänge eines Stücks?',opts:['5π cm','2,5π cm','4π cm','10π cm'],cor:0,ex:'(1/8)·2π·20=5π cm.'},
+    {q:'x²–10x+16=(x–a)²+b. a+b=?',opts:['–4','4','14','–14'],cor:0,ex:'(x–5)²–9 → a=5,b=–9 → a+b=–4.'},
+    {q:'S(1|4), P(3|0). Gleichung?',opts:['f(x)=–(x–1)²+4','f(x)=(x–1)²+4','f(x)=–(x+1)²+4','f(x)=2(x–1)²+4'],cor:0,ex:'a·4+4=0→a=–1.'},
+    {q:'Kreisring R=8cm, r=5cm. Fläche?',opts:['39π cm²','64π cm²','25π cm²','13π cm²'],cor:0,ex:'π(64–25)=39π cm².'},
+    {q:'h(t)=–4,9t²+20t+1,5. Wann Boden (gerundet)?',opts:['≈4,15 s','≈2 s','≈1 s','≈5 s'],cor:0,ex:'Nullstelle: t≈4,15 s.'},
+    {q:'f(x)=2x²–8x+6. Scheitelpunkt?',opts:['S(2|–2)','S(–2|2)','S(4|6)','S(2|2)'],cor:0,ex:'x_S=2; f(2)=8–16+6=–2 → S(2|–2).'},
+    {q:'Kreis b=U/4. b in Abhängigkeit von r?',opts:['πr/2','2πr','πr²/4','π/r'],cor:0,ex:'b=2πr/4=πr/2.'},
+    {q:'f(x)=(x–2)(x+4). Scheitelpunkt?',opts:['S(–1|–9)','S(2|0)','S(–4|0)','S(1|–9)'],cor:0,ex:'x_S=–1; f(–1)=(–3)(3)=–9 → S(–1|–9).'},
+    {q:'Kreisausschnitt A=12π, r=6. α=?',opts:['120°','60°','180°','90°'],cor:0,ex:'12π=(α/360)·36π → α=120°.'},
+    {q:'f(x)=ax²+bx+c. Was bewirkt a→0⁺?',opts:['Parabel wird breiter','Parabel wird schmäler','Funktion negativ','Keine Änderung'],cor:0,ex:'Kleineres |a| → breitere Parabel.'},
+    {q:'Nullstellen von f(x)=x²–5x+6?',opts:['x=2 und x=3','x=–2 und x=–3','x=1 und x=6','x=5 und x=1'],cor:0,ex:'(x–2)(x–3)=0 → x=2,x=3.'},
+    {q:'Rechteck unter f(x)=–x²+9 (symmetrisch). Max. Fläche?',opts:['12√3≈20,8','9','18','27'],cor:0,ex:'F(a)=2a(9–a²); F\'=0→a=√3; F=12√3.'},
+  ]},
+  {label:'Finaltest 2',diff:'Mittel',questions:[
+    {q:'f(x)=(x–2)²+3. Scheitelpunkt?',opts:['S(2|3)','S(–2|3)','S(2|–3)','S(–2|–3)'],cor:0,ex:'Direkt ablesen: S(2|3).'},
+    {q:'f(x)=x²–4x+3. Nullstellen?',opts:['x=1 und x=3','x=–1 und x=–3','x=4 und x=3','x=0 und x=4'],cor:0,ex:'(x–1)(x–3)=0.'},
+    {q:'Kreis r=6 cm. Flächeninhalt?',opts:['36π cm²','12π cm²','6π cm²','18π cm²'],cor:0,ex:'A=π·36=36π cm².'},
+    {q:'Normalform von (x+1)²–4?',opts:['x²+2x–3','x²+2x+3','x²–2x–3','x²–2x+3'],cor:0,ex:'x²+2x+1–4=x²+2x–3.'},
+    {q:'Kreisausschnitt r=5cm, α=90°. Fläche?',opts:['25π/4 cm²','5π cm²','10π cm²','25π cm²'],cor:0,ex:'A=(1/4)·π·25=25π/4 cm².'},
+    {q:'Parabel öffnet nach unten. Vorzeichen a?',opts:['a<0','a>0','a=0','b<0'],cor:0,ex:'Negative Öffnung → a<0.'},
+    {q:'Scheitelpunkt von f(x)=2x²+8x+5?',opts:['S(–2|–3)','S(2|3)','S(–4|5)','S(–2|3)'],cor:0,ex:'x_S=–2; f(–2)=8–16+5=–3 → S(–2|–3).'},
+    {q:'Bogenlänge bei r=10cm, α=180°?',opts:['10π cm','20π cm','5π cm','π cm'],cor:0,ex:'b=(1/2)·2π·10=10π cm.'},
+    {q:'f(x)=–3x²+12x. Maximaler Wert?',opts:['12','3','–3','0'],cor:0,ex:'x_S=2; f(2)=–12+24=12.'},
+    {q:'S(0|5), P(2|1) mit a=–1. Gleichung?',opts:['–x²+5','x²+5','–x²–5','2x²+5'],cor:0,ex:'f(x)=–x²+5; f(2)=1 ✓'},
+    {q:'Kreis U=20π cm. Radius?',opts:['r=10 cm','r=20 cm','r=5 cm','r=40 cm'],cor:0,ex:'2πr=20π→r=10 cm.'},
+    {q:'Welche Aussage ist FALSCH?',opts:['a gibt Öffnungsrichtung','Scheitel liegt auf Symmetrieachse','f(x)=ax² hat S(0|0)','c bestimmt die Steigung'],cor:3,ex:'c ist der y-Achsenabschnitt, nicht Steigung.'},
+    {q:'Dreieck Grundlinie 2r, Höhe r. Verhältnis zu Kreisfläche?',opts:['1/π','2/π','1/(2π)','r/π'],cor:0,ex:'A_D=r²; A_K=πr² → Verhältnis=1/π.'},
+    {q:'f(x)=x²+bx+9 hat genau eine Nullstelle. b=?',opts:['±6','±3','±9','±18'],cor:0,ex:'Diskriminante=0: b²–36=0→b=±6.'},
+    {q:'Kreisausschnitt A=18π cm², α=120°. r=?',opts:['√54≈7,35 cm','9 cm','6 cm','3 cm'],cor:0,ex:'r²=54→r=√54.'},
+    {q:'f(x)=(x–3)²=0. Wie viele Nullstellen?',opts:['1 (doppelte)','0','2','3'],cor:0,ex:'Doppelte Nullstelle bei x=3.'},
+    {q:'Ball h(t)=–5t²+10t. Höhe bei t=1?',opts:['5 m','10 m','0 m','–5 m'],cor:0,ex:'h(1)=5 m.'},
+    {q:'Bogenlänge b=6π cm, r=9 cm. α=?',opts:['120°','60°','180°','90°'],cor:0,ex:'α=6·360/18=120°.'},
+    {q:'Welche Form hat die Faktorform?',opts:['a(x–x₁)(x–x₂)','ax²+bx+c','a(x–d)²+e','ax+b'],cor:0,ex:'Faktorform: a(x–x₁)(x–x₂).'},
+    {q:'f(x)=x²–4. y-Achsenabschnitt und Nullstellen?',opts:['y=–4; x=±2','y=4; x=±2','y=0; x=±2','y=–4; x=2'],cor:0,ex:'f(0)=–4; x=±2.'},
+  ]},
+  {label:'Finaltest 3',diff:'Leicht',questions:[
+    {q:'f(0) bei f(x)=3x²–2x+5?',opts:['5','3','–2','0'],cor:0,ex:'f(0)=c=5.'},
+    {q:'Parabel öffnet nach oben. Vorzeichen a?',opts:['a>0','a<0','a=0','a=1'],cor:0,ex:'Öffnet nach oben → a>0.'},
+    {q:'Umfang Kreis r=3 cm?',opts:['6π cm','9π cm','3π cm','12π cm'],cor:0,ex:'U=2π·3=6π cm.'},
+    {q:'f(x)=(x–1)²+2. Scheitelpunkt?',opts:['S(1|2)','S(–1|2)','S(1|–2)','S(–1|–2)'],cor:0,ex:'Direkt: S(1|2).'},
+    {q:'Was berechnet A=πr²?',opts:['Kreisfläche','Umfang','Bogenlänge','Radius'],cor:0,ex:'A=πr² ist die Kreisfläche.'},
+    {q:'f(x)=(x+2)². Scheitelpunkt?',opts:['S(–2|0)','S(2|0)','S(–2|4)','S(0|4)'],cor:0,ex:'(x+2)²=0→x=–2; y=0 → S(–2|0).'},
+    {q:'Viertelkreis r=4 cm. Fläche?',opts:['4π cm²','16π cm²','8π cm²','2π cm²'],cor:0,ex:'A=(1/4)·π·16=4π cm².'},
+    {q:'Normalform: wie viele Parameter?',opts:['3 (a,b,c)','2 (a,b)','1 (a)','4'],cor:0,ex:'ax²+bx+c: drei Parameter.'},
+    {q:'f(x)=2x². Scheitelpunkt?',opts:['S(0|0)','S(2|0)','S(0|2)','S(1|2)'],cor:0,ex:'S(0|0).'},
+    {q:'Halbkreis r=5 cm. Bogenlänge (gebogener Teil)?',opts:['5π cm','10π cm','2,5π cm','25π cm'],cor:0,ex:'b=(1/2)·2π·5=5π cm.'},
+    {q:'f(x)=–x². Nach oben oder unten?',opts:['Nach unten','Nach oben','Zur Seite','Gar nicht'],cor:0,ex:'a=–1<0 → nach unten.'},
+    {q:'y-Achsenabschnitt von f(x)=x²–3x+7?',opts:['y=7','y=–3','y=1','y=0'],cor:0,ex:'f(0)=c=7.'},
+    {q:'Kreis r=2 cm. Fläche?',opts:['4π cm²','2π cm²','8π cm²','π cm²'],cor:0,ex:'A=π·4=4π cm².'},
+    {q:'f(x)=(x+3)²–1. Nullstellen?',opts:['x=–2 und x=–4','x=2 und x=4','x=–3','x=3'],cor:0,ex:'(x+3)²=1→x=–2 oder x=–4.'},
+    {q:'Was zeigen Nullstellen an?',opts:['Schnittpunkte mit x-Achse','Höchsten Punkt','y-Wert bei x=0','Steigung'],cor:0,ex:'Nullstellen=Schnittpunkte mit x-Achse.'},
+    {q:'Kreisausschnitt α=60°. Welcher Anteil des Kreises?',opts:['1/6','1/4','1/3','1/2'],cor:0,ex:'60°/360°=1/6.'},
+    {q:'f(x)=x²–9. Nullstellen?',opts:['x=±3','x=±9','x=3','x=9'],cor:0,ex:'x²=9→x=±3.'},
+    {q:'f(x)=a(x–d)²+e. Was ist e?',opts:['y-Wert des Scheitelpunkts','x-Wert des Scheitelpunkts','Steigung','y-Achsenabschnitt'],cor:0,ex:'S(d|e): e ist die y-Koordinate.'},
+    {q:'Umfang Kreis d=10 cm?',opts:['10π cm','20π cm','5π cm','100π cm'],cor:0,ex:'U=πd=10π cm.'},
+    {q:'f(x)=x². Wert bei f(–3)?',opts:['9','–9','3','–3'],cor:0,ex:'f(–3)=(–3)²=9.'},
+  ]},
+];
+
+const ACHS=[
+  {id:'fp',ico:'⭐',name:'Erster Punkt!',desc:'1 Punkt erzielt',c:s=>s.tp>=1},
+  {id:'tp',ico:'🔟',name:'Zehn Punkte',desc:'10 Punkte erzielt',c:s=>s.tp>=10},
+  {id:'pc',ico:'💯',name:'Perfektes Kapitel',desc:'Ohne Fehler & Tipp',c:s=>s.perfC>=1},
+  {id:'db',ico:'⚡',name:'Doppel-Bonus!',desc:'Doppelbonus erhalten',c:s=>s.bonC>=1},
+  {id:'s5',ico:'🔥',name:'Auf Feuer!',desc:'5 richtige in Folge',c:s=>s.bStr>=5},
+  {id:'at',ico:'🎓',name:'Alles gelernt',desc:'Alle Themen fertig',c:s=>s.cpTp>=TOPICS.length},
+  {id:'mm',ico:'🏆',name:'Mathe-Meister',desc:'50 Punkte erzielt',c:s=>s.tp>=50},
+  {id:'nh',ico:'🧠',name:'Kein Tipp nötig',desc:'Kapitel ohne Tipp',c:s=>s.noHC>=1},
+  {id:'ft',ico:'🎯',name:'Finaltest bestanden!',desc:'Finaltest gemeistert',c:s=>s.ft?.passed},
+];
+
+// ===================== STATE =====================
+let S={tp:0,tprog:{},cpTp:0,perfC:0,noHC:0,bonC:0,bStr:0,cStr:0,ach:[],ft:{ti:0,att:[0,0,0],passed:false}};
+function lS(){try{const d=localStorage.getItem('mp9v4');if(d)S=JSON.parse(d);}catch(e){}}
+function sS(){localStorage.setItem('mp9v4',JSON.stringify(S));}
+function gTp(id){if(!S.tprog[id])S.tprog[id]={};return S.tprog[id];}
+function topicOk(i){if(i===0)return true;const p=TOPICS[i-1];const pr=gTp(p.id);return p.chapters.every((_,ci)=>pr[ci]?.done);}
+function chapOk(tid,ci){if(ci===0)return true;return !!gTp(tid)[ci-1]?.done;}
+function allDone(){return TOPICS.every(t=>{const pr=gTp(t.id);return t.chapters.every((_,ci)=>pr[ci]?.done);});}
+function doneChaps(){return TOPICS.reduce((s,t)=>{const pr=gTp(t.id);return s+t.chapters.filter((_,ci)=>pr[ci]?.done).length;},0);}
+function totalChaps(){return TOPICS.reduce((s,t)=>s+t.chapters.length,0);}
+function resetAll(){if(!confirm('Fortschritt wirklich zurücksetzen?'))return;S={tp:0,tprog:{},cpTp:0,perfC:0,noHC:0,bonC:0,bStr:0,cStr:0,ach:[],ft:{ti:0,att:[0,0,0],passed:false}};sS();updateUI();showToast('Zurückgesetzt','');}
+
+// ===================== QUIZ STATE =====================
+let QT=null,QCI=0,QCH=null,QL=[],QI=0,QChPts=0,QHU=false,QCHint=false,QAns=false,QBL=false;
+function startChap(tid,ci){
+  QT=TOPICS.find(t=>t.id===tid);QCI=ci;QCH=QT.chapters[ci];
+  QL=[...QCH.questions];QI=0;QChPts=0;QHU=false;QCHint=false;QAns=false;QBL=false;
+  showPage('quiz');renderQ();
+}
+function renderQ(){
+  const q=QL[QI];QAns=false;QHU=false;
+  document.getElementById('qch-name').textContent=QCH.name;
+  document.getElementById('qq-num').textContent=`Frage ${QI+1}/${QL.length}`;
+  document.getElementById('qpl').textContent=`Frage ${QI+1}/${QL.length}`;
+  document.getElementById('qpr').textContent=`${QChPts} Pkt`;
+  document.getElementById('qpf').style.width=(QI/QL.length*100)+'%';
+  const LB=['A','B','C','D'];
+  let h=`<div class="qcard"><div class="qhdr"><span></span><span class="ptsbdg" id="ptsbdg">Max. 2 Pkt</span></div>`;
+  h+=`<div class="qtxt">${esc(q.q)}</div>`;
+  if(q.type==='mc'){
+    h+=`<div class="opts">`;
+    q.opts.forEach((o,i)=>h+=`<button class="obtn" id="o${i}" onclick="aMC(${i})"><span class="olbl">${LB[i]}</span>${esc(o)}</button>`);
+    h+=`</div>`;
+  }else{
+    h+=`<div class="inpw"><input class="inpa" id="ans" placeholder="Antwort..." onkeydown="if(event.key==='Enter')aInp()"/><button class="btnchk" onclick="aInp()">Prüfen</button></div>`;
+  }
+  h+=`<div class="fbbox" id="fb"></div><div class="hintbox" id="hb">💡 ${esc(q.hint)}</div>`;
+  h+=`<div class="qacts"><button class="btnhint" id="bh" onclick="reqHint()">💡 Tipp</button><button class="btnnxt" id="bn" onclick="nextQ()">Weiter →</button></div>`;
+  if(q.calc)h+=iCalcHTML();
+  h+=`</div>`;
+  document.getElementById('quiz-content').innerHTML=h;
+  if(q.calc)icE='';
+}
+function aMC(idx){
+  if(QAns)return;QAns=true;
+  const q=QL[QI],ok=idx===q.cor,pts=ok?(QHU?1:2):0;
+  procA(ok,pts,q.ex,q.opts[q.cor]);
+  for(let i=0;i<q.opts.length;i++){const b=document.getElementById('o'+i);b.disabled=true;if(i===q.cor)b.classList.add('ok');else if(i===idx&&!ok)b.classList.add('bad');}
+}
+function aInp(){
+  if(QAns)return;const inp=document.getElementById('ans');if(!inp)return;
+  const v=(inp.value||'').trim().replace(',','.');const q=QL[QI];
+  const ok=Math.abs(parseFloat(v)-parseFloat(q.cor))<=(q.tol||0);
+  QAns=true;inp.disabled=true;procA(ok,ok?(QHU?1:2):0,q.ex,q.cor);
+}
+function procA(ok,pts,ex,cv){
+  const fb=document.getElementById('fb');fb.style.display='block';
+  document.getElementById('bn').style.display='inline-block';
+  document.getElementById('bh').disabled=true;
+  document.getElementById('qpr').textContent=(QChPts+pts)+' Pkt';
+  if(ok){QChPts+=pts;S.cStr++;if(S.cStr>S.bStr)S.bStr=S.cStr;fb.className='fbbox ok';fb.innerHTML=`✅ Richtig! ${pts===2?'+2 ✨':'+1 (Tipp)'}<br><small style="opacity:.85">${esc(ex)}</small>`;showToast(`+${pts} ${pts===2?'⭐⭐':'⭐'}`,'pts');}
+  else{S.cStr=0;QBL=true;fb.className='fbbox bad';fb.innerHTML=`❌ Falsch. Richtig: <strong>${esc(String(cv))}</strong><br><small style="opacity:.85">${esc(ex)}</small>`;}
+}
+function reqHint(){
+  if(QHU||QAns)return;
+  if(!QBL){document.getElementById('m-hint').classList.add('show');}
+  else{QCHint=true;doHintNow();}
+}
+function closeM(id){document.getElementById(id).classList.remove('show');}
+function doHint(){closeM('m-hint');QBL=true;QCHint=true;doHintNow();}
+function doHintNow(){QHU=true;document.getElementById('hb').style.display='block';document.getElementById('bh').disabled=true;document.getElementById('ptsbdg').textContent='Max. 1 Pkt';document.getElementById('ptsbdg').className='ptsbdg hlv';showToast('Tipp – max. 1 Pkt','warn');}
+function nextQ(){document.getElementById('qpf').style.width=((QI+1)/QL.length*100)+'%';QI++;if(QI>=QL.length)finishCh();else renderQ();}
+function confirmLeave(){if(confirm('Quiz beenden?'))showPage('chapters');}
+function finishCh(){
+  const maxP=QL.length*2,pct=Math.round(QChPts/maxP*100);
+  let bonus=0;const perf=!QBL&&!QCHint;
+  if(perf){bonus=QChPts;QChPts*=2;S.bonC=(S.bonC||0)+1;}
+  if(perf)S.perfC=(S.perfC||0)+1;
+  if(!QCHint)S.noHC=(S.noHC||0)+1;
+  S.tp+=QChPts;
+  const pr=gTp(QT.id);pr[QCI]={done:true,pts:QChPts,perf};
+  S.cpTp=TOPICS.filter(t=>{const p=gTp(t.id);return t.chapters.every((_,ci)=>p[ci]?.done);}).length;
+  checkAchs();sS();updateUI();
+  const em=pct>=80?'🎉':pct>=50?'👍':'💪',msg=pct>=80?'Ausgezeichnet!':pct>=50?'Gut gemacht!':'Weiter üben!';
+  document.getElementById('qpf').style.width='100%';
+  document.getElementById('quiz-content').innerHTML=`
+    <div class="chr"><div class="chr-em">${em}</div><div class="chr-t">${msg}</div>
+    <div class="chr-s">${esc(QCH.name)}</div>
+    <div class="chr-p">+${QChPts} Punkte</div>
+    ${bonus>0?`<div class="chr-b">⚡ Doppelbonus! +${bonus} Extra</div>`:''}
+    <div style="margin-top:20px;display:flex;gap:7px;justify-content:center;flex-wrap:wrap">
+      <button class="btns" onclick="startChap('${QT.id}',${QCI})">🔁 Nochmal</button>
+      <button class="btna" onclick="showChaps('${QT.id}')">📚 Kapitel</button>
+      <button class="btns" onclick="showPage('home')">🏠 Pfad</button>
+    </div></div>`;
+}
+
+// ===================== UI =====================
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nt').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  const tabs={home:0,tools:1,stats:2,settings:3};
+  const allT=document.querySelectorAll('.nt');
+  if(tabs[id]!==undefined)allT[tabs[id]].classList.add('active');
+  if(id==='home')renderRM();
+  if(id==='stats')renderStats();
+  if(id==='settings')initSettingsUI();
+}
+function showChaps(tid){
+  const t=TOPICS.find(x=>x.id===tid),ti=TOPICS.indexOf(t);
+  if(!topicOk(ti)){showToast('🔒 Vorheriges Thema abschließen!','warn');return;}
+  document.getElementById('ch-lbl').textContent=t.icon+' Thema '+(ti+1);
+  document.getElementById('ch-ttl').textContent=t.title;
+  const pr=gTp(tid),cols=['#6ee7f7','#a78bfa','#34d399','#f43f5e'];
+  document.getElementById('ch-grid').innerHTML=t.chapters.map((ch,ci)=>{
+    const unlk=chapOk(tid,ci),done=pr[ci]?.done,perf=pr[ci]?.perf,pts=pr[ci]?.pts||0,c=cols[ci%cols.length];
+    return `<div class="ch-card${!unlk?' cc-lk':''}${done?' cc-dn':''}" style="--cc:${c}" onclick="${unlk?`startChap('${tid}',${ci})`:''}">
+      <div class="cc-num">Kapitel ${ci+1}</div><div class="cc-name">${esc(ch.name)}</div>
+      <div class="cc-info">${ch.questions.length} Fragen · max ${ch.questions.length*2} Pkt</div>
+      ${done?`<div class="cc-pts">${pts} Pkt${perf?' · ⚡':''}</div>`:''}
+      ${!unlk?'<div class="cc-info" style="color:var(--red);margin-top:3px">🔒 Kap.'+(ci)+' abschließen</div>':''}
+    </div>`;
+  }).join('');
+  showPage('chapters');
+}
+function renderRM(){
+  const rm=document.getElementById('roadmap');
+  const line=rm.querySelector('.rm-line');
+  rm.innerHTML='';rm.appendChild(line);
+  TOPICS.forEach((t,i)=>{
+    const unlk=topicOk(i),pr=gTp(t.id);
+    const dc=t.chapters.filter((_,ci)=>pr[ci]?.done).length,done=dc===t.chapters.length;
+    const pts=Object.values(pr).reduce((s,v)=>s+(v.pts||0),0);
+    const node=document.createElement('div');node.className='rmn';
+    const dot=document.createElement('div');dot.className='rmd'+(done?' dn':unlk?' on':' off');
+    dot.style.setProperty('--nc',t.color);dot.textContent=t.icon;
+    const card=document.createElement('div');
+    card.className='rmc'+(!unlk?' lk':done?' dn':'');
+    card.style.setProperty('--nc',t.color);
+    if(unlk)card.onclick=()=>showChaps(t.id);
+    const cdots=t.chapters.map((_,ci)=>{const d=pr[ci]?.done,nx=!d&&(ci===0||pr[ci-1]?.done);return `<div class="cpd-dot${d?' dn':nx?' cur':''}"></div>`;}).join('');
+    card.innerHTML=`<div class="ndt">${esc(t.title)}</div><div class="nds">${t.chapters.length} Kap · ${t.chapters.reduce((s,c)=>s+c.questions.length,0)} Fragen</div><div class="cpd">${cdots}</div><div class="ndm">${pts>0?`<span class="ndb pts">${pts} Pkt</span>`:''}${done?`<span class="ndb ok">✅ Fertig</span>`:''}${!unlk?`<span class="ndb lk2">🔒 Gesperrt</span>`:''}${unlk&&!done?`<span class="ndb pts">${dc}/${t.chapters.length} Kap</span>`:''}</div>`;
+    node.appendChild(dot);node.appendChild(card);rm.appendChild(node);
+  });
+  renderFTNode(rm);
+}
+function renderFTNode(rm){
+  const done=allDone(),dc=doneChaps(),tc=totalChaps();
+  const pct=Math.round(dc/tc*100);
+  const ft=S.ft||{ti:0,att:[0,0,0],passed:false};
+  const conn=document.createElement('div');conn.className='ft-conn';rm.appendChild(conn);
+  const wrap=document.createElement('div');wrap.className='ft-node';
+  let html='';
+  if(ft.passed){
+    html=`<div class="ft-card ft-pass" onclick="showPage('home')">
+      <div class="ft-icon">🏆</div><div class="ft-title">Finaltest bestanden!</div>
+      <div class="ft-sub">${FT[ft.ti]?.label} · Herzlichen Glückwunsch!</div>
+      <div style="margin-top:10px"><span style="background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.3);border-radius:20px;padding:4px 12px;font-size:.74rem;color:var(--ac3);font-family:var(--fm)">✅ Lernpfad abgeschlossen!</span></div>
+    </div>`;
+  }else if(!done){
+    const rem=tc-dc;
+    html=`<div class="ft-card ft-lk ft-prep" onclick="showPrepSummary()">
+      <div class="ft-icon">🔒</div><div class="ft-title">Finaltest</div>
+      <div class="ft-sub">20 schwere Fragen · Bestehensgrenze 80%</div>
+      <div class="ft-prog-txt">Noch ${rem} Kapitel${rem!==1?'':'s'} zu absolvieren</div>
+      <div class="ft-pbar"><div class="ft-pfill" style="width:${pct}%"></div></div>
+      <div style="font-size:.66rem;color:var(--mu);margin-top:6px;font-family:var(--fm)">${dc}/${tc} Kapitel · Klick für offene Fragen</div>
+    </div>`;
+  }else{
+    const ti=ft.ti||0,att=ft.att||[0,0,0],attLeft=3-att[ti];
+    const dots=Array.from({length:3},(_,i)=>`<div class="ft-dot${i<att[ti]?' used':' avail'}"></div>`).join('');
+    html=`<div class="ft-card ft-open" onclick="onFTClick()">
+      <div class="ft-icon">🎯</div><div class="ft-title">${FT[ti].label}</div>
+      <div class="ft-sub">Schwierigkeit: ${FT[ti].diff} · 20 Fragen</div>
+      <div class="ft-dots">${dots}</div>
+      <div style="font-size:.7rem;color:var(--mu);margin-top:5px;font-family:var(--fm)">${attLeft} Versuch${attLeft!==1?'e':''} verbleibend</div>
+    </div>`;
+  }
+  wrap.innerHTML=html;rm.appendChild(wrap);
+}
+function showPrepSummary(){
+  showPage('finaltest');
+  document.getElementById('ft-badge').textContent='📚 Lernzusammenfassung';
+  document.getElementById('ftpl').textContent='Offene Kapitel';
+  document.getElementById('ftpr').textContent='';
+  document.getElementById('ftpf').style.width='0%';
+  const dc=doneChaps(),tc=totalChaps();
+  let items='';let count=0;
+  TOPICS.forEach(t=>{
+    const pr=gTp(t.id);
+    t.chapters.forEach((ch,ci)=>{
+      if(!pr[ci]?.done&&count<20){
+        ch.questions.forEach(q=>{
+          if(count<20){
+            items+=`<div class="prep-item"><div class="pi-topic">${esc(t.icon)} ${esc(t.title)} › ${esc(ch.name)}</div><div class="pi-q">${esc(q.q)}</div></div>`;
+            count++;
+          }
+        });
+      }
+    });
+  });
+  const leftover=tc-dc;
+  document.getElementById('ft-content').innerHTML=`
+    <div style="background:var(--sf);border:1px solid rgba(249,115,22,.3);border-radius:var(--r);padding:18px;margin-bottom:16px">
+      <div style="font-size:1rem;font-weight:800;color:var(--warn)">🔒 Finaltest noch gesperrt</div>
+      <div style="font-size:.82rem;color:var(--mu);margin-top:5px">Noch <strong style="color:var(--txt)">${leftover} Kapitel</strong> zu absolvieren. Hier eine Vorschau der offenen Fragen:</div>
+    </div>
+    <div class="prep-list">${items}${count===20&&leftover>0?`<div style="text-align:center;padding:10px;color:var(--mu);font-size:.78rem">… und weitere Fragen in ${leftover} offenen Kapiteln</div>`:''}</div>
+    <div style="margin-top:16px;text-align:center">
+      <button class="btna" onclick="showPage('home')">← Zum Lernpfad</button>
+    </div>`;
+}
+function onFTClick(){
+  const ft=S.ft||{ti:0,att:[0,0,0],passed:false};
+  const ti=ft.ti||0,att=ft.att||[0,0,0];
+  const isLastEver=(ti===2&&att[2]===2);
+  if(isLastEver){document.getElementById('m-last').classList.add('show');}
+  else startFT();
+}
+// FT quiz
+let FTQ=[],FTI=0,FTScore=0,FTAns=false,FTUserAnswers=[];
+function startFT(){
+  if(!S.ft)S.ft={ti:0,att:[0,0,0],passed:false};
+  const ti=S.ft.ti||0,test=FT[ti];
+  FTQ=shuffle([...test.questions]);FTI=0;FTScore=0;FTAns=false;FTUserAnswers=[];
+  showPage('finaltest');
+  document.getElementById('ft-badge').textContent='🎯 '+test.label+' ('+test.diff+')';
+  renderFTQ();
+}
+function renderFTQ(){
+  const q=FTQ[FTI];FTAns=false;
+  document.getElementById('ftpl').textContent=`Frage ${FTI+1}/20`;
+  document.getElementById('ftpr').textContent=`${FTScore} richtig`;
+  document.getElementById('ftpf').style.width=(FTI/20*100)+'%';
+  const LB=['A','B','C','D'];
+  let h=`<div class="qcard"><div class="qtxt" style="font-size:.95rem">${esc(q.q)}</div><div class="opts">`;
+  q.opts.forEach((o,i)=>h+=`<button class="obtn" id="fto${i}" onclick="ftAnswer(${i})"><span class="olbl">${LB[i]}</span>${esc(o)}</button>`);
+  h+=`</div><div class="fbbox" id="ftfb"></div><button class="btnnxt" id="ftbn" onclick="ftNext()">Weiter →</button></div>`;
+  document.getElementById('ft-content').innerHTML=h;
+}
+function ftAnswer(idx){
+  if(FTAns)return;FTAns=true;
+  const q=FTQ[FTI],ok=idx===q.cor;
+  if(ok)FTScore++;
+  FTUserAnswers.push({ok,chosen:idx,cor:q.cor,q:q.q,opts:q.opts,ex:q.ex});
+  const fb=document.getElementById('ftfb');fb.style.display='block';
+  document.getElementById('ftbn').style.display='inline-block';
+  for(let i=0;i<q.opts.length;i++){const b=document.getElementById('fto'+i);b.disabled=true;if(i===q.cor)b.classList.add('ok');else if(i===idx&&!ok)b.classList.add('bad');}
+  fb.className='fbbox '+(ok?'ok':'bad');
+  fb.innerHTML=(ok?'✅ Richtig!':'❌ Falsch. Richtig: <strong>'+esc(q.opts[q.cor])+'</strong>')+' <small style="opacity:.8">'+esc(q.ex)+'</small>';
+}
+function ftNext(){document.getElementById('ftpf').style.width=((FTI+1)/20*100)+'%';FTI++;if(FTI>=FTQ.length)finishFT();else renderFTQ();}
+function confirmLeaveFT(){if(confirm('Finaltest wirklich abbrechen? Der Versuch zählt nicht.'))showPage('home');}
+function getGrade(pct){
+  if(pct>=92)return{n:1,l:'Sehr gut',cls:'g1',msg:'Hervorragende Leistung! Du hast alles im Griff. 🌟'};
+  if(pct>=81)return{n:2,l:'Gut',cls:'g2',msg:'Sehr gute Leistung! Ein paar kleine Fehler, aber insgesamt stark.'};
+  if(pct>=67)return{n:3,l:'Befriedigend',cls:'g3',msg:'Solide! Ein paar Themen solltest du noch üben.'};
+  if(pct>=50)return{n:4,l:'Ausreichend',cls:'g4',msg:'Gerade so bestanden. Übe gezielt die Schwachstellen nach.'};
+  if(pct>=30)return{n:5,l:'Mangelhaft',cls:'g5',msg:'Nicht bestanden. Du schaffst das – übe weiter!'};
+  return{n:6,l:'Ungenügend',cls:'g6',msg:'Nicht bestanden. Gib nicht auf, geh die Themen nochmal durch!'};
+}
+function finishFT(){
+  if(!S.ft)S.ft={ti:0,att:[0,0,0],passed:false};
+  const ti=S.ft.ti;
+  S.ft.att[ti]=(S.ft.att[ti]||0)+1;
+  const pct=Math.round(FTScore/FTQ.length*100);
+  const passed=pct>=80;
+  const grade=getGrade(pct);
+  document.getElementById('ftpf').style.width='100%';
+  if(passed){
+    S.ft.passed=true;
+    checkAchs();sS();updateUI();
+    showToast('🎉 Bestanden! Minesweeper freigeschaltet!','pts');
+  }else{
+    const attUsed=S.ft.att[ti];
+    if(attUsed>=3){
+      if(ti<2){
+        S.ft.ti=ti+1;
+        sS();updateUI();
+        showToast(`⚠️ Versuche verbraucht → ${FT[ti+1].label}`,'warn');
+      }else{
+        // ALL FAILED → FULL RESET
+        sS();
+        setTimeout(()=>{
+          document.getElementById('ft-content').innerHTML=`
+            <div style="text-align:center;padding:32px 16px">
+              <div style="font-size:3rem;margin-bottom:12px">💀</div>
+              <div style="font-size:1.4rem;font-weight:800;color:var(--red);margin-bottom:8px">Alle Versuche aufgebraucht!</div>
+              <div style="color:var(--mu);font-size:.9rem;line-height:1.7;margin-bottom:20px">Du hast alle drei Tests nicht bestanden.<br>Dein Fortschritt wird in 5 Sekunden zurückgesetzt...</div>
+              <div style="font-size:2rem;font-weight:800;font-family:var(--fm);color:var(--red)" id="cntdwn">5</div>
+            </div>`;
+          let cnt=5;const iv=setInterval(()=>{cnt--;const el=document.getElementById('cntdwn');if(el)el.textContent=cnt;if(cnt<=0){clearInterval(iv);S={tp:0,tprog:{},cpTp:0,perfC:0,noHC:0,bonC:0,bStr:0,cStr:0,ach:[],ft:{ti:0,att:[0,0,0],passed:false}};sS();updateUI();showToast('💀 Fortschritt zurückgesetzt!','warn');showPage('home');}},1000);
+        },200);
+        return;
+      }
+    }else{sS();updateUI();}
+  }
+  // Build result UI
+  const ti2=S.ft.ti||0,attLeft=3-(S.ft.att[ti2]||0);
+  let btns='';
+  if(passed){
+    btns=`<button class="btna" onclick="showPage('home')">🏠 Zum Lernpfad</button>`;
+  }else if(S.ft.ti!==ti){
+    btns=`<button class="btnw" onclick="startFT()">Weiter → ${FT[S.ft.ti].label}</button>`;
+  }else{
+    btns=`<button class="btnw" onclick="startFT()">🔁 Nochmal (${attLeft} übrig)</button>`;
+  }
+  // Wrong answers review
+  const wrongs=FTUserAnswers.filter(a=>!a.ok);
+  let reviewHtml='';
+  if(wrongs.length>0){
+    reviewHtml=`<div style="margin-top:18px"><div style="font-size:.82rem;font-weight:700;color:var(--mu);margin-bottom:8px">❌ Falsch beantwortet (${wrongs.length}):</div><div class="prep-list">`;
+    wrongs.slice(0,5).forEach(a=>{reviewHtml+=`<div class="prep-item" style="border-color:rgba(248,113,113,.25)"><div class="pi-q" style="margin-bottom:4px">${esc(a.q)}</div><div style="font-size:.75rem"><span style="color:var(--red)">Deine Antwort: ${esc(a.opts[a.chosen])}</span> · <span style="color:var(--ac3)">Richtig: ${esc(a.opts[a.cor])}</span></div></div>`;});
+    if(wrongs.length>5)reviewHtml+=`<div style="text-align:center;color:var(--mu);font-size:.75rem;padding:6px">… und ${wrongs.length-5} weitere</div>`;
+    reviewHtml+='</div></div>';
+  }
+  document.getElementById('ft-content').innerHTML=`
+    <div class="grade-wrap">
+      <div style="font-size:.72rem;color:var(--mu);font-family:var(--fm);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Ergebnis</div>
+      <div class="grade-n ${grade.cls}">${grade.n}</div>
+      <div class="grade-lbl">${grade.l}</div>
+      <div class="grade-pct">${FTScore}/20 richtig · ${pct}%</div>
+      <div class="grade-msg">${grade.msg}</div>
+      ${passed?'<div style="color:var(--ac3);font-weight:700;margin-top:10px;font-size:.88rem">🎉 Bestanden! (≥80%)</div>':'<div style="color:var(--red);margin-top:8px;font-size:.82rem">❌ Nicht bestanden (mind. 80% nötig)</div>'}
+      <div style="margin-top:20px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        ${btns}
+        <button class="btns" onclick="showPage('home')">🏠 Lernpfad</button>
+      </div>
+    </div>
+    ${reviewHtml}`;
+}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+// ===================== MISC =====================
+function updateUI(){document.getElementById('tscore').textContent=(S.tp||0)+' Pkt';}
+function renderStats(){
+  document.getElementById('sg').innerHTML=`
+    <div class="sc"><div class="sn">${S.tp||0}</div><div class="sl">Punkte gesamt</div></div>
+    <div class="sc"><div class="sn">${S.cpTp||0}/${TOPICS.length}</div><div class="sl">Themen fertig</div></div>
+    <div class="sc"><div class="sn">${S.perfC||0}</div><div class="sl">Perfekte Kapitel</div></div>
+    <div class="sc"><div class="sn">${S.bonC||0}</div><div class="sl">Doppelboni</div></div>
+    <div class="sc"><div class="sn">${S.bStr||0}</div><div class="sl">Beste Serie</div></div>`;
+  document.getElementById('ag').innerHTML=ACHS.map(a=>{const u=(S.ach||[]).includes(a.id);return `<div class="ac${u?' u':''}"><div class="ai">${a.ico}</div><div><div class="an">${a.name}</div><div class="ad">${a.desc}</div></div></div>`;}).join('');
+}
+function checkAchs(){ACHS.forEach(a=>{if(!(S.ach||[]).includes(a.id)&&a.c(S)){S.ach=[...(S.ach||[]),a.id];setTimeout(()=>showToast(`${a.ico} ${a.name}`,'pts'),600);}});}
+let toastT;
+function showToast(msg,type){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show'+(type?' '+type:'');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+// ===================== INLINE CALC =====================
+const IB=[
+  {l:'AC',a:'cl',c:'cl'},{l:'⌫',a:'bk',c:''},{l:'(',a:'ap:(',c:'op'},{l:')',a:'ap:)',c:'op'},{l:'π',a:'pi',c:'sp'},
+  {l:'7',a:'ap:7',c:''},{l:'8',a:'ap:8',c:''},{l:'9',a:'ap:9',c:''},{l:'÷',a:'ap:/',c:'op'},{l:'√',a:'sq',c:'sp'},
+  {l:'4',a:'ap:4',c:''},{l:'5',a:'ap:5',c:''},{l:'6',a:'ap:6',c:''},{l:'×',a:'ap:*',c:'op'},{l:'x²',a:'x2',c:'sp'},
+  {l:'1',a:'ap:1',c:''},{l:'2',a:'ap:2',c:''},{l:'3',a:'ap:3',c:''},{l:'-',a:'ap:-',c:'op'},{l:'.',a:'ap:.',c:''},
+  {l:'0',a:'ap:0',c:''},{l:'(',a:'ap:(',c:'op'},{l:')',a:'ap:)',c:'op'},{l:'+',a:'ap:+',c:'op'},{l:'=',a:'ev',c:'eq'},
+];
+function iCalcHTML(){return `<div class="icalc"><div class="icalc-ttl">🔢 Taschenrechner</div><div class="icalc-d"><div class="icalc-ex" id="ice"></div><div id="icv">0</div></div><div class="icalc-btns">${IB.map(b=>`<button class="cb ${b.c}" onclick="ic('${b.a}')">${b.l}</button>`).join('')}</div></div>`;}
+let icE='';
+function ic(a){
+  if(a==='cl'){icE='';}else if(a==='bk'){icE=icE.slice(0,-1);}else if(a==='pi'){icE+='π';}
+  else if(a==='sq'){icE='Math.sqrt('+(icE||'0')+')';}else if(a==='x2'){icE='('+(icE||'0')+')^2';}
+  else if(a.startsWith('ap:')){icE+=a.slice(3);}
+  else if(a==='ev'){
+    try{const e=icE.replace(/π/g,'Math.PI').replace(/\^/g,'**');const r=Function('"use strict";return('+e+')')();const rs=parseFloat(r.toFixed(8)).toString();const ex=document.getElementById('ice'),vl=document.getElementById('icv');if(ex)ex.textContent=icE+' =';if(vl)vl.textContent=rs;icE=rs;return;}catch(e){}
+  }
+  const ex=document.getElementById('ice'),vl=document.getElementById('icv');
+  if(ex)ex.textContent='';if(vl)vl.textContent=icE||'0';
+}
+
+// ===================== TOOLS CALC =====================
+const TCB=[
+  {l:'AC',a:'cl',c:'cl'},{l:'⌫',a:'bk',c:''},{l:'(',a:'ap:(',c:'op'},{l:')',a:'ap:)',c:'op'},
+  {l:'π',a:'pi',c:'sp'},{l:'7',a:'ap:7',c:''},{l:'8',a:'ap:8',c:''},{l:'9',a:'ap:9',c:''},{l:'÷',a:'ap:/',c:'op'},
+  {l:'√',a:'sq',c:'sp'},{l:'4',a:'ap:4',c:''},{l:'5',a:'ap:5',c:''},{l:'6',a:'ap:6',c:''},{l:'×',a:'ap:*',c:'op'},
+  {l:'x²',a:'x2',c:'sp'},{l:'1',a:'ap:1',c:''},{l:'2',a:'ap:2',c:''},{l:'3',a:'ap:3',c:''},{l:'-',a:'ap:-',c:'op'},
+  {l:'x³',a:'x3',c:'sp'},{l:'0',a:'ap:0',c:''},{l:'.',a:'ap:.',c:''},{l:'±',a:'ng',c:'op'},{l:'+',a:'ap:+',c:'op'},{l:'=',a:'ev',c:'eq'},
+];
+let tcE='';
+function buildTC(){document.getElementById('tc-btns').innerHTML=TCB.map(b=>`<button class="cb ${b.c}" onclick="tca('${b.a}')">${b.l}</button>`).join('');}
+function tca(a){
+  if(a==='cl'){tcE='';}else if(a==='bk'){tcE=tcE.slice(0,-1);}else if(a==='pi'){tcE+='π';}
+  else if(a==='sq'){tcE='Math.sqrt('+(tcE||'0')+')';}else if(a==='x2'){tcE='('+(tcE||'0')+')^2';}
+  else if(a==='x3'){tcE='('+(tcE||'0')+')^3';}else if(a==='ng'){tcE='(-('+(tcE||'0')+')';}
+  else if(a.startsWith('ap:')){tcE+=a.slice(3);}
+  else if(a==='ev'){
+    try{const e=tcE.replace(/π/g,'Math.PI').replace(/\^/g,'**');const r=Function('"use strict";return('+e+')')();const rs=parseFloat(r.toFixed(8)).toString();document.getElementById('tc-ex').textContent=tcE+' =';document.getElementById('tc-val').textContent=rs;tcE=rs;return;}catch(e){}
+  }
+  document.getElementById('tc-ex').textContent='';document.getElementById('tc-val').textContent=tcE||'0';
+}
+
+// ===================== GRAPH =====================
+let gC=null,gF=[];
+const GCL=['#6ee7f7','#a78bfa','#34d399','#f97316','#f43f5e','#eab308'];
+function initG(){const ctx=document.getElementById('g-canvas').getContext('2d');gC=new Chart(ctx,{type:'line',data:{datasets:[]},options:{responsive:true,animation:false,plugins:{legend:{display:false}},scales:{x:{type:'linear',min:-10,max:10,grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#64748b',stepSize:2}},y:{min:-10,max:10,grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#64748b',stepSize:2}}}}});}
+function eF(ex,x){let e=ex.replace(/\^/g,'**').replace(/π/g,'Math.PI').replace(/sqrt\(/g,'Math.sqrt(').replace(/abs\(/g,'Math.abs(').replace(/sin\(/g,'Math.sin(').replace(/cos\(/g,'Math.cos(').replace(/tan\(/g,'Math.tan(');return Function('"use strict";const x='+x+';return '+e)();}
+function plotG(){const inp=document.getElementById('g-in').value.trim();const er=document.getElementById('g-err');if(!inp)return;er.textContent='';try{eF(inp,0);}catch(e){er.textContent='⚠️ Ungültig. Bsp: 2*x^2-3';return;}const col=GCL[gF.length%GCL.length];const pts=[];for(let x=-10;x<=10;x+=0.1){try{const y=eF(inp,x);pts.push({x,y:isFinite(y)&&Math.abs(y)<1000?y:null});}catch{pts.push({x,y:null});}}gF.push({expr:inp,color:col});gC.data.datasets.push({data:pts,borderColor:col,backgroundColor:'transparent',borderWidth:2,pointRadius:0,spanGaps:false,label:inp});gC.update();rFT();document.getElementById('g-in').value='';}
+function clrG(){gF=[];gC.data.datasets=[];gC.update();rFT();}
+function rFT(){document.getElementById('g-funcs').innerHTML=gF.map((f,i)=>`<div class="gtag" style="background:${f.color}22;border:1px solid ${f.color}55;color:${f.color}" onclick="rmF(${i})">f${i+1}=${f.expr} ✕</div>`).join('');}
+function rmF(i){gF.splice(i,1);gC.data.datasets.splice(i,1);gC.update();rFT();}
+
+
+// ===================== SETTINGS =====================
+const THEMES={
+  dark:{bg:'#0a0e1a',sf:'#111827',sf2:'#1a2236',bd:'#1e2d45',txt:'#e2e8f0',mu:'#64748b'},
+  midnight:{bg:'#0d0d1a',sf:'#12102a',sf2:'#1e1a3a',bd:'#2d2555',txt:'#e8e4ff',mu:'#6b63a0'},
+  forest:{bg:'#0a1a0e',sf:'#101f13',sf2:'#18301c',bd:'#1e4024',txt:'#e0f0e4',mu:'#5a8060'},
+  ocean:{bg:'#0a1220',sf:'#0d1b35',sf2:'#0f2548',bd:'#1a3460',txt:'#ddeeff',mu:'#4a7090'},
+  sunset:{bg:'#1a0e0a',sf:'#251410',sf2:'#341c14',bd:'#4a2a1e',txt:'#ffe8d8',mu:'#8a5040'},
+  light:{bg:'#f0f4f8',sf:'#ffffff',sf2:'#e8ecf0',bd:'#cbd5e1',txt:'#1e293b',mu:'#64748b'},
+};
+
+let CFG={theme:'dark',ac:'#6ee7f7',ac2:'#a78bfa',ac3:'#34d399',layout:'desktop',fontSize:100,anim:true,grid:true,compact:false};
+
+function loadCFG(){try{const d=localStorage.getItem('mp9cfg');if(d)CFG=Object.assign(CFG,JSON.parse(d));}catch(e){}}
+function saveCFG(){localStorage.setItem('mp9cfg',JSON.stringify(CFG));}
+
+function applyCFG(){
+  const t=THEMES[CFG.theme]||THEMES.dark;
+  const r=document.documentElement;
+  r.style.setProperty('--bg',t.bg);
+  r.style.setProperty('--sf',t.sf);
+  r.style.setProperty('--sf2',t.sf2);
+  r.style.setProperty('--bd',t.bd);
+  r.style.setProperty('--txt',t.txt);
+  r.style.setProperty('--mu',t.mu);
+  r.style.setProperty('--ac',CFG.ac);
+  r.style.setProperty('--ac2',CFG.ac2);
+  r.style.setProperty('--ac3',CFG.ac3);
+  document.body.style.fontSize=CFG.fontSize+'%';
+  // Animations
+  if(!CFG.anim){
+    if(!document.getElementById('no-anim-style')){
+      const s=document.createElement('style');s.id='no-anim-style';
+      s.textContent='*{animation:none!important;transition:none!important}';
+      document.head.appendChild(s);
+    }
+  }else{const s=document.getElementById('no-anim-style');if(s)s.remove();}
+  // Grid pattern
+  document.body.style.setProperty('--grid-opacity',CFG.grid?'0.03':'0');
+  // Compact
+  if(CFG.compact){document.body.classList.add('compact');}else{document.body.classList.remove('compact');}
+  // Layout
+  applyLayout(CFG.layout);
+}
+
+function applyLayout(l){
+  const style=document.getElementById('mobile-layout-style');
+  if(l==='mobile'){
+    if(!style){
+      const s=document.createElement('style');s.id='mobile-layout-style';
+      s.textContent=`
+        .rmn{flex-direction:column!important;align-items:stretch!important}
+        .rmn:nth-child(even){flex-direction:column!important}
+        .rmc{max-width:100%!important}
+        .rmd{align-self:center}
+        .rm-line{display:none}
+        .ch-grid{grid-template-columns:1fr!important}
+        .tools-grid{grid-template-columns:1fr!important}
+        .sg{grid-template-columns:repeat(2,1fr)!important}
+        nav{flex-wrap:nowrap;overflow-x:auto}
+        .page{padding:14px 10px}
+        .obtn{font-size:.82rem;padding:10px 11px}
+        .qtxt{font-size:.95rem}
+        .ft-card{max-width:100%}
+      `;
+      document.head.appendChild(s);
+    }
+  }else{
+    if(style)style.remove();
+  }
+}
+
+function initSettingsUI(){
+  // Theme buttons
+  document.querySelectorAll('.theme-btn').forEach(b=>b.classList.remove('active-theme'));
+  const tb=document.getElementById('theme-'+CFG.theme);if(tb)tb.classList.add('active-theme');
+  // Accent dots
+  document.querySelectorAll('.ac-dot').forEach(d=>{
+    d.classList.toggle('active-ac',d.style.background===CFG.ac||d.style.backgroundColor===CFG.ac);
+  });
+  // Layout
+  document.querySelectorAll('.layout-btn').forEach(b=>b.classList.remove('active-layout'));
+  const lb=document.getElementById('layout-'+CFG.layout);if(lb)lb.classList.add('active-layout');
+  // Font slider
+  const fs=document.getElementById('font-slider');if(fs)fs.value=CFG.fontSize;
+  const fv=document.getElementById('font-val');if(fv)fv.textContent=CFG.fontSize+'%';
+  // Toggles
+  const ta=document.getElementById('tog-anim');if(ta)ta.checked=CFG.anim;
+  const tg=document.getElementById('tog-grid');if(tg)tg.checked=CFG.grid;
+  const tc=document.getElementById('tog-compact');if(tc)tc.checked=CFG.compact;
+}
+
+function setTheme(name){
+  CFG.theme=name;saveCFG();applyCFG();
+  document.querySelectorAll('.theme-btn').forEach(b=>b.classList.remove('active-theme'));
+  const tb=document.getElementById('theme-'+name);if(tb)tb.classList.add('active-theme');
+  showToast('🎨 Thema geändert: '+name,'pts');
+}
+
+function setAccent(ac,ac2,ac3){
+  CFG.ac=ac;CFG.ac2=ac2;CFG.ac3=ac3;saveCFG();applyCFG();
+  document.querySelectorAll('.ac-dot').forEach(d=>{
+    const bg=d.style.background||d.style.backgroundColor;
+    d.classList.toggle('active-ac',bg===ac);
+  });
+  showToast('✨ Farbe geändert','pts');
+}
+
+function setLayout(l){
+  CFG.layout=l;saveCFG();applyCFG();
+  document.querySelectorAll('.layout-btn').forEach(b=>b.classList.remove('active-layout'));
+  const lb=document.getElementById('layout-'+l);if(lb)lb.classList.add('active-layout');
+  showToast(l==='mobile'?'📱 Mobile Layout':'🖥️ Desktop Layout','pts');
+  renderRM();
+}
+
+function setFontSize(v){
+  CFG.fontSize=parseInt(v);
+  document.getElementById('font-val').textContent=v+'%';
+  document.body.style.fontSize=v+'%';
+  saveCFG();
+}
+
+function setAnim(v){CFG.anim=v;saveCFG();applyCFG();}
+function setGrid(v){CFG.grid=v;saveCFG();applyCFG();}
+function setCompact(v){CFG.compact=v;saveCFG();applyCFG();}
+
+function resetSettings(){
+  CFG={theme:'dark',ac:'#6ee7f7',ac2:'#a78bfa',ac3:'#34d399',layout:'desktop',fontSize:100,anim:true,grid:true,compact:false};
+  saveCFG();applyCFG();initSettingsUI();showToast('🔧 Design zurückgesetzt','');
+}
+
+// ===================== INIT =====================
+lS();loadCFG();applyCFG();updateUI();renderRM();buildTC();setTimeout(initG,100);
+</script>
+</body>
+</html>
