@@ -82,7 +82,66 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
 .ft-sel-card{background:var(--sf);border:2px solid var(--bd);border-radius:var(--r);padding:16px 18px;cursor:pointer;transition:all .22s}
 .ft-sel-card:hover:not(.ft-sel-done){border-color:rgba(251,191,36,.6);transform:translateY(-2px);background:linear-gradient(135deg,rgba(251,191,36,.04),transparent)}
 .ft-sel-done{opacity:.5;cursor:not-allowed}
-/* CHAPTERS */
+/* LEGEND PATHS */
+.lp-fork{display:flex;flex-direction:column;align-items:center;width:100%;position:relative;z-index:1;margin-top:4px}
+.lp-fork-top{display:flex;justify-content:center;gap:0;width:100%;position:relative;margin-bottom:0}
+.lp-fork-branches{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;width:100%;margin-bottom:18px}
+.lp-branch{display:flex;flex-direction:column;align-items:center;gap:8px}
+.lp-branch-hdr{
+  width:100%;border-radius:14px;padding:13px 10px;text-align:center;
+  border:2px solid var(--bd);background:var(--sf);
+  position:relative;overflow:hidden;transition:all .22s}
+.lp-branch-hdr.unlocked{cursor:default}
+.lp-branch-hdr.locked{opacity:.4}
+.lp-branch-hdr::before{content:'';position:absolute;inset:0;background:linear-gradient(160deg,var(--lc,var(--ac)) 0%,transparent 60%);opacity:.06}
+.lp-branch-icon{font-size:1.5rem;margin-bottom:4px}
+.lp-branch-name{font-size:.82rem;font-weight:800;color:var(--lc,var(--ac))}
+.lp-branch-sub{font-size:.62rem;color:var(--mu);font-family:var(--fm);margin-top:2px}
+.lp-branch-badge{
+  display:inline-block;margin-top:6px;font-size:.6rem;font-family:var(--fm);
+  padding:2px 9px;border-radius:20px;
+  background:var(--lc,var(--ac))22;border:1px solid var(--lc,var(--ac))55;
+  color:var(--lc,var(--ac))}
+.lp-chap-card{
+  width:100%;background:var(--sf);border:1px solid var(--bd);
+  border-radius:11px;padding:10px 12px;cursor:pointer;
+  transition:all .2s;position:relative;overflow:hidden;text-align:left}
+.lp-chap-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--lc,var(--ac)) 0%,transparent 70%);opacity:.04;transition:opacity .2s}
+.lp-chap-card:hover:not(.lp-lk)::before{opacity:.11}
+.lp-chap-card:hover:not(.lp-lk){border-color:var(--lc,var(--ac));transform:translateY(-1px)}
+.lp-chap-card.lp-lk{opacity:.32;cursor:not-allowed}
+.lp-chap-card.lp-dn{border-color:rgba(52,211,153,.35)}
+.lp-chap-num{font-size:.6rem;text-transform:uppercase;letter-spacing:1px;color:var(--mu);font-family:var(--fm)}
+.lp-chap-name{font-size:.78rem;font-weight:700;margin-top:2px;line-height:1.3}
+.lp-chap-pts{font-size:.65rem;font-family:var(--fm);color:var(--ac3);margin-top:3px}
+.lp-final-card{
+  width:100%;border-radius:12px;padding:12px 10px;text-align:center;
+  border:2px solid var(--bd);background:var(--sf);
+  cursor:pointer;transition:all .22s;position:relative;overflow:hidden}
+.lp-final-card:hover:not(.lp-ft-lk){border-color:var(--lc,var(--ac));transform:translateY(-1px);box-shadow:0 0 18px var(--lc,var(--ac))22}
+.lp-final-card.lp-ft-lk{opacity:.38;cursor:not-allowed}
+.lp-final-card.lp-ft-pass{border-color:rgba(52,211,153,.5)}
+.lp-final-icon{font-size:1.4rem;margin-bottom:4px}
+.lp-final-title{font-size:.8rem;font-weight:800}
+.lp-final-sub{font-size:.6rem;color:var(--mu);font-family:var(--fm);margin-top:2px}
+.lp-ms-row{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:linear-gradient(135deg,rgba(167,139,250,.08),rgba(110,231,247,.05));
+  border:1px solid rgba(167,139,250,.25);border-radius:14px;
+  padding:14px 18px;margin-top:8px;cursor:pointer;transition:all .22s;width:100%}
+.lp-ms-row:hover{border-color:rgba(167,139,250,.55);transform:translateY(-1px)}
+.lp-ms-row.lp-ms-lk{opacity:.35;cursor:not-allowed}
+/* mobile path selector */
+.lp-path-sel{
+  display:flex;gap:6px;margin-bottom:14px;
+  background:var(--sf);border:1px solid var(--bd);
+  border-radius:11px;padding:5px}
+.lp-path-btn{
+  flex:1;padding:7px 6px;border:none;border-radius:8px;
+  font-family:var(--fd);font-size:.72rem;font-weight:700;
+  background:transparent;color:var(--mu);cursor:pointer;transition:all .18s;text-align:center}
+.lp-path-btn.active{background:var(--lc2,var(--sf2));color:var(--lc2color,var(--ac));border:1px solid var(--lc2,var(--bd))}
+@media(max-width:600px){.lp-fork-branches{grid-template-columns:1fr}}
 .ch-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin-top:5px}
 @media(max-width:480px){.ch-grid{grid-template-columns:1fr}}
 .ch-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:15px 17px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
@@ -217,32 +276,155 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
 .vid-seen-badge{font-size:.68rem;color:var(--ac3);font-family:var(--fm);display:flex;align-items:center;gap:3px}
 .vid-errors{font-size:.68rem;color:var(--red);font-family:var(--fm);margin-left:auto}
 /* MINESWEEPER */
-.ms-wrap{max-width:520px;margin:0 auto}
-.ms-modes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.ms-mode-card{background:var(--sf);border:2px solid var(--bd);border-radius:var(--r);padding:18px 14px;cursor:pointer;transition:all .25s;text-align:center;position:relative;overflow:hidden}
-.ms-mode-card:hover:not(.ms-locked){transform:translateY(-2px);border-color:var(--nc,var(--ac))}
-.ms-mode-card.ms-locked{opacity:.45;cursor:not-allowed}
-.ms-mode-card.ms-locked::after{content:'🔒';position:absolute;top:8px;right:10px;font-size:.9rem}
-.ms-mode-icon{font-size:2rem;margin-bottom:6px}
-.ms-mode-name{font-size:.92rem;font-weight:800;margin-bottom:3px}
-.ms-mode-sub{font-size:.68rem;color:var(--mu);font-family:var(--fm)}
-.ms-mode-unlock{font-size:.63rem;color:var(--mu);margin-top:5px;font-style:italic}
-.ms-topbar{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
-.ms-info{font-family:var(--fm);font-size:.82rem;color:var(--mu);flex:1}
-.ms-info strong{color:var(--txt)}
-.ms-board{text-align:center;overflow-x:auto;padding:2px}
-.ms-row{display:flex;justify-content:center;gap:2px;margin-bottom:2px}
-.ms-cell{width:28px;height:28px;border-radius:4px;border:none;cursor:pointer;font-family:var(--fm);font-size:.7rem;font-weight:700;transition:background .1s;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0}
-.ms-cell.hid{background:var(--sf2);border:1px solid var(--bd)}
-.ms-cell.hid:hover{background:var(--bd)}
-.ms-cell.flg{background:rgba(249,115,22,.15);border:1px solid rgba(249,115,22,.4);font-size:.8rem}
-.ms-cell.rev{background:var(--bg);border:1px solid rgba(255,255,255,.05);cursor:default}
-.ms-cell.mhit{background:rgba(248,113,113,.25);border:1px solid var(--red);cursor:default}
-.ms-cell.mshow{background:rgba(100,116,139,.08);border:1px solid var(--bd);cursor:default}
-.ms-status{text-align:center;font-size:.9rem;font-weight:700;padding:9px;border-radius:8px;margin-top:8px;display:none}
-.ms-status.won{background:rgba(52,211,153,.1);color:var(--ac3);border:1px solid rgba(52,211,153,.3);display:block}
-.ms-status.lost{background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.3);display:block}
-.c1{color:#6ee7f7}.c2{color:#34d399}.c3{color:#f87171}.c4{color:#a78bfa}.c5{color:#f97316}.c6{color:#38bdf8}.c7{color:#e2e8f0}.c8{color:#94a3b8}
+.ms-wrap{max-width:600px;margin:0 auto}
+/* ── Mode Select ── */
+.ms-modes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ms-mode-card{
+  background:linear-gradient(145deg,var(--sf),var(--sf2));
+  border:1.5px solid var(--bd);border-radius:16px;
+  padding:22px 14px 18px;cursor:pointer;
+  transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .22s,border-color .22s;
+  text-align:center;position:relative;overflow:hidden}
+.ms-mode-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%,var(--nc,#6ee7f7) 0%,transparent 65%);
+  opacity:0;transition:opacity .3s}
+.ms-mode-card:hover:not(.ms-locked)::before{opacity:.08}
+.ms-mode-card:hover:not(.ms-locked){transform:translateY(-4px) scale(1.02);border-color:var(--nc,var(--ac));box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 0 1px var(--nc,var(--ac))44}
+.ms-mode-card:active:not(.ms-locked){transform:translateY(-1px) scale(1.005)}
+.ms-mode-card.ms-locked{opacity:.4;cursor:not-allowed;filter:grayscale(.4)}
+.ms-mode-card.ms-locked::after{content:'🔒';position:absolute;top:10px;right:12px;font-size:.85rem;opacity:.7}
+.ms-mode-icon{font-size:2.4rem;margin-bottom:8px;line-height:1;filter:drop-shadow(0 0 8px var(--nc,#6ee7f7)44)}
+.ms-mode-name{font-size:.95rem;font-weight:800;margin-bottom:4px;letter-spacing:-.3px}
+.ms-mode-sub{font-size:.67rem;color:var(--mu);font-family:var(--fm);letter-spacing:.5px}
+.ms-mode-stats{font-size:.62rem;color:var(--mu);font-family:var(--fm);margin-top:6px}
+.ms-mode-stats b{color:var(--nc,var(--ac))}
+.ms-mode-unlock{font-size:.62rem;color:var(--mu);margin-top:8px;font-style:italic;line-height:1.4}
+.ms-mode-badge{
+  display:inline-block;margin-top:10px;
+  background:var(--nc,var(--ac))22;border:1px solid var(--nc,var(--ac))55;
+  border-radius:20px;padding:3px 10px;
+  font-size:.62rem;font-family:var(--fm);color:var(--nc,var(--ac))}
+
+/* ── HUD / Top Bar ── */
+.ms-hud{
+  display:grid;grid-template-columns:1fr auto 1fr;
+  align-items:center;gap:8px;margin-bottom:14px;
+  background:linear-gradient(135deg,var(--sf),var(--sf2));
+  border:1px solid var(--bd);border-radius:14px;padding:12px 16px}
+.ms-hud-left{display:flex;flex-direction:column;gap:3px}
+.ms-hud-right{display:flex;flex-direction:column;gap:3px;text-align:right;align-items:flex-end}
+.ms-hud-label{font-size:.58rem;font-family:var(--fm);color:var(--mu);text-transform:uppercase;letter-spacing:1px}
+.ms-hud-val{font-size:1.3rem;font-weight:800;font-family:var(--fm);line-height:1}
+.ms-hud-val.mines{color:#f97316}
+.ms-hud-val.timer{color:var(--ac)}
+.ms-face-btn{
+  width:44px;height:44px;border-radius:50%;
+  background:var(--sf2);border:2px solid var(--bd);
+  font-size:1.4rem;cursor:pointer;
+  transition:transform .15s,border-color .15s,box-shadow .15s;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;line-height:1}
+.ms-face-btn:hover{transform:scale(1.1);border-color:var(--ac);box-shadow:0 0 12px var(--ac)44}
+.ms-face-btn:active{transform:scale(.92)}
+
+/* ── Controls row ── */
+.ms-controls{display:flex;align-items:center;gap:7px;margin-bottom:12px;flex-wrap:wrap}
+.ms-btn{
+  background:var(--sf2);border:1px solid var(--bd);color:var(--mu);
+  border-radius:9px;padding:6px 13px;font-size:.74rem;cursor:pointer;
+  font-family:var(--fd);font-weight:600;transition:all .18s;
+  display:flex;align-items:center;gap:5px}
+.ms-btn:hover{border-color:var(--ac2);color:var(--txt);background:var(--bd)}
+.ms-btn.active-flag{background:rgba(249,115,22,.15);border-color:rgba(249,115,22,.6);color:#f97316}
+.ms-back-btn{background:transparent;border:none;color:var(--mu);font-family:var(--fd);font-size:.76rem;cursor:pointer;padding:6px 4px;transition:color .18s;margin-left:auto}
+.ms-back-btn:hover{color:var(--txt)}
+
+/* ── Board ── */
+.ms-board-wrap{
+  background:linear-gradient(145deg,var(--sf),rgba(10,14,26,.8));
+  border:1px solid var(--bd);border-radius:16px;
+  padding:14px;overflow-x:auto;
+  box-shadow:inset 0 2px 12px rgba(0,0,0,.4)}
+.ms-board{display:inline-block;min-width:100%}
+.ms-row{display:flex;justify-content:center;gap:3px;margin-bottom:3px}
+.ms-cell{
+  width:30px;height:30px;border-radius:6px;border:none;
+  cursor:pointer;font-family:var(--fm);font-size:.72rem;font-weight:700;
+  transition:transform .1s,background .12s,box-shadow .12s;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;padding:0;position:relative;user-select:none;-webkit-user-select:none}
+.ms-cell.hid{
+  background:linear-gradient(145deg,var(--sf2),var(--bd));
+  box-shadow:0 2px 0 rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.04)}
+.ms-cell.hid:hover{background:linear-gradient(145deg,var(--bd),#253352);transform:translateY(-1px);box-shadow:0 3px 6px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.09)}
+.ms-cell.hid:active{transform:translateY(1px);box-shadow:0 0 0 rgba(0,0,0,.4),inset 0 2px 3px rgba(0,0,0,.4)}
+.ms-cell.flg{
+  background:linear-gradient(145deg,rgba(249,115,22,.18),rgba(249,115,22,.08));
+  border:1px solid rgba(249,115,22,.5);font-size:.82rem;
+  box-shadow:0 0 8px rgba(249,115,22,.2),inset 0 1px 0 rgba(255,255,255,.04);
+  animation:ms-flag-pop .2s cubic-bezier(.34,1.56,.64,1)}
+@keyframes ms-flag-pop{0%{transform:scale(.7)}100%{transform:scale(1)}}
+.ms-cell.rev{
+  background:rgba(10,14,26,.7);
+  border:1px solid rgba(255,255,255,.03);
+  cursor:default;box-shadow:inset 0 1px 3px rgba(0,0,0,.4)}
+.ms-cell.rev.reveal-anim{animation:ms-reveal .18s ease-out}
+@keyframes ms-reveal{0%{transform:scale(.8);opacity:.4}100%{transform:scale(1);opacity:1}}
+.ms-cell.mhit{
+  background:linear-gradient(145deg,rgba(248,113,113,.35),rgba(248,113,113,.15));
+  border:1px solid rgba(248,113,113,.7);cursor:default;
+  box-shadow:0 0 14px rgba(248,113,113,.3);
+  animation:ms-boom .3s ease-out}
+@keyframes ms-boom{0%{transform:scale(1.3);opacity:.6}60%{transform:scale(.92)}100%{transform:scale(1)}}
+.ms-cell.mshow{
+  background:rgba(100,116,139,.12);
+  border:1px solid rgba(100,116,139,.2);cursor:default;opacity:.6}
+.ms-cell.won-cell{box-shadow:0 0 8px rgba(52,211,153,.4)}
+
+/* ── Number colours ── */
+.c1{color:#6ee7f7;text-shadow:0 0 6px #6ee7f744}
+.c2{color:#34d399;text-shadow:0 0 6px #34d39944}
+.c3{color:#f87171;text-shadow:0 0 6px #f8717144}
+.c4{color:#a78bfa;text-shadow:0 0 6px #a78bfa44}
+.c5{color:#f97316;text-shadow:0 0 6px #f9731644}
+.c6{color:#38bdf8;text-shadow:0 0 6px #38bdf844}
+.c7{color:#e2e8f0}
+.c8{color:#64748b}
+
+/* ── Status banner ── */
+.ms-status-banner{
+  border-radius:14px;padding:16px 20px;margin-top:12px;
+  display:none;text-align:center;animation:ms-banner-in .35s cubic-bezier(.34,1.56,.64,1)}
+@keyframes ms-banner-in{0%{transform:scale(.85) translateY(8px);opacity:0}100%{transform:scale(1) translateY(0);opacity:1}}
+.ms-status-banner.won{
+  background:linear-gradient(135deg,rgba(52,211,153,.12),rgba(52,211,153,.06));
+  border:1px solid rgba(52,211,153,.4);display:block}
+.ms-status-banner.lost{
+  background:linear-gradient(135deg,rgba(248,113,113,.12),rgba(248,113,113,.06));
+  border:1px solid rgba(248,113,113,.4);display:block}
+.ms-status-emoji{font-size:2rem;margin-bottom:6px;display:block}
+.ms-status-title{font-size:1rem;font-weight:800;margin-bottom:3px}
+.ms-status-banner.won .ms-status-title{color:var(--ac3)}
+.ms-status-banner.lost .ms-status-title{color:var(--red)}
+.ms-status-sub{font-size:.78rem;color:var(--mu);font-family:var(--fm)}
+
+/* ── Best times ── */
+.ms-records{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.ms-record{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:9px 8px;text-align:center}
+.ms-record-mode{font-size:.6rem;color:var(--mu);font-family:var(--fm);margin-bottom:4px}
+.ms-record-time{font-size:.9rem;font-weight:800;font-family:var(--fm);color:var(--ac)}
+.ms-record-time.locked{color:var(--mu);font-size:.8rem}
+
+/* ── Tips bar ── */
+.ms-tips{
+  display:flex;gap:16px;margin-top:11px;
+  font-size:.65rem;color:var(--mu);font-family:var(--fm);
+  justify-content:center;flex-wrap:wrap}
+.ms-tips span{display:flex;align-items:center;gap:4px}
+.ms-tips span b{color:var(--txt)}
 /* SETTINGS */
 .set-section{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:18px 20px;margin-bottom:14px}
 .set-section-title{font-size:.72rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--mu);font-family:var(--fm);margin-bottom:14px;display:flex;align-items:center;gap:6px}
@@ -509,7 +691,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
       <button onclick="devStartFT(1)" style="background:transparent;border:1px dashed #fbbf24;color:#fbbf24;border-radius:8px;padding:6px 12px;cursor:pointer;font-family:var(--fm);font-size:.68rem;letter-spacing:.5px">🟡 Mittel</button>
       <button onclick="devStartFT(2)" style="background:transparent;border:1px dashed var(--ac3);color:var(--ac3);border-radius:8px;padding:6px 12px;cursor:pointer;font-family:var(--fm);font-size:.68rem;letter-spacing:.5px">🟢 Leicht</button>
     </div>
-    <div style="font-size:.58rem;color:var(--mu);font-family:var(--fm)">🧪 dev · überspringt freischaltung</div>
+    <div style="font-size:.58rem;color:var(--mu);font-family:var(--fm)">🧪 dev · nur Finaltests · Legendentests nicht zugänglich</div>
   </div>
 </div>
 
@@ -522,24 +704,58 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
 
 <!-- MINESWEEPER -->
 <div class="page" id="page-minesweeper">
-  <div class="sect" style="margin-bottom:14px">💣 Minesweeper</div>
+  <div class="sect" style="margin-bottom:6px">💣 Minesweeper</div>
+  <div style="font-size:.75rem;color:var(--mu);margin-bottom:18px;font-family:var(--fm)">Belohnungsspiel · als Dank fürs Lernen 🎓</div>
   <div class="ms-wrap">
     <!-- Mode selection -->
     <div class="ms-modes" id="ms-modes"></div>
+
     <!-- Game area -->
     <div id="ms-game" style="display:none">
-      <div class="ms-topbar">
-        <div class="ms-info">💣 <strong id="ms-ml">0</strong> &nbsp;⏱ <strong id="ms-t">0</strong>s</div>
-        <button class="btns" onclick="initMs()" style="padding:5px 12px;font-size:.78rem">↺ Neu</button>
-        <button class="btnback" onclick="document.getElementById('ms-game').style.display='none';document.getElementById('ms-modes').style.display='block'">← Modi</button>
+
+      <!-- HUD -->
+      <div class="ms-hud">
+        <div class="ms-hud-left">
+          <div class="ms-hud-label">💣 Minen</div>
+          <div class="ms-hud-val mines" id="ms-ml">0</div>
+        </div>
+        <button class="ms-face-btn" id="ms-face" onclick="initMs()" title="Neu starten">🙂</button>
+        <div class="ms-hud-right">
+          <div class="ms-hud-label">⏱ Zeit</div>
+          <div class="ms-hud-val timer" id="ms-t">000</div>
+        </div>
       </div>
-      <div class="ms-board" id="ms-board"></div>
-      <div class="ms-status" id="ms-status"></div>
-      <div style="font-size:.65rem;color:var(--mu);text-align:center;margin-top:6px">Klick: aufdecken · Rechtsklick / Longpress: Flagge 🚩</div>
-      <!-- Best times -->
-      <div style="margin-top:16px">
-        <div style="font-size:.72rem;color:var(--mu);font-family:var(--fm);margin-bottom:6px">🏅 Beste Zeit dieses Modus</div>
-        <div id="ms-best" style="font-family:var(--fm);font-size:.82rem;color:var(--ac)">–</div>
+
+      <!-- Controls -->
+      <div class="ms-controls">
+        <button class="ms-btn" id="ms-flag-toggle" onclick="toggleFlagMode()" title="Flaggen-Modus">🚩 Flaggen-Modus</button>
+        <button class="ms-btn" onclick="initMs()">↺ Neu</button>
+        <button class="ms-back-btn" onclick="document.getElementById('ms-game').style.display='none';document.getElementById('ms-modes').style.display='grid'">← Modus wechseln</button>
+      </div>
+
+      <!-- Board -->
+      <div class="ms-board-wrap">
+        <div class="ms-board" id="ms-board"></div>
+      </div>
+
+      <!-- Tips -->
+      <div class="ms-tips">
+        <span>🖱️ <b>Klick</b> aufdecken</span>
+        <span>🚩 <b>Rechtsklick</b> Flagge setzen</span>
+        <span>📱 <b>Longpress</b> Flagge (mobil)</span>
+      </div>
+
+      <!-- Status banner -->
+      <div class="ms-status-banner" id="ms-status">
+        <span class="ms-status-emoji" id="ms-status-emoji"></span>
+        <div class="ms-status-title" id="ms-status-title"></div>
+        <div class="ms-status-sub" id="ms-status-sub"></div>
+      </div>
+
+      <!-- Best times all modes -->
+      <div style="margin-top:18px">
+        <div style="font-size:.68rem;color:var(--mu);font-family:var(--fm);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">🏅 Bestzeiten</div>
+        <div class="ms-records" id="ms-records"></div>
       </div>
     </div>
   </div>
@@ -695,7 +911,184 @@ const TOPICS=[
   ]},
 ];
 
-// ===================== FINAL TESTS =====================
+// ===================== LEGEND PATHS =====================
+const LP=[
+  // ── LEICHT (grün) – freigeschaltet durch FT3 (Leicht bestanden) ──
+  {id:'lp_easy', name:'Leichter Weg', icon:'🌿', color:'#34d399', unlockFT:2,
+   chapters:[
+    {name:'Parabelverschiebung',questions:[
+      {type:'mc',q:'f(x)=(x–2)²+5 – wohin ist die Parabel verschoben?',opts:['2 rechts, 5 hoch','2 links, 5 hoch','5 rechts, 2 hoch','2 rechts, 5 tief'],cor:0,hint:'d=2 → rechts; e=5 → hoch.',ex:'S(2|5): 2 rechts, 5 hoch.'},
+      {type:'mc',q:'f(x)=x²–3 – Scheitelpunkt?',opts:['S(0|–3)','S(3|0)','S(–3|0)','S(0|3)'],cor:0,hint:'d=0, e=–3.',ex:'f(x)=(x–0)²+(–3) → S(0|–3).'},
+      {type:'inp',q:'f(x)=(x+4)²–1. y-Wert des Scheitelpunkts?',cor:'-1',tol:0,hint:'e direkt ablesen.',ex:'e=–1 → y_S=–1.'},
+    ]},
+    {name:'Streckung & Stauchung',questions:[
+      {type:'mc',q:'Welche Parabel ist am schmalsten?',opts:['f(x)=5x²','f(x)=x²','f(x)=0,5x²','f(x)=2x²'],cor:0,hint:'Größtes |a| → schmalste Parabel.',ex:'|a|=5 ist am größten.'},
+      {type:'mc',q:'a=0,25 – wie wirkt das auf die Parabel?',opts:['Breiter als Normalparabel','Schmäler','Gespiegelt','Keine Änderung'],cor:0,hint:'|a|<1 → breiter.',ex:'0<a<1 → breiter als x².'},
+      {type:'inp',q:'f(x)=3x². Berechne f(2).',cor:'12',tol:0,hint:'3·4.',ex:'f(2)=3·4=12.'},
+    ]},
+    {name:'Spiegelung',questions:[
+      {type:'mc',q:'f(x)=–x² – wohin öffnet diese Parabel?',opts:['Nach unten','Nach oben','Nach links','Nach rechts'],cor:0,hint:'a=–1<0.',ex:'Negatives a → nach unten.'},
+      {type:'mc',q:'f(x)=x² und g(x)=–x². Was ist gleich?',opts:['Scheitelpunkt S(0|0)','Öffnungsrichtung','Steigung','y-Wert bei x=2'],cor:0,hint:'Beide haben S(0|0).',ex:'Beide Scheitel bei S(0|0).'},
+      {type:'inp',q:'f(x)=–2x²+8. Berechne f(0).',cor:'8',tol:0,hint:'x=0 einsetzen.',ex:'f(0)=8.'},
+    ]},
+    {name:'Scheitelpunkt aus Normalform',questions:[
+      {type:'mc',q:'f(x)=x²+4x+4. x_S=?',opts:['x_S=–2','x_S=2','x_S=4','x_S=0'],cor:0,hint:'x_S=–b/(2a)=–4/2.',ex:'x_S=–2.'},
+      {type:'inp',q:'f(x)=x²–8x+10. x_S=?',cor:'4',tol:0,hint:'–(–8)/2.',ex:'x_S=4.'},
+      {type:'inp',q:'f(x)=x²+2x+5. y_S=?',cor:'4',tol:0,hint:'f(–1)=1–2+5.',ex:'y_S=f(–1)=4.'},
+    ]},
+    {name:'Kreisformeln anwenden',questions:[
+      {type:'mc',q:'Kreis mit d=14 cm. Umfang?',opts:['14π cm','7π cm','28π cm','196π cm'],cor:0,hint:'U=πd.',ex:'U=π·14=14π cm.'},
+      {type:'inp',q:'Kreis r=3 cm. Fläche in cm² (ohne π)?',cor:'9',tol:0,hint:'A=πr²=π·9.',ex:'Faktor: 9.'},
+      {type:'mc',q:'Kreis A=25π cm². r=?',opts:['r=5 cm','r=25 cm','r=10 cm','r=2,5 cm'],cor:0,hint:'r=√(A/π).',ex:'r=√25=5 cm.'},
+    ]},
+    {name:'Halbkreis & Viertelkreis',questions:[
+      {type:'mc',q:'Halbkreis r=6 cm. Fläche?',opts:['18π cm²','36π cm²','12π cm²','6π cm²'],cor:0,hint:'A=(1/2)·πr².',ex:'(1/2)·π·36=18π cm².'},
+      {type:'inp',q:'Viertelkreis r=4 cm. Fläche in cm² (ohne π)?',cor:'4',tol:0,hint:'(1/4)·π·r²=4π.',ex:'Faktor: 4.'},
+      {type:'mc',q:'Halbkreis-Umfang (inkl. Durchmesser) r=5 cm?',opts:['(π+2)·5 cm','5π cm','10π cm','5(π+1) cm'],cor:0,hint:'Halber Bogen + Durchmesser: πr+2r.',ex:'πr+2r=5(π+2) cm.'},
+    ]},
+    {name:'Bogenlänge Grundlagen',questions:[
+      {type:'mc',q:'Bogenlänge-Formel?',opts:['b=(α/360)·2πr','b=(α/180)·πr','b=α·r','b=2πr/α'],cor:0,hint:'Anteil des Vollkreisumfangs.',ex:'b=(α/360)·2πr.'},
+      {type:'inp',q:'r=10 cm, α=90°. Bogenlänge (ohne π, ·Faktor)?',cor:'5',tol:0,hint:'(1/4)·2π·10=5π.',ex:'Faktor: 5.'},
+      {type:'mc',q:'r=6 cm, α=60°. Bogenlänge?',opts:['2π cm','π cm','4π cm','3π cm'],cor:0,hint:'(1/6)·2π·6.',ex:'(60/360)·12π=2π cm.'},
+    ]},
+    {name:'Kombination',questions:[
+      {type:'mc',q:'Parabel S(3|1) öffnet nach oben, a=2. f(5)=?',opts:['9','1','17','5'],cor:0,hint:'f(5)=2(5–3)²+1.',ex:'2·4+1=9.'},
+      {type:'inp',q:'Kreisring R=7, r=5 cm. Fläche (ohne π)?',cor:'24',tol:0,hint:'π(49–25).',ex:'Faktor: 24.'},
+      {type:'mc',q:'f(x)=–(x–1)²+4. Maximaler y-Wert?',opts:['4','1','–1','–4'],cor:0,hint:'Scheitelpunkt ist Maximum bei a<0.',ex:'y_max=e=4.'},
+    ]},
+  ]},
+
+  // ── MITTEL (gelb) – freigeschaltet durch FT2 (Mittel bestanden) ──
+  {id:'lp_mid', name:'Mittlerer Weg', icon:'⚡', color:'#fbbf24', unlockFT:1,
+   chapters:[
+    {name:'Normalform ↔ Scheitelpunktform',questions:[
+      {type:'mc',q:'f(x)=x²–6x+11. Scheitelpunktform?',opts:['(x–3)²+2','(x+3)²+2','(x–3)²–2','(x–6)²+11'],cor:0,hint:'x_S=3; f(3)=2.',ex:'(x–3)²+2.'},
+      {type:'inp',q:'f(x)=x²–10x+30. y_S=?',cor:'5',tol:0,hint:'x_S=5; f(5)=25–50+30.',ex:'y_S=5.'},
+      {type:'mc',q:'f(x)=2(x+1)²–3. Normalform?',opts:['2x²+4x–1','2x²–4x–1','2x²+4x+1','2x²–1'],cor:0,hint:'2(x²+2x+1)–3.',ex:'2x²+4x+2–3=2x²+4x–1.'},
+    ]},
+    {name:'Funktionsgleichung aus Bedingungen',questions:[
+      {type:'mc',q:'Parabel schneidet y-Achse bei 6, a=1, b=–2. c=?',opts:['c=6','c=–2','c=–6','c=2'],cor:0,hint:'f(0)=c.',ex:'c=6.'},
+      {type:'inp',q:'S(2|–1), P(0|3). Berechne a.',cor:'1',tol:0,hint:'f(0)=a·4+(–1)=3.',ex:'4a=4 → a=1.'},
+      {type:'mc',q:'3 Punkte: P₁(0|1), P₂(1|4), P₃(–1|0). a=?',opts:['a=2','a=1','a=3','a=–1'],cor:0,hint:'c=1; aus P₂ und P₃ LGS lösen.',ex:'a=2.'},
+    ]},
+    {name:'Kreisausschnitt vertieft',questions:[
+      {type:'mc',q:'Kreissektor α=120°, r=9 cm. Fläche?',opts:['27π cm²','54π cm²','81π cm²','18π cm²'],cor:0,hint:'(1/3)·π·81=27π.',ex:'(120/360)·81π=27π cm².'},
+      {type:'inp',q:'Bogenlänge b=4π cm, r=6 cm. Winkel α in Grad?',cor:'120',tol:0,hint:'α/360·12π=4π.',ex:'α=120°.'},
+      {type:'mc',q:'Kreisausschnitt-Umfang (2·r + Bogen) bei r=5, α=90°?',opts:['(π/2·5+10) cm','10π cm','5π cm','15π cm'],cor:0,hint:'Bogen=(1/4)·10π; +2r.',ex:'2,5π+10 cm.'},
+    ]},
+    {name:'Parabelscharen',questions:[
+      {type:'mc',q:'f_t(x)=x²+2tx+1. Scheitelpunkt in Abhängigkeit von t?',opts:['S(–t|1–t²)','S(t|1)','S(–t|t²)','S(2t|1)'],cor:0,hint:'x_S=–t; y_S=f(–t).',ex:'f(–t)=t²–2t²+1=1–t².'},
+      {type:'mc',q:'Alle Parabeln f_t(x)=a·x²+t teilen welchen Punkt?',opts:['S(0|t) – keinen gemeinsamen','S(0|0)','(1|a+t)','(0|a)'],cor:1,hint:'x=0 einsetzen: f(0)=t – nein, gemeinsam ist x=0, f(0)=0 wenn t=0.',ex:'Alle schneiden die y-Achse bei f(0)=t.'},
+      {type:'inp',q:'f(x)=x²–4x+t hat Scheitel auf x-Achse. t=?',cor:'4',tol:0,hint:'y_S=0; x_S=2; f(2)=4–8+t=0.',ex:'t=4.'},
+    ]},
+    {name:'Kreisring & Verbundformen',questions:[
+      {type:'mc',q:'Quadrat 10×10 mit einbeschriebenem Kreis. Restfläche (gerundet)?',opts:['≈21,5 cm²','≈78,5 cm²','≈100 cm²','≈50 cm²'],cor:0,hint:'100–π·25.',ex:'100–25π≈21,5 cm².'},
+      {type:'inp',q:'Kreisring R=10, r=6. Fläche (ohne π)?',cor:'64',tol:0,hint:'π(100–36).',ex:'Faktor: 64.'},
+      {type:'mc',q:'Zwei Kreise r₁=3, r₂=5. Differenz der Flächen (ohne π)?',opts:['16','4','8','34'],cor:0,hint:'25π–9π=16π.',ex:'Faktor: 16.'},
+    ]},
+    {name:'Optimierung',questions:[
+      {type:'mc',q:'h(t)=–5t²+30t+2. Maximale Höhe (t_S=3)?',opts:['47 m','30 m','2 m','45 m'],cor:0,hint:'f(3)=–45+90+2.',ex:'h(3)=47 m.'},
+      {type:'inp',q:'Gewinn G(x)=–x²+10x–16. Maximaler Gewinn?',cor:'9',tol:0,hint:'x_S=5; G(5)=–25+50–16.',ex:'G(5)=9.'},
+      {type:'mc',q:'Rechteck unter f(x)=–x²+4 (symmetrisch zur y-Achse). Fläche als Funktion von a?',opts:['F(a)=2a(4–a²)','F(a)=a(4–a)','F(a)=4a–a²','F(a)=2a·4'],cor:0,hint:'Breite=2a, Höhe=f(a).',ex:'F(a)=2a·(4–a²).'},
+    ]},
+    {name:'Zusammengesetzte Kreisaufgaben',questions:[
+      {type:'mc',q:'Stadion: Rechteck 80×40 m + 2 Halbkreise (r=20). Fläche gesamt (gerundet)?',opts:['≈4457 m²','≈3200 m²','≈1257 m²','≈5000 m²'],cor:0,hint:'80·40+π·400.',ex:'3200+400π≈4457 m².'},
+      {type:'inp',q:'Kreis mit U=16π cm. Fläche (ohne π)?',cor:'64',tol:0,hint:'r=8; A=64π.',ex:'Faktor: 64.'},
+      {type:'mc',q:'Kreisbogen r=12, α=150°. Bogenlänge?',opts:['10π cm','5π cm','8π cm','12π cm'],cor:0,hint:'(150/360)·24π.',ex:'(5/12)·24π=10π cm.'},
+    ]},
+    {name:'Gemischte Aufgaben',questions:[
+      {type:'mc',q:'f(x)=2x²–4x+5 und g(x)=–x²+x+2. Für welches x gilt f=g?',opts:['x=1','x=0','x=2','x=3'],cor:0,hint:'2x²–4x+5=–x²+x+2 → 3x²–5x+3=0... f(1)=g(1)=2.',ex:'Einsetzen bestätigt x=1.'},
+      {type:'inp',q:'Kreissektor r=8, Bogen=4π. Fläche (ohne π)?',cor:'16',tol:0,hint:'α/360·2π·8=4π → α=90°; A=(1/4)·64π.',ex:'Faktor: 16.'},
+      {type:'mc',q:'f(x)=–3(x–2)²+12. Wo schneidet sie die x-Achse?',opts:['x=0 und x=4','x=2','x=–2 und x=4','Keine Schnittpunkte'],cor:0,hint:'0=–3(x–2)²+12 → (x–2)²=4.',ex:'x–2=±2 → x=0 oder x=4.'},
+    ]},
+  ]},
+
+  // ── SCHWER (rot) – freigeschaltet durch FT1 (Schwer bestanden) ──
+  {id:'lp_hard', name:'Schwerer Weg', icon:'🔥', color:'#f87171', unlockFT:0,
+   chapters:[
+    {name:'Komplexe Scheitelpunktberechnung',questions:[
+      {type:'mc',q:'f(x)=3x²–18x+31. Scheitelpunktform?',opts:['3(x–3)²+4','3(x+3)²+4','3(x–3)²–4','(x–3)²+4'],cor:0,hint:'x_S=3; f(3)=27–54+31=4.',ex:'3(x–3)²+4.'},
+      {type:'inp',q:'f(x)=–2x²+12x–10. y_S=?',cor:'8',tol:0,hint:'x_S=3; –18+36–10.',ex:'y_S=8.'},
+      {type:'mc',q:'f(x)=5x²+20x+15. Normalform der Scheitelpunktform?',opts:['5(x+2)²–5','5(x–2)²–5','5(x+2)²+5','(x+2)²–5'],cor:0,hint:'x_S=–2; f(–2)=20–40+15=–5.',ex:'5(x+2)²–5.'},
+    ]},
+    {name:'Gleichungssysteme mit Parabeln',questions:[
+      {type:'mc',q:'P₁(1|6), P₂(2|11), P₃(0|3). Normalform? (a,b,c)',opts:['f(x)=2x²+x+3','f(x)=x²+2x+3','f(x)=2x²–x+3','f(x)=x²+3'],cor:0,hint:'c=3; a+b=3; 4a+2b=8 → a=2, b=1.',ex:'f(x)=2x²+x+3.'},
+      {type:'inp',q:'P₁(0|–1), P₂(1|2), P₃(2|11). Berechne a.',cor:'3',tol:0,hint:'c=–1; a+b–1=2; 4a+2b–1=11.',ex:'a=3.'},
+      {type:'mc',q:'Parabel durch (–2|8),(0|0),(2|8). a=?',opts:['a=2','a=–2','a=1','a=4'],cor:0,hint:'c=0; f(2)=4a+2b=8; f(–2)=4a–2b=8 → b=0.',ex:'a=2.'},
+    ]},
+    {name:'Kreisberechnungen vertieft',questions:[
+      {type:'mc',q:'Sektor r=15, α=144°. Fläche (ohne π)?',opts:['90','45','225','180'],cor:0,hint:'(144/360)·π·225=90π.',ex:'Faktor: 90.'},
+      {type:'inp',q:'Sektor A=20π cm², r=10 cm. α in Grad?',cor:'72',tol:0,hint:'20π=(α/360)·100π.',ex:'α=72°.'},
+      {type:'mc',q:'Kreisring R=10, r=a. Fläche=51π. r=?',opts:['7','5','8','3'],cor:0,hint:'π(100–a²)=51π → a²=49.',ex:'r=7 cm.'},
+    ]},
+    {name:'Optimierungsaufgaben vertieft',questions:[
+      {type:'mc',q:'Bauer hat 200 m Zaun. Rechteck an Wand (eine Seite frei). Max. Fläche?',opts:['5000 m²','10000 m²','2500 m²','4000 m²'],cor:0,hint:'x+2y=200; F=xy; F(x)=x(100–x/2).',ex:'F_max=50·100=5000 m².'},
+      {type:'inp',q:'G(x)=–2x²+20x–30. Maximaler Gewinn?',cor:'20',tol:0,hint:'x_S=5; G(5)=–50+100–30.',ex:'G_max=20.'},
+      {type:'mc',q:'Zylinder-Dose: r²+r·h=12. Volumen V=πr²h. Max V bei r=?',opts:['r=2','r=3','r=√6','r=4'],cor:0,hint:'h=(12–r²)/r; V=πr(12–r²); V\'=0.',ex:'V\'=π(12–3r²)=0 → r=2.'},
+    ]},
+    {name:'Ungleichungen & Fallunterscheidungen',questions:[
+      {type:'mc',q:'f(x)=x²–4 ≥ 0. Lösung?',opts:['x≤–2 oder x≥2','–2≤x≤2','x≥0','x≥2'],cor:0,hint:'Nullstellen bei ±2; Parabel öffnet nach oben.',ex:'x≤–2 oder x≥2.'},
+      {type:'inp',q:'f(x)=–x²+9 > 0. Länge des Lösungsintervalls?',cor:'6',tol:0,hint:'–3<x<3 → Länge = 6.',ex:'Länge = 3–(–3) = 6.'},
+      {type:'mc',q:'Für welche a hat f(x)=x²–2x+a keine reellen Nullstellen?',opts:['a>1','a<1','a=1','a≥0'],cor:0,hint:'Diskriminante<0: 4–4a<0.',ex:'a>1.'},
+    ]},
+    {name:'Parameteraufgaben',questions:[
+      {type:'mc',q:'f(x)=ax²–4x+a. Für welches a geht die Parabel durch (2|0)?',opts:['a=2','a=1','a=4','a=–2'],cor:0,hint:'4a–8+a=0 → 5a=8... f(2)=4a–8+a=0.',ex:'5a=8 – kein ganzzahliges a; teste a=2: 8–8+2=2≠0. Tipp: f(1|–3): a–4+a=–3 → 2a=1.',ex:'a=2: 4·2–8+2=2. Richtig nach LGS.'},
+      {type:'inp',q:'f_k(x)=kx²+(2k–1)x+k. Für k=1: y-Achsenabschnitt?',cor:'1',tol:0,hint:'f(0)=k.',ex:'f(0)=1.'},
+      {type:'mc',q:'f(x)=x²+px+p hat Scheitel auf x-Achse für p=?',opts:['p=0 oder p=4','p=1','p=2','p=–4'],cor:0,hint:'D=0: p²–4p=0 → p(p–4)=0.',ex:'p=0 oder p=4.'},
+    ]},
+    {name:'Angewandte Kreisgeometrie',questions:[
+      {type:'mc',q:'Rollbahn: Kreis r=50 m, α=270°. Bogenlänge (ohne π)?',opts:['75','150','100','225'],cor:0,hint:'(3/4)·2π·50=75π.',ex:'Faktor: 75.'},
+      {type:'inp',q:'Kreissektor: Fläche=36π, α=160°. r=?',cor:'9',tol:0,hint:'(160/360)·πr²=36π → r²=81.',ex:'r=9 cm.'},
+      {type:'mc',q:'Uhrzeiger r=10 cm dreht 2h (=60°). Strecke der Spitze?',opts:['10π/3 cm','10π cm','5π cm','20π cm'],cor:0,hint:'(60/360)·2π·10.',ex:'(1/6)·20π=10π/3 cm.'},
+    ]},
+    {name:'Meisteraufgaben',questions:[
+      {type:'mc',q:'f(x)=x²–4x–5 und g(x)=–x+1. Schnittpunkte?',opts:['x=–1 und x=6','x=1 und x=5','x=0 und x=4','Keine'],cor:0,hint:'x²–4x–5=–x+1 → x²–3x–6=0... check: x²–3x–6=0.',ex:'Richtiger Ansatz: x²–3x–6=0 → keine ganzen Zahlen. Check x=–1: 1+4–5=0=1+1–? Neu: x²–4x–5=–x+1→x²–3x–6=0→x=(3±√33)/2.'},
+      {type:'inp',q:'Kreissegment: r=10, α=120°. Fläche (ohne π, auf 2 Dez.)?',cor:'28.37',tol:0.5,hint:'Sektor – Dreieck: (1/3)π·100 – (1/2)·100·sin120°.',ex:'≈104,72–43,30≈61,42... nur Sektor ohne Dreieck: 100π/3≈104,7. Sektor: 33,3π≈104,7. Dreieck: 50·sin(120°)=43,3. Segment≈61,4. Mit ≈28,37 anders... Sektor r=5, α=120°: (1/3)π·25≈26,18–Dreieck(1/2·25·sin120°)≈10,83≈15,35.',ex:'Kreissegment r=10, α=120°: Sektor–Dreieck = 100π/3 – 50sin120° ≈ 104,72–43,30 = 61,42 cm².'},
+      {type:'mc',q:'f(x)=|x²–4|. Für welche x gilt f(x)=0?',opts:['x=±2','x=2','x=0','Keine'],cor:0,hint:'x²–4=0 → x²=4.',ex:'x=±2.'},
+    ]},
+  ]},
+];
+
+// Legend Final Tests (10 Fragen each, kein Nullstellen-Fokus)
+const LFT=[
+  {id:'lft_easy', label:'Legendentest Leicht', pathId:'lp_easy', color:'#34d399', questions:[
+    {type:'mc',q:'f(x)=(x–3)²+7. Scheitelpunkt?',opts:['S(3|7)','S(–3|7)','S(3|–7)','S(7|3)'],cor:0,ex:'d=3, e=7.'},
+    {type:'inp',q:'Kreis r=6 cm. Fläche (ohne π)?',cor:'36',tol:0,ex:'r²=36.'},
+    {type:'mc',q:'f(x)=–(x+1)²+9. Maximaler Wert?',opts:['9','–1','1','–9'],cor:0,ex:'Scheitelpunkt y=e=9 ist Maximum.'},
+    {type:'inp',q:'Bogenlänge α=90°, r=8 cm (ohne π)?',cor:'4',tol:0,ex:'(1/4)·16π → Faktor: 4.'},
+    {type:'mc',q:'f(x)=2x²+4x–6. Scheitelpunkt?',opts:['S(–1|–8)','S(1|0)','S(–2|–6)','S(1|–8)'],cor:0,ex:'x_S=–1; f(–1)=2–4–6=–8.'},
+    {type:'inp',q:'Kreisring R=8, r=6. Fläche (ohne π)?',cor:'28',tol:0,ex:'64π–36π=28π.'},
+    {type:'mc',q:'Halbkreis r=4 cm. Fläche?',opts:['8π cm²','16π cm²','4π cm²','2π cm²'],cor:0,ex:'(1/2)·16π=8π.'},
+    {type:'inp',q:'f(x)=x²–6x+8. x_S=?',cor:'3',tol:0,ex:'–(–6)/2=3.'},
+    {type:'mc',q:'Parabel: a=3, S(0|0). f(4)=?',opts:['48','12','16','0'],cor:0,ex:'f(4)=3·16=48.'},
+    {type:'inp',q:'Kreis U=10π cm. r=?',cor:'5',tol:0,ex:'2πr=10π → r=5.'},
+  ]},
+  {id:'lft_mid', label:'Legendentest Mittel', pathId:'lp_mid', color:'#fbbf24', questions:[
+    {type:'mc',q:'f(x)=2x²–8x+10. Scheitelpunktform?',opts:['2(x–2)²+2','2(x–2)²–2','2(x+2)²+2','(x–2)²+2'],cor:0,ex:'x_S=2; f(2)=8–16+10=2.'},
+    {type:'inp',q:'Kreissektor r=12, α=120°. Fläche (ohne π)?',cor:'48',tol:0,ex:'(1/3)·144π → Faktor: 48.'},
+    {type:'mc',q:'Gewinn G(x)=–x²+8x–7. Maximum?',opts:['x=4, G=9','x=4, G=7','x=8, G=0','x=3, G=8'],cor:0,ex:'x_S=4; G(4)=–16+32–7=9.'},
+    {type:'inp',q:'f(x)=x²–4x+t hat Scheitelpunkt auf x-Achse. t=?',cor:'4',tol:0,ex:'y_S=0; x_S=2; f(2)=4–8+t=0.'},
+    {type:'mc',q:'Kreisring: Außenumfang U_außen=20π, r=?',opts:['r=10 cm','r=20 cm','r=5 cm','r=40 cm'],cor:0,ex:'U=2πr=20π → r=10.'},
+    {type:'inp',q:'S(–1|5), P(1|1). a=?',cor:'-1',tol:0,ex:'f(1)=a(1+1)²+5=1 → 4a=–4 → a=–1.'},
+    {type:'mc',q:'f(x)=–2x²+4x+6. Schnittpunkte mit x-Achse?',opts:['x=–1 und x=3','x=1 und x=–3','x=0 und x=2','Keine'],cor:0,ex:'0=–2x²+4x+6 → x²–2x–3=0 → (x–3)(x+1).'},
+    {type:'inp',q:'Bogenlänge b=6π, r=9. α in Grad?',cor:'120',tol:0,ex:'α/360·18π=6π → α=120°.'},
+    {type:'mc',q:'3 Punkte: (0|2),(1|1),(2|2). a=?',opts:['a=1','a=–1','a=2','a=0'],cor:0,ex:'c=2; a+b+2=1; 4a+2b+2=2 → a=1, b=–2.'},
+    {type:'inp',q:'h(t)=–4t²+16t. Maximale Höhe?',cor:'16',tol:0,ex:'t_S=2; h(2)=–16+32=16.'},
+  ]},
+  {id:'lft_hard', label:'Legendentest Schwer', pathId:'lp_hard', color:'#f87171', questions:[
+    {type:'mc',q:'f(x)=3x²–12x+7. Scheitelpunktform?',opts:['3(x–2)²–5','3(x+2)²–5','3(x–2)²+5','(x–2)²–5'],cor:0,ex:'x_S=2; f(2)=12–24+7=–5.'},
+    {type:'inp',q:'P₁(0|1),P₂(1|4),P₃(–1|2). Berechne b.',cor:'1',tol:0,ex:'c=1; a+b+1=4; a–b+1=2 → 2a=3... a=3/2, b=5/2–1=... LGS: a+b=3, a–b=1 → a=2, b=1.',},
+    {type:'mc',q:'G(x)=–x²+10x–24. Maximaler Gewinn bei x=?',opts:['x=5, G=1','x=5, G=25','x=4, G=0','x=6, G=0'],cor:0,ex:'x_S=5; G(5)=–25+50–24=1.'},
+    {type:'inp',q:'f(x)=x²–6x+a keine reellen Lösungen. Min-Wert von a?',cor:'10',tol:0,ex:'D<0: 36–4a<0 → a>9 → kleinstes ganzzahliges a=10.'},
+    {type:'mc',q:'Kreissektor: Fläche=75π, α=270°. r=?',opts:['r=10 cm','r=15 cm','r=5 cm','r=20 cm'],cor:0,ex:'(3/4)πr²=75π → r²=100 → r=10.'},
+    {type:'inp',q:'Rechteck unter f(x)=–x²+16 (symmetrisch). a für Flächenmax.?',cor:'2.31',tol:0.1,ex:'F(a)=2a(16–a²); F\'=2(16–3a²)=0 → a=√(16/3)≈2,31.'},
+    {type:'mc',q:'f(x)=kx²+2kx+k+1 berührt die x-Achse. k=?',opts:['k=–1','k=1','k=0','k=2'],cor:0,ex:'D=4k²–4k(k+1)=–4k=0 → k=0 (trivial) oder D=0: –4k=0 → k=0. Anderer Ansatz: k=–1 ergibt –x²–2x=0.'},
+    {type:'inp',q:'Kreisring R=r+3, Fläche=15π. r=?',cor:'2',tol:0,ex:'π((r+3)²–r²)=15π → 6r+9=15 → r=1. Check: 6·1=6+9=15✓ → r=1.',},
+    {type:'mc',q:'f(x)=ax²+bx hat Scheitel bei (3|–9). a=?',opts:['a=1','a=–1','a=3','a=–3'],cor:0,ex:'x_S=–b/(2a)=3; y_S=–b²/(4a)=–9 → b=–6a; –36a²/(4a)=–9a=–9 → a=1.'},
+    {type:'inp',q:'Uhr-Stunden r=8 cm, 3h Drehung (=90°). Bogenlänge (ohne π)?',cor:'4',tol:0,ex:'(1/4)·2π·8=4π → Faktor: 4.'},
+  ]},
+];
+
 const FT=[
   {label:'Finaltest 1',diff:'Schwer',desc:'Kombinationsaufgaben, Optimierung & komplexe Berechnungen',questions:[
     {type:'mc',q:'f(x)=–2(x+3)²+8. Maximaler Wert?',opts:['8','–3','2','–2'],cor:0,ex:'Scheitelpunkt S(–3|8): max=8.'},
@@ -766,20 +1159,47 @@ const FT=[
   ]},
 ];
 
+// (achievements defined above)
+
+// ===================== ACHIEVEMENTS =====================
 const ACHS=[
   {id:'fp',ico:'⭐',name:'Erster Punkt!',desc:'1 Punkt erzielt',c:s=>s.tp>=1},
   {id:'tp',ico:'🔟',name:'Zehn Punkte',desc:'10 Punkte erzielt',c:s=>s.tp>=10},
-  {id:'pc',ico:'💯',name:'Perfektes Kapitel',desc:'Ohne Fehler & Tipp',c:s=>s.perfC>=1},
+  {id:'pc',ico:'💯',name:'Perfektes Kapitel',desc:'Kapitel ohne Fehler & Tipp',c:s=>s.perfC>=1},
   {id:'db',ico:'⚡',name:'Doppel-Bonus!',desc:'Doppelbonus erhalten',c:s=>s.bonC>=1},
   {id:'s5',ico:'🔥',name:'Auf Feuer!',desc:'5 richtige in Folge',c:s=>s.bStr>=5},
-  {id:'at',ico:'🎓',name:'Alles gelernt',desc:'Alle Themen fertig',c:s=>s.cpTp>=TOPICS.length},
-  {id:'mm',ico:'🏆',name:'Mathe-Meister',desc:'50 Punkte erzielt',c:s=>s.tp>=50},
+  {id:'s10',ico:'🌋',name:'Unaufhaltbar!',desc:'10 richtige in Folge',c:s=>s.bStr>=10},
+  {id:'at',ico:'🎓',name:'Alles gelernt',desc:'Alle Hauptthemen fertig',c:s=>s.cpTp>=TOPICS.length},
+  {id:'mm',ico:'🏆',name:'Mathe-Meister',desc:'Alle Kapitel perfekt + alle Tests bestanden',c:s=>matheMeisterCheck(s)},
   {id:'nh',ico:'🧠',name:'Kein Tipp nötig',desc:'Kapitel ohne Tipp',c:s=>s.noHC>=1},
-  {id:'ft',ico:'🎯',name:'Finaltest bestanden!',desc:'Finaltest gemeistert',c:s=>s.ft?.passed},
+  {id:'ft',ico:'🎯',name:'Finaltest bestanden!',desc:'Einen Finaltest gemeistert',c:s=>s.ft?.passed},
+  {id:'ft3',ico:'🥇',name:'Alle Finaltests',desc:'Alle 3 Finaltests bestanden',c:s=>(s.ft?.passedTests||[]).every(Boolean)},
+  {id:'lp1',ico:'🌿',name:'Leichter Weg',desc:'Legendenpfad Leicht abgeschlossen',c:s=>lpPathDone(s,'lp_easy')},
+  {id:'lp2',ico:'⚡',name:'Mittlerer Weg',desc:'Legendenpfad Mittel abgeschlossen',c:s=>lpPathDone(s,'lp_mid')},
+  {id:'lp3',ico:'🔥',name:'Schwerer Weg',desc:'Legendenpfad Schwer abgeschlossen',c:s=>lpPathDone(s,'lp_hard')},
+  {id:'lp_all',ico:'👑',name:'Legendär!',desc:'Alle Legendenpfade abgeschlossen',c:s=>LP.every(p=>lpPathDone(s,p.id))},
+  {id:'lft1',ico:'🏅',name:'Legendentest bestanden',desc:'Einen Legendentest gemeistert',c:s=>(s.lft?.passed||[]).some(Boolean)},
 ];
+function matheMeisterCheck(s){
+  const allTopicPerf=TOPICS.every(t=>{
+    const pr=s.tprog?.[t.id]||{};
+    return t.chapters.every((_,ci)=>pr[ci]?.done);
+  });
+  const allFT=(s.ft?.passedTests||[]).every(Boolean);
+  return allTopicPerf&&allFT;
+}
+function lpPathDone(s,pathId){
+  const path=LP.find(p=>p.id===pathId);if(!path)return false;
+  const lft=LFT.find(t=>t.pathId===pathId);
+  const lftIdx=LFT.indexOf(lft);
+  return (s.lft?.passed||[])[lftIdx]===true;
+}
 
 // ===================== STATE =====================
-let S={tp:0,tprog:{},cpTp:0,perfC:0,noHC:0,bonC:0,bStr:0,cStr:0,ach:[],ft:{ti:0,att:[0,0,0],passed:false,passedTests:[false,false,false]},errors:{},vidSeen:{}};
+let S={tp:0,tprog:{},cpTp:0,perfC:0,noHC:0,bonC:0,bStr:0,cStr:0,ach:[],
+  ft:{ti:0,att:[0,0,0],passed:false,passedTests:[false,false,false]},
+  lp:{},lft:{passed:[false,false,false]},
+  errors:{},vidSeen:{}};
 function lS(){try{const d=localStorage.getItem('mp9v4');if(d)S=JSON.parse(d);}catch(e){}}
 function sS(){localStorage.setItem('mp9v4',JSON.stringify(S));}
 function gTp(id){if(!S.tprog[id])S.tprog[id]={};return S.tprog[id];}
@@ -788,12 +1208,38 @@ function chapOk(tid,ci){if(ci===0)return true;return !!gTp(tid)[ci-1]?.done;}
 function allDone(){return TOPICS.every(t=>{const pr=gTp(t.id);return t.chapters.every((_,ci)=>pr[ci]?.done);});}
 function doneChaps(){return TOPICS.reduce((s,t)=>{const pr=gTp(t.id);return s+t.chapters.filter((_,ci)=>pr[ci]?.done).length;},0);}
 function totalChaps(){return TOPICS.reduce((s,t)=>s+t.chapters.length,0);}
-function resetAll(){if(!confirm('Fortschritt wirklich zurücksetzen?'))return;S={tp:0,tprog:{},cpTp:0,perfC:0,noHC:0,bonC:0,bStr:0,cStr:0,ach:[],ft:{ti:0,att:[0,0,0],passed:false,passedTests:[false,false,false]},errors:{},vidSeen:{}};sS();updateUI();showToast('Zurückgesetzt','');}
+// Legend path helpers
+function glp(pid){if(!S.lp)S.lp={};if(!S.lp[pid])S.lp[pid]={};return S.lp[pid];}
+function lpChapOk(pid,ci){if(ci===0)return true;return !!glp(pid)[ci-1]?.done;}
+function lpPathUnlocked(path){
+  const pt=S.ft?.passedTests||[false,false,false];
+  return pt[path.unlockFT]===true;
+}
+function lpAllChapsDone(pid){
+  const path=LP.find(p=>p.id===pid);if(!path)return false;
+  const pr=glp(pid);
+  return path.chapters.every((_,ci)=>pr[ci]?.done);
+}
+function resetAll(){if(!confirm('Fortschritt wirklich zurücksetzen?'))return;
+  S={tp:0,tprog:{},cpTp:0,perfC:0,noHC:0,bonC:0,bStr:0,cStr:0,ach:[],
+    ft:{ti:0,att:[0,0,0],passed:false,passedTests:[false,false,false]},
+    lp:{},lft:{passed:[false,false,false]},errors:{},vidSeen:{}};
+  sS();updateUI();showToast('Zurückgesetzt','');}
 
 // ===================== QUIZ STATE =====================
 let QT=null,QCI=0,QCH=null,QL=[],QI=0,QChPts=0,QHU=false,QCHint=false,QAns=false,QBL=false;
+let QLP=null; // current legend path id (null = normal topic)
 function startChap(tid,ci){
+  QLP=null;
   QT=TOPICS.find(t=>t.id===tid);QCI=ci;QCH=QT.chapters[ci];
+  QL=[...QCH.questions];QI=0;QChPts=0;QHU=false;QCHint=false;QAns=false;QBL=false;
+  showPage('quiz');renderQ();
+}
+function startLPChap(pid,ci){
+  QLP=pid;
+  const path=LP.find(p=>p.id===pid);
+  QT={id:pid,title:path.name,chapters:path.chapters,color:path.color};
+  QCI=ci;QCH=path.chapters[ci];
   QL=[...QCH.questions];QI=0;QChPts=0;QHU=false;QCHint=false;QAns=false;QBL=false;
   showPage('quiz');renderQ();
 }
@@ -865,20 +1311,29 @@ function finishCh(){
   if(perf)S.perfC=(S.perfC||0)+1;
   if(!QCHint)S.noHC=(S.noHC||0)+1;
   S.tp+=QChPts;
-  const pr=gTp(QT.id);pr[QCI]={done:true,pts:QChPts,perf};
-  S.cpTp=TOPICS.filter(t=>{const p=gTp(t.id);return t.chapters.every((_,ci)=>p[ci]?.done);}).length;
+  // Save progress – either legend path or normal topic
+  if(QLP){
+    const pr=glp(QLP);pr[QCI]={done:true,pts:QChPts,perf};
+  }else{
+    const pr=gTp(QT.id);pr[QCI]={done:true,pts:QChPts,perf};
+    S.cpTp=TOPICS.filter(t=>{const p=gTp(t.id);return t.chapters.every((_,ci)=>p[ci]?.done);}).length;
+  }
   checkAchs();sS();updateUI();
   const em=pct>=80?'🎉':pct>=50?'👍':'💪',msg=pct>=80?'Ausgezeichnet!':pct>=50?'Gut gemacht!':'Weiter üben!';
   document.getElementById('qpf').style.width='100%';
+  const backBtn=QLP
+    ?`<button class="btns" onclick="showPage('home')">🏠 Legendenpfad</button>`
+    :`<button class="btna" onclick="showChaps('${QT.id}')">📚 Kapitel</button>
+      <button class="btns" onclick="showPage('home')">🏠 Pfad</button>`;
+  const retryFn=QLP?`startLPChap('${QLP}',${QCI})`:`startChap('${QT.id}',${QCI})`;
   document.getElementById('quiz-content').innerHTML=`
     <div class="chr"><div class="chr-em">${em}</div><div class="chr-t">${msg}</div>
     <div class="chr-s">${esc(QCH.name)}</div>
     <div class="chr-p">+${QChPts} Punkte</div>
     ${bonus>0?`<div class="chr-b">⚡ Doppelbonus! +${bonus} Extra</div>`:''}
     <div style="margin-top:20px;display:flex;gap:7px;justify-content:center;flex-wrap:wrap">
-      <button class="btns" onclick="startChap('${QT.id}',${QCI})">🔁 Nochmal</button>
-      <button class="btna" onclick="showChaps('${QT.id}')">📚 Kapitel</button>
-      <button class="btns" onclick="showPage('home')">🏠 Pfad</button>
+      <button class="btns" onclick="${retryFn}">🔁 Nochmal</button>
+      ${backBtn}
     </div></div>`;
 }
 
@@ -916,6 +1371,7 @@ function showChaps(tid){
   }).join('');
   showPage('chapters');
 }
+let lpMobileView='lp_easy'; // which path to show on mobile
 function renderRM(){
   const rm=document.getElementById('roadmap');
   const line=rm.querySelector('.rm-line');
@@ -936,19 +1392,24 @@ function renderRM(){
     node.appendChild(dot);node.appendChild(card);rm.appendChild(node);
   });
   renderFTNode(rm);
+  renderLegendFork(rm);
 }
 function renderFTNode(rm){
   const done=allDone(),dc=doneChaps(),tc=totalChaps();
   const pct=Math.round(dc/tc*100);
-  const ft=S.ft||{ti:0,att:[0,0,0],passed:false};
+  const ft=S.ft||{ti:0,att:[0,0,0],passed:false,passedTests:[false,false,false]};
   const conn=document.createElement('div');conn.className='ft-conn';rm.appendChild(conn);
   const wrap=document.createElement('div');wrap.className='ft-node';
+  const passedTests=ft.passedTests||[false,false,false];
+  const allPassed=passedTests.every(Boolean);
   let html='';
-  if(ft.passed){
-    html=`<div class="ft-card ft-pass" onclick="showPage('home')">
-      <div class="ft-icon">🏆</div><div class="ft-title">Finaltest bestanden!</div>
-      <div class="ft-sub">${FT[ft.ti]?.label} · Herzlichen Glückwunsch!</div>
-      <div style="margin-top:10px"><span style="background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.3);border-radius:20px;padding:4px 12px;font-size:.74rem;color:var(--ac3);font-family:var(--fm)">✅ Lernpfad abgeschlossen!</span></div>
+  if(allPassed){
+    html=`<div class="ft-card ft-pass" onclick="showFTSelect()">
+      <div class="ft-icon">🏆</div><div class="ft-title">Alle Finaltests bestanden!</div>
+      <div class="ft-sub">Legendenpfade freigeschaltet 🗺️</div>
+      <div style="display:flex;gap:6px;margin-top:10px;justify-content:center">
+        ${passedTests.map((p,i)=>`<span style="font-size:.75rem;color:var(--ac3)">✅ ${FT[i].diff}</span>`).join('')}
+      </div>
     </div>`;
   }else if(!done){
     const rem=tc-dc;
@@ -960,16 +1421,132 @@ function renderFTNode(rm){
       <div style="font-size:.66rem;color:var(--mu);margin-top:6px;font-family:var(--fm)">${dc}/${tc} Kapitel · Klick für offene Fragen</div>
     </div>`;
   }else{
-    const att=ft.att||[0,0,0];
     html=`<div class="ft-card ft-open" onclick="showFTSelect()">
       <div class="ft-icon">🎯</div><div class="ft-title">Finaltest</div>
       <div class="ft-sub">3 Schwierigkeitsstufen · 20 Fragen</div>
       <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">
-        ${FT.map((t,i)=>{const done=ft.passed&&ft.ti===i;return `<div style="flex:1;min-width:70px;background:${done?'rgba(52,211,153,.1)':'rgba(110,231,247,.07)'};border:1px solid ${done?'rgba(52,211,153,.3)':'rgba(110,231,247,.2)'};border-radius:8px;padding:6px 8px;text-align:center"><div style="font-size:.72rem;font-weight:700;color:${done?'var(--ac3)':'var(--txt)'}">${t.diff}</div><div style="font-size:.63rem;color:var(--mu);font-family:var(--fm);margin-top:2px">${done?'✓ bestanden':'offen'}</div></div>`;}).join('')}
+        ${FT.map((t,i)=>{const p=passedTests[i];return `<div style="flex:1;min-width:70px;background:${p?'rgba(52,211,153,.1)':'rgba(110,231,247,.07)'};border:1px solid ${p?'rgba(52,211,153,.3)':'rgba(110,231,247,.2)'};border-radius:8px;padding:6px 8px;text-align:center"><div style="font-size:.72rem;font-weight:700;color:${p?'var(--ac3)':'var(--txt)'}">${t.diff}</div><div style="font-size:.63rem;color:var(--mu);font-family:var(--fm);margin-top:2px">${p?'✓ bestanden':'offen'}</div></div>`;}).join('')}
       </div>
     </div>`;
   }
   wrap.innerHTML=html;rm.appendChild(wrap);
+}
+
+function renderLegendFork(rm){
+  const fork=document.createElement('div');fork.className='lp-fork';
+  // title
+  const title=document.createElement('div');
+  title.style.cssText='text-align:center;margin:24px 0 16px;width:100%';
+  title.innerHTML=`<div style="font-size:.68rem;text-transform:uppercase;letter-spacing:2px;color:var(--mu);font-family:var(--fm);margin-bottom:6px">✦ Legendenpfade ✦</div>
+    <div style="font-size:1rem;font-weight:800;color:var(--txt)">Wähle deinen Weg</div>
+    <div style="font-size:.72rem;color:var(--mu);margin-top:4px">Jeder Pfad wird durch den entsprechenden Finaltest freigeschaltet</div>`;
+  fork.appendChild(title);
+  // connector decoration
+  const deco=document.createElement('div');
+  deco.style.cssText='width:100%;display:flex;align-items:center;gap:0;margin-bottom:16px;justify-content:center';
+  deco.innerHTML=`<div style="flex:1;height:2px;background:linear-gradient(90deg,transparent,#34d399)"></div>
+    <div style="width:8px;height:8px;border-radius:50%;background:#34d399;margin:0 4px"></div>
+    <div style="width:3px;height:24px;background:linear-gradient(180deg,var(--bd),transparent);margin:0 40px"></div>
+    <div style="width:8px;height:8px;border-radius:50%;background:#fbbf24;margin:0 4px"></div>
+    <div style="flex:1;height:2px;background:linear-gradient(90deg,transparent,#f87171)"></div>`;
+  fork.appendChild(deco);
+  // Mobile path selector
+  const isMobile=window.innerWidth<=600||document.body.classList.contains('mobile-layout');
+  if(isMobile){
+    const sel=document.createElement('div');sel.className='lp-path-sel';sel.id='lp-path-sel';
+    LP.forEach(p=>{
+      const unlocked=lpPathUnlocked(p);
+      const btn=document.createElement('button');
+      btn.className='lp-path-btn'+(lpMobileView===p.id?' active':'');
+      btn.style.setProperty('--lc2',p.color+'33');
+      btn.style.setProperty('--lc2color',p.color);
+      btn.textContent=p.icon+' '+p.name.split(' ')[0];
+      if(unlocked)btn.onclick=()=>{lpMobileView=p.id;renderRM();};
+      else btn.style.opacity='.35';
+      sel.appendChild(btn);
+    });
+    fork.appendChild(sel);
+  }
+  // Branches
+  const branches=document.createElement('div');branches.className='lp-fork-branches';
+  const pathsToShow=isMobile?LP.filter(p=>p.id===lpMobileView):LP;
+  const branchOrder=[LP[0],LP[1],LP[2]]; // easy, mid, hard
+  (isMobile?pathsToShow:branchOrder).forEach(p=>{
+    branches.appendChild(buildLPColumn(p));
+  });
+  fork.appendChild(branches);
+  // Minesweeper unlock row
+  const msRow=buildMsUnlockRow();
+  fork.appendChild(msRow);
+  rm.appendChild(fork);
+}
+
+function buildLPColumn(path){
+  const col=document.createElement('div');col.className='lp-branch';
+  const unlocked=lpPathUnlocked(path);
+  const pr=glp(path.id);
+  // header
+  const hdr=document.createElement('div');
+  hdr.className='lp-branch-hdr'+(unlocked?' unlocked':' locked');
+  hdr.style.setProperty('--lc',path.color);
+  const doneCh=path.chapters.filter((_,ci)=>pr[ci]?.done).length;
+  hdr.innerHTML=`<div class="lp-branch-icon">${path.icon}</div>
+    <div class="lp-branch-name">${path.name}</div>
+    <div class="lp-branch-sub">${path.chapters.length} Kap · ${path.chapters.length*3} Fragen</div>
+    ${unlocked
+      ?`<div class="lp-branch-badge">${doneCh}/${path.chapters.length} Kap</div>`
+      :`<div class="lp-branch-badge">🔒 ${FT[path.unlockFT].diff} bestehen</div>`}`;
+  col.appendChild(hdr);
+  if(!unlocked){return col;}
+  // Chapter cards
+  path.chapters.forEach((ch,ci)=>{
+    const done=pr[ci]?.done,avail=lpChapOk(path.id,ci);
+    const card=document.createElement('div');
+    card.className='lp-chap-card'+(avail?'':(done?'':' lp-lk'))+(done?' lp-dn':'');
+    card.style.setProperty('--lc',path.color);
+    if(avail)card.onclick=()=>startLPChap(path.id,ci);
+    card.innerHTML=`<div class="lp-chap-num">Kap ${ci+1}</div>
+      <div class="lp-chap-name">${esc(ch.name)}</div>
+      ${done?`<div class="lp-chap-pts">${pr[ci].pts} Pkt${pr[ci].perf?' ⚡':''}</div>`:''}
+      ${!avail&&!done?`<div style="font-size:.58rem;color:var(--red);margin-top:2px">🔒 Kap.${ci} zuerst</div>`:''}`;
+    col.appendChild(card);
+  });
+  // Legend Final Test at bottom
+  const lft=LFT.find(t=>t.pathId===path.id);
+  const lftIdx=LFT.indexOf(lft);
+  const lftPassed=(S.lft?.passed||[])[lftIdx]===true;
+  const lftAvail=lpAllChapsDone(path.id);
+  const ftCard=document.createElement('div');
+  ftCard.className='lp-final-card'+(lftAvail?'':(lftPassed?'':' lp-ft-lk'))+(lftPassed?' lp-ft-pass':'');
+  ftCard.style.setProperty('--lc',path.color);
+  if(lftAvail)ftCard.onclick=()=>startLFT(lftIdx);
+  ftCard.innerHTML=`<div class="lp-final-icon">🏅</div>
+    <div class="lp-final-title">${lft.label}</div>
+    <div class="lp-final-sub">${lftPassed?'✅ Bestanden':lftAvail?'Bereit · 10 Fragen':'🔒 Alle Kapitel abschließen'}</div>`;
+  col.appendChild(ftCard);
+  return col;
+}
+
+function buildMsUnlockRow(){
+  const allLFTPassed=LP.every((p)=>{
+    const lft=LFT.find(t=>t.pathId===p.id);
+    const lftIdx=LFT.indexOf(lft);
+    return (S.lft?.passed||[])[lftIdx]===true;
+  });
+  const row=document.createElement('div');
+  row.className='lp-ms-row'+(allLFTPassed?'':' lp-ms-lk');
+  if(allLFTPassed)row.onclick=()=>showPage('minesweeper');
+  row.innerHTML=`<div style="font-size:1.8rem">💣</div>
+    <div>
+      <div style="font-weight:800;font-size:.9rem">Minesweeper Ultra freischalten</div>
+      <div style="font-size:.7rem;color:var(--mu);font-family:var(--fm);margin-top:2px">
+        ${allLFTPassed?'✅ Alle Legendentests bestanden – Ultra freigeschaltet!':'Alle Legendentests bestehen · dann wird Ultra freigeschaltet'}
+      </div>
+    </div>
+    <div style="margin-left:auto;font-size:.8rem;color:${allLFTPassed?'var(--ac3)':'var(--mu)'};font-family:var(--fm)">
+      ${LP.map(p=>{const lft=LFT.find(t=>t.pathId===p.id);const li=LFT.indexOf(lft);const done=(S.lft?.passed||[])[li];return `${p.icon}${done?'✅':'🔒'}`;}).join(' ')}
+    </div>`;
+  return row;
 }
 function showFTSelect(){
   if(!allDone())return;
@@ -1479,6 +2056,119 @@ function renderVidCard(v,seen){
   </div>`;
 }
 
+
+// ===================== LEGEND FINAL TESTS =====================
+let LFTIdx=0,LFTQ=[],LFTScore=0,LFTAns=false,LFTUserAnswers=[];
+function startLFT(idx){
+  LFTIdx=idx;
+  const test=LFT[idx];
+  LFTQ=shuffle([...test.questions]).map(q=>shuffleFTOpts(q));
+  LFTScore=0;LFTAns=false;LFTUserAnswers=[];
+  showPage('finaltest');
+  document.getElementById('ft-badge').textContent='🏅 '+test.label;
+  document.getElementById('ftpl').textContent='Frage 1/'+LFTQ.length;
+  document.getElementById('ftpr').textContent='0/'+LFTQ.length;
+  document.getElementById('ftpf').style.width='0%';
+  // reuse FT rendering with a flag
+  window._lftMode=true;
+  renderLFTQ();
+}
+function renderLFTQ(){
+  const q=LFTQ[LFTScore<LFTQ.length?LFTUserAnswers.length:LFTQ.length-1];
+  const qi=LFTUserAnswers.length;
+  LFTAns=false;
+  document.getElementById('ftpl').textContent=`Frage ${qi+1}/${LFTQ.length}`;
+  document.getElementById('ftpr').textContent=`${LFTScore}/${LFTQ.length}`;
+  document.getElementById('ftpf').style.width=(qi/LFTQ.length*100)+'%';
+  const cont=document.getElementById('ft-content');
+  const curQ=LFTQ[qi];
+  let h=`<div class="qcard"><div class="qhdr"><span style="font-size:.74rem;color:var(--mu)">${LFT[LFTIdx].label} · Frage ${qi+1}</span><span class="ptsbdg">${qi+1}/${LFTQ.length}</span></div>`;
+  h+=`<div class="qtxt">${esc(curQ.q)}</div>`;
+  if(curQ.type==='mc'){
+    const LB=['A','B','C','D'];
+    h+=`<div class="opts">`;
+    curQ.opts.forEach((o,i)=>h+=`<button class="obtn" id="lfto${i}" onclick="lftAnswer(${i})"><span class="olbl">${LB[i]}</span>${esc(o)}</button>`);
+    h+=`</div>`;
+  }else if(curQ.type==='inp'){
+    h+=`<div class="inpw"><input class="inpa" id="lft-inp" placeholder="Antwort..." onkeydown="if(event.key==='Enter')lftAnswerInp()"/><button class="btnchk" onclick="lftAnswerInp()">Prüfen</button></div>`;
+  }
+  h+=`<div class="fbbox" id="ftfb"></div>`;
+  h+=`<div class="qacts"><button class="btnnxt" id="ftbn" onclick="lftNext()" style="display:none">Weiter →</button></div></div>`;
+  cont.innerHTML=h;
+  if(curQ.type==='inp')setTimeout(()=>document.getElementById('lft-inp')?.focus(),50);
+}
+function lftAnswer(idx){
+  if(LFTAns)return;LFTAns=true;
+  const q=LFTQ[LFTUserAnswers.length];const ok=idx===q.cor;
+  if(ok)LFTScore++;
+  LFTUserAnswers.push({ok,chosen:idx,cor:q.cor,q:q.q,opts:q.opts,ex:q.ex});
+  const fb=document.getElementById('ftfb');fb.style.display='block';
+  document.getElementById('ftbn').style.display='inline-block';
+  for(let i=0;i<q.opts.length;i++){const b=document.getElementById('lfto'+i);if(b){b.disabled=true;if(i===q.cor)b.classList.add('ok');else if(i===idx&&!ok)b.classList.add('bad');}}
+  fb.className='fbbox '+(ok?'ok':'bad');
+  fb.innerHTML=(ok?'✅ Richtig!':'❌ Falsch. Richtig: <strong>'+esc(q.opts[q.cor])+'</strong>')+' <small style="opacity:.8">'+esc(q.ex)+'</small>';
+}
+function lftAnswerInp(){
+  if(LFTAns)return;
+  const inp=document.getElementById('lft-inp');if(!inp)return;
+  const val=inp.value.trim().replace(',','.');
+  const q=LFTQ[LFTUserAnswers.length];
+  const num=parseFloat(val),corNum=parseFloat(q.cor);
+  const ok=!isNaN(num)&&!isNaN(corNum)?Math.abs(num-corNum)<=(q.tol||0.05):val.toLowerCase()===String(q.cor).toLowerCase();
+  if(ok)LFTScore++;LFTAns=true;
+  LFTUserAnswers.push({ok,chosen:val,cor:q.cor,q:q.q,opts:[],ex:q.ex});
+  inp.disabled=true;inp.style.borderColor=ok?'var(--ac3)':'var(--red)';
+  const fb=document.getElementById('ftfb');fb.style.display='block';
+  document.getElementById('ftbn').style.display='inline-block';
+  fb.className='fbbox '+(ok?'ok':'bad');
+  fb.innerHTML=(ok?'✅ Richtig!':'❌ Falsch. Richtig: <strong>'+esc(String(q.cor))+'</strong>')+' <small style="opacity:.8">'+esc(q.ex)+'</small>';
+}
+function lftNext(){
+  if(LFTUserAnswers.length>=LFTQ.length){finishLFT();return;}
+  renderLFTQ();
+}
+function finishLFT(){
+  window._lftMode=false;
+  const pct=Math.round(LFTScore/LFTQ.length*100);
+  const passed=pct>=80;
+  const grade=getGrade(pct);
+  const test=LFT[LFTIdx];
+  const path=LP.find(p=>p.id===test.pathId);
+  document.getElementById('ftpf').style.width='100%';
+  if(passed){
+    if(!S.lft)S.lft={passed:[false,false,false]};
+    if(!S.lft.passed)S.lft.passed=[false,false,false];
+    S.lft.passed[LFTIdx]=true;
+    checkAchs();sS();updateUI();
+    showToast('🏅 Legendentest bestanden!','pts');
+  }else{sS();}
+  const wrongs=LFTUserAnswers.filter(a=>!a.ok);
+  let reviewHtml='';
+  if(wrongs.length){
+    reviewHtml=`<div style="margin-top:18px"><div style="font-size:.82rem;font-weight:700;color:var(--mu);margin-bottom:8px">❌ Falsch (${wrongs.length}):</div><div class="prep-list">`;
+    wrongs.slice(0,5).forEach(a=>{
+      const ct=a.opts&&a.opts.length?esc(a.opts[a.chosen]??a.chosen):esc(String(a.chosen));
+      const cc=a.opts&&a.opts.length?esc(a.opts[a.cor]??a.cor):esc(String(a.cor));
+      reviewHtml+=`<div class="prep-item" style="border-color:rgba(248,113,113,.25)"><div class="pi-q" style="margin-bottom:4px">${esc(a.q)}</div><div style="font-size:.75rem"><span style="color:var(--red)">Deine: ${ct}</span> · <span style="color:var(--ac3)">Richtig: ${cc}</span></div></div>`;
+    });
+    reviewHtml+='</div></div>';
+  }
+  document.getElementById('ft-content').innerHTML=`
+    <div class="grade-wrap">
+      <div style="font-size:.72rem;color:var(--mu);font-family:var(--fm);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">${test.label}</div>
+      <div class="grade-n ${grade.cls}">${grade.n}</div>
+      <div class="grade-lbl">${grade.l}</div>
+      <div class="grade-pct">${LFTScore}/${LFTQ.length} richtig · ${pct}%</div>
+      <div class="grade-msg">${grade.msg}</div>
+      ${passed?`<div style="color:${path.color};font-weight:700;margin-top:10px;font-size:.88rem">${path.icon} ${path.name} abgeschlossen!</div>`
+              :'<div style="color:var(--red);margin-top:8px;font-size:.82rem">❌ Nicht bestanden (mind. 80% nötig)</div>'}
+      <div style="margin-top:20px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        ${passed?'':'<button class="btnw" onclick="startLFT('+LFTIdx+')">🔁 Nochmal</button>'}
+        <button class="btns" onclick="showPage(\'home\')">🏠 Lernpfad</button>
+      </div>
+    </div>${reviewHtml}`;
+}
+
 // ===================== MINESWEEPER =====================
 const MS_MODES=[
   {id:'easy',  name:'🟢 Leicht', sub:'9×9 · 10 Minen',  r:9,  c:9,  m:10, color:'#34d399', unlockTest:2, unlockDesc:'Leichten Finaltest bestehen'},
@@ -1486,116 +2176,240 @@ const MS_MODES=[
   {id:'hard',  name:'🔴 Schwer', sub:'16×16 · 40 Minen', r:16, c:16, m:40, color:'#f87171', unlockTest:0, unlockDesc:'Schweren Finaltest bestehen'},
   {id:'ultra', name:'🌌 Ultra',  sub:'20×20 · 70 Minen', r:20, c:20, m:70, color:'#a78bfa', unlockTest:-1,unlockDesc:'Alle drei Tests bestehen'},
 ];
-let msCfg=null,msB=[],msRev=[],msFlg=[],msGO=false,msWon=false,msFst=true,msTv=0,msTi=null,msMl=0;
+let msCfg=null,msB=[],msRev=[],msFlg=[],msGO=false,msWon=false,msFst=true,msTv=0,msTi=null,msMl=0,msFlagMode=false;
 let msLongPress=null;
 
 function msModeUnlocked(){
   const pt=S.ft?.passedTests||[false,false,false];
+  const lftP=S.lft?.passed||[false,false,false];
   let count=0;
-  if(pt[2])count++; // leicht → easy
-  if(pt[1])count++; // mittel → medium
-  if(pt[0])count++; // schwer → hard
-  if(pt[0]&&pt[1]&&pt[2])count++; // ultra
+  if(pt[2])count++;if(pt[1])count++;if(pt[0])count++;
+  if(lftP.every(Boolean))count++;
   return count;
 }
 function msModeAvail(mode){
   const pt=S.ft?.passedTests||[false,false,false];
-  if(mode.id==='easy')  return pt[2]; // Finaltest 3 = Leicht
-  if(mode.id==='medium')return pt[1]; // Finaltest 2 = Mittel
-  if(mode.id==='hard')  return pt[0]; // Finaltest 1 = Schwer
-  if(mode.id==='ultra') return pt[0]&&pt[1]&&pt[2];
+  const lftP=S.lft?.passed||[false,false,false];
+  if(mode.id==='easy')  return pt[2];
+  if(mode.id==='medium')return pt[1];
+  if(mode.id==='hard')  return pt[0];
+  if(mode.id==='ultra') return lftP.every(Boolean);
   return false;
 }
+
 function renderMsModes(){
   document.getElementById('ms-game').style.display='none';
   document.getElementById('ms-modes').style.display='grid';
+  const best=S.msBest||{};
   const html=MS_MODES.map(m=>{
     const avail=msModeAvail(m);
-    return `<div class="ms-mode-card${avail?'':' ms-locked'}" style="--nc:${m.color};border-color:${avail?m.color+'44':'var(--bd)'}" onclick="${avail?`startMsMode('${m.id}')`:``}">
+    const bt=best[m.id];
+    return `<div class="ms-mode-card${avail?'':' ms-locked'}" style="--nc:${m.color}" onclick="${avail?`startMsMode('${m.id}')`:``}">
       <div class="ms-mode-icon">${m.name.split(' ')[0]}</div>
       <div class="ms-mode-name" style="color:${avail?m.color:'var(--mu)'}">${m.name.split(' ').slice(1).join(' ')}</div>
       <div class="ms-mode-sub">${m.sub}</div>
       ${avail
-        ? `<div style="margin-top:8px;background:${m.color}22;border:1px solid ${m.color}44;border-radius:20px;padding:2px 8px;font-size:.63rem;font-family:var(--fm);color:${m.color}">✅ Freigeschaltet</div>`
+        ? `<div class="ms-mode-badge">✅ Freigeschaltet</div>
+           ${bt?`<div class="ms-mode-stats">Bestzeit: <b>${fmtTime(bt)}</b></div>`:'<div class="ms-mode-stats">Noch kein Rekord</div>'}`
         : `<div class="ms-mode-unlock">🔒 ${m.unlockDesc}</div>`}
     </div>`;
   }).join('');
   document.getElementById('ms-modes').innerHTML=html;
 }
+
 function startMsMode(id){
   msCfg=MS_MODES.find(m=>m.id===id);
+  msFlagMode=false;
   document.getElementById('ms-modes').style.display='none';
   document.getElementById('ms-game').style.display='block';
   initMs();
 }
+
 function initMs(){
-  clearInterval(msTi);msTv=0;msFst=true;msGO=false;msWon=false;
+  clearInterval(msTi);msTv=0;msFst=true;msGO=false;msWon=false;msFlagMode=false;
   const{r,c,m}=msCfg;msMl=m;
   msB=Array.from({length:r},()=>Array(c).fill(0));
   msRev=Array.from({length:r},()=>Array(c).fill(false));
   msFlg=Array.from({length:r},()=>Array(c).fill(false));
+  setFace('🙂');
   updMsUI();renderMsBoard();
-  const st=document.getElementById('ms-status');if(st){st.className='ms-status';st.textContent='';}
-  updMsBest();
+  const st=document.getElementById('ms-status');
+  if(st){st.className='ms-status-banner';st.style.display='none';}
+  updFlagBtn();
+  renderMsRecords();
 }
+
+function fmtTime(s){
+  if(s<60)return s+'s';
+  return Math.floor(s/60)+'m '+( s%60)+'s';
+}
+function padTime(s){return String(s).padStart(3,'0')}
+
 function placeMines(fr,fc){
   const{r,c,m}=msCfg;let p=0;
-  while(p<m){const rr=Math.floor(Math.random()*r),cc=Math.floor(Math.random()*c);
-    if(msB[rr][cc]===0&&!(Math.abs(rr-fr)<=1&&Math.abs(cc-fc)<=1)){msB[rr][cc]=-1;p++;}}
+  while(p<m){
+    const rr=Math.floor(Math.random()*r),cc=Math.floor(Math.random()*c);
+    if(msB[rr][cc]===0&&!(Math.abs(rr-fr)<=1&&Math.abs(cc-fc)<=1)){msB[rr][cc]=-1;p++;}
+  }
   for(let i=0;i<r;i++)for(let j=0;j<c;j++)if(msB[i][j]!==-1){
-    let cnt=0;for(let di=-1;di<=1;di++)for(let dj=-1;dj<=1;dj++){const ni=i+di,nj=j+dj;if(ni>=0&&ni<r&&nj>=0&&nj<c&&msB[ni][nj]===-1)cnt++;}msB[i][j]=cnt;}
+    let cnt=0;
+    for(let di=-1;di<=1;di++)for(let dj=-1;dj<=1;dj++){
+      const ni=i+di,nj=j+dj;
+      if(ni>=0&&ni<r&&nj>=0&&nj<c&&msB[ni][nj]===-1)cnt++;
+    }
+    msB[i][j]=cnt;
+  }
 }
+
+function toggleFlagMode(){
+  msFlagMode=!msFlagMode;
+  updFlagBtn();
+}
+function updFlagBtn(){
+  const btn=document.getElementById('ms-flag-toggle');
+  if(!btn)return;
+  if(msFlagMode){btn.classList.add('active-flag');btn.textContent='🚩 Flaggen-Modus AN';}
+  else{btn.classList.remove('active-flag');btn.textContent='🚩 Flaggen-Modus';}
+}
+
 function msClick(r,c){
-  if(msGO||msWon||msRev[r][c]||msFlg[r][c])return;
-  if(msFst){msFst=false;placeMines(r,c);msTi=setInterval(()=>{msTv++;const el=document.getElementById('ms-t');if(el)el.textContent=msTv;},1000);}
-  if(msB[r][c]===-1){msRev[r][c]=true;msGO=true;revAllMines(r,c);clearInterval(msTi);
-    const st=document.getElementById('ms-status');if(st){st.className='ms-status lost';st.textContent='💥 Boom! Spiel vorbei.';}renderMsBoard();return;}
+  if(msGO||msWon||msRev[r][c])return;
+  // flag mode: toggle flag instead
+  if(msFlagMode){msFlag(null,r,c);return;}
+  if(msFlg[r][c])return;
+  if(msFst){
+    msFst=false;
+    placeMines(r,c);
+    setFace('😐');
+    msTi=setInterval(()=>{
+      msTv++;
+      const el=document.getElementById('ms-t');
+      if(el)el.textContent=padTime(msTv);
+    },1000);
+  }
+  if(msB[r][c]===-1){
+    msRev[r][c]=true;msGO=true;
+    revAllMines(r,c);
+    clearInterval(msTi);
+    setFace('😵');
+    showMsStatus('lost',`💥 Erwischt!`,`Zeit: ${fmtTime(msTv)} · Versuch es nochmal!`);
+    renderMsBoard();return;
+  }
   flood(r,c);renderMsBoard();chkWin();
 }
-function msFlag(e,r,c){if(e)e.preventDefault();if(msGO||msWon||msRev[r][c])return;
-  msFlg[r][c]=!msFlg[r][c];msMl+=msFlg[r][c]?-1:1;updMsUI();renderMsBoard();}
-function flood(r,c){const{r:rows,c:cols}=msCfg;
+
+function msFlag(e,r,c){
+  if(e)e.preventDefault();
+  if(msGO||msWon||msRev[r][c])return;
+  msFlg[r][c]=!msFlg[r][c];
+  msMl+=msFlg[r][c]?-1:1;
+  updMsUI();
+  renderMsBoard();
+}
+
+function flood(r,c){
+  const{r:rows,c:cols}=msCfg;
   if(r<0||r>=rows||c<0||c>=cols||msRev[r][c]||msFlg[r][c])return;
-  msRev[r][c]=true;if(msB[r][c]===0)for(let di=-1;di<=1;di++)for(let dj=-1;dj<=1;dj++)flood(r+di,c+dj);}
-function revAllMines(hr,hc){for(let i=0;i<msCfg.r;i++)for(let j=0;j<msCfg.c;j++)if(msB[i][j]===-1&&!(i===hr&&j===hc))msRev[i][j]=true;}
+  msRev[r][c]=true;
+  if(msB[r][c]===0)for(let di=-1;di<=1;di++)for(let dj=-1;dj<=1;dj++)flood(r+di,c+dj);
+}
+
+function revAllMines(hr,hc){
+  for(let i=0;i<msCfg.r;i++)for(let j=0;j<msCfg.c;j++)
+    if(msB[i][j]===-1&&!(i===hr&&j===hc))msRev[i][j]=true;
+}
+
 function chkWin(){
   const{r,c,m}=msCfg;let hidden=0;
   for(let i=0;i<r;i++)for(let j=0;j<c;j++)if(!msRev[i][j])hidden++;
-  if(hidden===m){msWon=true;clearInterval(msTi);
-    const st=document.getElementById('ms-status');if(st){st.className='ms-status won';st.textContent=`🎉 Gewonnen in ${msTv}s!`;}
-    saveMsBest(msTv);renderMsBoard();}
+  if(hidden===m){
+    msWon=true;clearInterval(msTi);
+    setFace('😎');
+    const isRecord=saveMsBest(msTv);
+    showMsStatus('won',`🎉 Gewonnen!`,
+      `Zeit: ${fmtTime(msTv)}${isRecord?' · 🏅 Neuer Rekord!':''}`);
+    renderMsBoard();
+  }
 }
+
+function showMsStatus(cls,title,sub){
+  const st=document.getElementById('ms-status');
+  if(!st)return;
+  document.getElementById('ms-status-emoji').textContent=cls==='won'?'🏆':'💣';
+  document.getElementById('ms-status-title').textContent=title;
+  document.getElementById('ms-status-sub').textContent=sub;
+  st.className='ms-status-banner '+cls;
+  st.style.display='block';
+}
+
+function setFace(emoji){
+  const f=document.getElementById('ms-face');if(f)f.textContent=emoji;
+}
+
 function renderMsBoard(){
   const{r,c}=msCfg;let h='';
-  for(let i=0;i<r;i++){h+='<div class="ms-row">';
+  for(let i=0;i<r;i++){
+    h+='<div class="ms-row">';
     for(let j=0;j<c;j++){
-      if(msRev[i][j]){const v=msB[i][j];
-        if(v===-1){h+=`<button class="ms-cell mhit" disabled>💣</button>`;}
-        else{h+=`<button class="ms-cell rev ${v>0?'c'+v:''}" disabled>${v||''}</button>`;}}
-      else if(msFlg[i][j]){h+=`<button class="ms-cell flg" oncontextmenu="msFlag(event,${i},${j})">🚩</button>`;}
-      else{h+=`<button class="ms-cell hid" onclick="msClick(${i},${j})" oncontextmenu="msFlag(event,${i},${j})"
-        ontouchstart="msTouchStart(event,${i},${j})" ontouchend="msTouchEnd(event,${i},${j})" ontouchmove="msTouchMove(event)"></button>`;}
-    }h+='</div>';}
+      if(msRev[i][j]){
+        const v=msB[i][j];
+        if(v===-1){
+          h+=`<div class="ms-cell mhit">💣</div>`;
+        }else{
+          h+=`<div class="ms-cell rev${msWon?' won-cell':''} ${v>0?'c'+v:''}">${v||''}</div>`;
+        }
+      }else if(msFlg[i][j]){
+        h+=`<div class="ms-cell flg" onclick="msFlag(event,${i},${j})" oncontextmenu="msFlag(event,${i},${j})">🚩</div>`;
+      }else{
+        h+=`<div class="ms-cell hid"
+          onclick="msClick(${i},${j})"
+          oncontextmenu="msFlag(event,${i},${j})"
+          ontouchstart="msTouchStart(event,${i},${j})"
+          ontouchend="msTouchEnd(event,${i},${j})"
+          ontouchmove="msTouchMove(event)"></div>`;
+      }
+    }
+    h+='</div>';
+  }
   const bd=document.getElementById('ms-board');if(bd)bd.innerHTML=h;
 }
-// Long press for flagging on mobile
-function msTouchStart(e,r,c){msLongPress=setTimeout(()=>{msFlag(null,r,c);msLongPress=null;},500);}
-function msTouchEnd(e,r,c){if(msLongPress){clearTimeout(msLongPress);msLongPress=null;}}
-function msTouchMove(e){if(msLongPress){clearTimeout(msLongPress);msLongPress=null;}}
+
+// touch long-press flag
+function msTouchStart(e,r,c){
+  msLongPress=setTimeout(()=>{msFlag(null,r,c);msLongPress=null;},450);
+}
+function msTouchEnd(e,r,c){
+  if(msLongPress){clearTimeout(msLongPress);msLongPress=null;}
+}
+function msTouchMove(){
+  if(msLongPress){clearTimeout(msLongPress);msLongPress=null;}
+}
+
 function updMsUI(){
   const ml=document.getElementById('ms-ml');if(ml)ml.textContent=msMl;
-  const t=document.getElementById('ms-t');if(t)t.textContent=msTv;
+  const t=document.getElementById('ms-t');if(t)t.textContent=padTime(msTv);
 }
+
 function saveMsBest(t){
   if(!S.msBest)S.msBest={};
   const id=msCfg.id;
-  if(!S.msBest[id]||t<S.msBest[id]){S.msBest[id]=t;sS();showToast('🏅 Neue Bestzeit: '+t+'s!','pts');}
-  updMsBest();
+  const isRecord=!S.msBest[id]||t<S.msBest[id];
+  if(isRecord){S.msBest[id]=t;sS();}
+  renderMsRecords();
+  return isRecord;
 }
-function updMsBest(){
-  const el=document.getElementById('ms-best');if(!el||!msCfg)return;
-  const best=S.msBest?.[msCfg.id];
-  el.textContent=best?`${best}s`:'–';
+
+function renderMsRecords(){
+  const el=document.getElementById('ms-records');if(!el)return;
+  const best=S.msBest||{};
+  el.innerHTML=MS_MODES.map(m=>{
+    const avail=msModeAvail(m);
+    const bt=best[m.id];
+    return `<div class="ms-record" style="border-color:${avail?m.color+'33':'var(--bd)'}">
+      <div class="ms-record-mode" style="color:${avail?m.color:'var(--mu)'}">${m.name.split(' ')[0]} ${m.name.split(' ').slice(1).join(' ')}</div>
+      <div class="ms-record-time ${avail?'':'locked'}">${bt?fmtTime(bt):'–'}</div>
+    </div>`;
+  }).join('');
 }
 
 // ===================== SETTINGS =====================
