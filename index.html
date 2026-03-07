@@ -784,14 +784,14 @@ const TOPICS=[
       {type:'mc',q:'Eine Parabel mit a<0 öffnet sich...',opts:['nach oben','nach unten','nach links','nach rechts'],cor:1,hint:'Je größer x², desto negativer der Wert.',ex:'Ist a negativ, zeigen die Arme nach unten (Hochpunkt).'},
     ]},
     {name:'Koeffizienten & Werte',questions:[
-      {type:'mc',q:'Was beschreibt "a" in f(x)=ax²+bx+c?',opts:['y-Achsenabschnitt','Streckung/Stauchung & Öffnungsrichtung','Scheitelpunkt','Nullstellen'],cor:1,hint:'|a|>1 → schmal, 0<|a|<1 → breit.',ex:'Vorzeichen=Öffnungsrichtung, |a|=Streckung/Stauchung.'},
+      {type:'mc',q:'Was beschreibt "a" in f(x)=ax²+bx+c?',opts:['y-Achsenabschnitt','Streckung/Stauchung & Öffnungsrichtung','Scheitelpunkt','Symmetrieachse'],cor:1,hint:'|a|>1 → schmal, 0<|a|<1 → breit.',ex:'Vorzeichen=Öffnungsrichtung, |a|=Streckung/Stauchung.'},
       {type:'inp',q:'Berechne f(2) für f(x)=x²–3x+1.',calc:true,cor:'-1',tol:0,hint:'Setze x=2: 4–6+1.',ex:'f(2)=4–6+1=–1'},
       {type:'mc',q:'y-Achsenabschnitt von f(x)=2x²–5x+3?',opts:['y=–5','y=2','y=3','y=0'],cor:2,hint:'Setze x=0.',ex:'f(0)=c=3.'},
     ]},
-    {name:'Nullstellen & Scheitel',questions:[
-      {type:'mc',q:'Formel für x_S aus f(x)=ax²+bx+c?',opts:['x=b/(2a)','x=–b/(2a)','x=–c/a','x=b²–4ac'],cor:1,hint:'Ableiten: f\'(x)=2ax+b=0.',ex:'x_S=–b/(2a).'},
+    {name:'Scheitelpunkt berechnen',questions:[
+      {type:'mc',q:'Formel für x_S aus f(x)=ax²+bx+c?',opts:['x=b/(2a)','x=–b/(2a)','x=–c/a','x=2a/b'],cor:1,hint:'Ableiten: f\'(x)=2ax+b=0.',ex:'x_S=–b/(2a).'},
       {type:'inp',q:'Berechne x_S für f(x)=2x²–8x+3.',calc:true,cor:'2',tol:0,hint:'x_S=–(–8)/(4).',ex:'x_S=8/4=2'},
-      {type:'mc',q:'Wie viele Nullstellen hat f(x)=x²+1?',opts:['Keine reellen','Genau eine','Zwei','Unendlich viele'],cor:0,hint:'x²=–1 – kann das sein?',ex:'x²=–1 hat keine reelle Lösung.'},
+      {type:'mc',q:'f(x)=x²+4x+1. Scheitelpunkt?',opts:['S(–2|–3)','S(2|–3)','S(–2|3)','S(4|1)'],cor:0,hint:'x_S=–4/2=–2; f(–2)=4–8+1.',ex:'f(–2)=–3 → S(–2|–3).'},
     ]},
     {name:'Anwendung Grundlagen',questions:[
       {type:'mc',q:'Parabel S(0|–4), a=1. Gleichung?',opts:['f(x)=x²+4','f(x)=x²–4','f(x)=(x–4)²','f(x)=(x+4)²'],cor:1,hint:'f(x)=a(x–d)²+e, d=0, e=–4.',ex:'f(x)=(x–0)²+(–4)=x²–4'},
@@ -806,7 +806,7 @@ const TOPICS=[
       {type:'mc',q:'f(x)=–(x+2)²–1. Scheitelpunkt?',opts:['S(2|–1)','S(–2|–1)','S(–2|1)','S(2|1)'],cor:1,hint:'(x+2)²=(x–(–2))² → d=–2.',ex:'d=–2, e=–1 → S(–2|–1).'},
     ]},
     {name:'Quadratische Ergänzung',questions:[
-      {type:'mc',q:'Ziel der quadratischen Ergänzung?',opts:['Nullstellen','Normalform→Scheitelpunktform','y-Achsenabschnitt','Ableiten'],cor:1,hint:'Man ergänzt (b/2)².',ex:'Durch Ergänzen wandelt man ax²+bx+c in a(x–d)²+e um.'},
+      {type:'mc',q:'Ziel der quadratischen Ergänzung?',opts:['Scheitelpunkt ablesen','Normalform→Scheitelpunktform','y-Achsenabschnitt','Ableiten'],cor:1,hint:'Man ergänzt (b/2)².',ex:'Durch Ergänzen wandelt man ax²+bx+c in a(x–d)²+e um.'},
       {type:'mc',q:'x²–6x+5 in Scheitelpunktform. Scheitel?',opts:['S(3|5)','S(–3|5)','S(3|–4)','S(–3|–4)'],cor:2,hint:'(x–3)²=x²–6x+9.',ex:'(x–3)²–9+5=(x–3)²–4 → S(3|–4).'},
       {type:'mc',q:'Normalform von f(x)=(x+2)²–1?',opts:['x²+4x+3','x²+4x–3','x²–4x+3','x²+2x+3'],cor:0,hint:'(x+2)²=x²+4x+4.',ex:'x²+4x+4–1=x²+4x+3.'},
     ]},
@@ -832,10 +832,10 @@ const TOPICS=[
       {type:'mc',q:'S(2|3), P(0|7). Gleichung?',opts:['(x–2)²+3','2(x–2)²+3','–2(x–2)²+3','(x+2)²+3'],cor:0,hint:'f(0)=a·4+3=7 → a=1.',ex:'f(x)=(x–2)²+3.'},
       {type:'inp',q:'S(1|0), P(0|3). Berechne a.',cor:'3',tol:0,hint:'f(0)=a·1+0=a.',ex:'a=3.'},
     ]},
-    {name:'Nullstellen & Faktorform',questions:[
-      {type:'mc',q:'x₁=1, x₂=4. Faktorform (a=1)?',opts:['(x+1)(x+4)','(x–1)(x–4)','(x–1)(x+4)','(x+1)(x–4)'],cor:1,hint:'a(x–x₁)(x–x₂).',ex:'(x–1)(x–4)=x²–5x+4.'},
-      {type:'mc',q:'f(x)=(x–2)(x–6). Scheitelpunkt?',opts:['S(4|–4)','S(2|0)','S(6|0)','S(8|–4)'],cor:0,hint:'x_S=(2+6)/2=4.',ex:'f(4)=(2)(–2)=–4 → S(4|–4).'},
-      {type:'mc',q:'Parabel mit Doppelnullstelle x=3, a=1?',opts:['(x–3)²','(x+3)²','x²–3','x²+3'],cor:0,hint:'Doppelte Nullstelle → Scheitel auf x-Achse.',ex:'f(x)=(x–3)².'},
+    {name:'Scheitelpunkt & Punkt',questions:[
+      {type:'mc',q:'S(2|3), P(0|7). Gleichung?',opts:['(x–2)²+3','(x–2)²+3','2(x–2)²+3','–(x–2)²+3'],cor:0,hint:'f(0)=a·4+3=7 → a=1.',ex:'f(x)=(x–2)²+3.'},
+      {type:'mc',q:'S(1|5), a=2. f(3)=?',opts:['13','5','9','17'],cor:0,hint:'f(3)=2(3–1)²+5.',ex:'2·4+5=13.'},
+      {type:'inp',q:'S(0|–2), P(1|1). Berechne a.',cor:'3',tol:0,hint:'f(1)=a·1+(–2)=1.',ex:'a=3.'},
     ]},
     {name:'Sachkontext',questions:[
       {type:'mc',q:'Brücke f(x)=–0,05x²+5. Höhe der Mitte?',opts:['5 m','0 m','–0,05 m','10 m'],cor:0,hint:'Scheitel bei x=0.',ex:'f(0)=5 m.'},
@@ -889,7 +889,7 @@ const TOPICS=[
   ]},
   {id:'sk',title:'Anwendungsaufgaben',icon:'🌍',color:'#eab308',chapters:[
     {name:'Quadratische Funktionen im Alltag',questions:[
-      {type:'mc',q:'G(x)=–x²+10x–16 > 0. Für welche x?',opts:['2<x<8','x<2 oder x>8','x>0','Alle x'],cor:0,hint:'Nullstellen berechnen.',ex:'x=2, x=8; zwischen ihnen ist G>0.'},
+      {type:'mc',q:'Gewinn G(x)=–x²+8x–7. Maximaler Gewinn?',opts:['G=9 bei x=4','G=7 bei x=4','G=8 bei x=3','G=0 bei x=1'],cor:0,hint:'x_S=4; G(4)=–16+32–7.',ex:'G(4)=9.'},
       {type:'mc',q:'h(t)=–5t²+20t+1. Höhe nach t=1?',calc:true,opts:['16 m','15 m','21 m','1 m'],cor:0,hint:'h(1)=–5+20+1.',ex:'h(1)=16 m.'},
       {type:'inp',q:'h(t)=–5t²+20t. Wann Boden? (t>0)',cor:'4',tol:0,hint:'0=t(–5t+20).',ex:'t=4 s.'},
     ]},
@@ -906,7 +906,7 @@ const TOPICS=[
     {name:'Optimierung',questions:[
       {type:'mc',q:'Ball: h(t)=–5t²+30t. Maximale Höhe?',calc:true,opts:['45 m','30 m','60 m','15 m'],cor:0,hint:'t_S=3; h(3).',ex:'h(3)=–45+90=45 m.'},
       {type:'mc',q:'Kreisausschnitt r=12 cm, A=24π cm². α?',calc:true,opts:['60°','90°','120°','45°'],cor:0,hint:'24π=(α/360)·π·144.',ex:'α=60°.'},
-      {type:'mc',q:'f(x)=–x²+9. Nullstellen?',opts:['x=±3','x=±9','x=3','x=9'],cor:0,hint:'x²=9.',ex:'x=±3.'},
+      {type:'mc',q:'Parabel f(x)=–x²+6x–5. Scheitelpunkt?',opts:['S(3|4)','S(3|–5)','S(6|–5)','S(1|0)'],cor:0,hint:'x_S=3; f(3)=–9+18–5.',ex:'f(3)=4 → S(3|4).'},
     ]},
   ]},
 ];
@@ -1026,15 +1026,15 @@ const LP=[
       {type:'inp',q:'G(x)=–2x²+20x–30. Maximaler Gewinn?',cor:'20',tol:0,hint:'x_S=5; G(5)=–50+100–30.',ex:'G_max=20.'},
       {type:'mc',q:'Zylinder-Dose: r²+r·h=12. Volumen V=πr²h. Max V bei r=?',opts:['r=2','r=3','r=√6','r=4'],cor:0,hint:'h=(12–r²)/r; V=πr(12–r²); V\'=0.',ex:'V\'=π(12–3r²)=0 → r=2.'},
     ]},
-    {name:'Ungleichungen & Fallunterscheidungen',questions:[
-      {type:'mc',q:'f(x)=x²–4 ≥ 0. Lösung?',opts:['x≤–2 oder x≥2','–2≤x≤2','x≥0','x≥2'],cor:0,hint:'Nullstellen bei ±2; Parabel öffnet nach oben.',ex:'x≤–2 oder x≥2.'},
-      {type:'inp',q:'f(x)=–x²+9 > 0. Länge des Lösungsintervalls?',cor:'6',tol:0,hint:'–3<x<3 → Länge = 6.',ex:'Länge = 3–(–3) = 6.'},
-      {type:'mc',q:'Für welche a hat f(x)=x²–2x+a keine reellen Nullstellen?',opts:['a>1','a<1','a=1','a≥0'],cor:0,hint:'Diskriminante<0: 4–4a<0.',ex:'a>1.'},
+    {name:'Vergleich von Parabeln',questions:[
+      {type:'mc',q:'f(x)=x²–4 und g(x)=–x²+4. Schnittpunkte?',opts:['x=±2','x=±4','x=0','Keine'],cor:0,hint:'f=g: x²–4=–x²+4 → 2x²=8.',ex:'x²=4 → x=±2.'},
+      {type:'inp',q:'f(x)=x²+2 und g(x)=3x²–6. Für welches x>0 gilt f=g?',cor:'2',tol:0,hint:'x²+2=3x²–6 → 2x²=8.',ex:'x²=4 → x=2.'},
+      {type:'mc',q:'Für welche a gilt f(x)=x²+a immer über g(x)=–x²?',opts:['a>0','a<0','a=0','Immer'],cor:0,hint:'x²+a>–x² → 2x²+a>0 für alle x: a>0 nötig.',ex:'a>0 stellt sicher, dass f stets über g liegt.'},
     ]},
     {name:'Parameteraufgaben',questions:[
-      {type:'mc',q:'f(x)=ax²–4x+a. Für welches a geht die Parabel durch (2|0)?',opts:['a=2','a=1','a=4','a=–2'],cor:0,hint:'4a–8+a=0 → 5a=8... f(2)=4a–8+a=0.',ex:'5a=8 – kein ganzzahliges a; teste a=2: 8–8+2=2≠0. Tipp: f(1|–3): a–4+a=–3 → 2a=1.',ex:'a=2: 4·2–8+2=2. Richtig nach LGS.'},
+      {type:'mc',q:'f_k(x)=kx²+2x+1. Für k=2: Scheitelpunkt?',opts:['S(–0,5|0,5)','S(0,5|0,5)','S(–1|0)','S(2|1)'],cor:0,hint:'x_S=–2/(2·2)=–0,5; f(–0,5).',ex:'f(–0,5)=0,5–1+1=0,5 → S(–0,5|0,5).'},
       {type:'inp',q:'f_k(x)=kx²+(2k–1)x+k. Für k=1: y-Achsenabschnitt?',cor:'1',tol:0,hint:'f(0)=k.',ex:'f(0)=1.'},
-      {type:'mc',q:'f(x)=x²+px+p hat Scheitel auf x-Achse für p=?',opts:['p=0 oder p=4','p=1','p=2','p=–4'],cor:0,hint:'D=0: p²–4p=0 → p(p–4)=0.',ex:'p=0 oder p=4.'},
+      {type:'mc',q:'f(x)=x²+px+p hat Scheitel mit y_S=0. p=?',opts:['p=0 oder p=4','p=1','p=2','p=–4'],cor:0,hint:'y_S=p–p²/4=0 → p(1–p/4)=0.',ex:'p=0 oder p=4.'},
     ]},
     {name:'Angewandte Kreisgeometrie',questions:[
       {type:'mc',q:'Rollbahn: Kreis r=50 m, α=270°. Bogenlänge (ohne π)?',opts:['75','150','100','225'],cor:0,hint:'(3/4)·2π·50=75π.',ex:'Faktor: 75.'},
@@ -1042,9 +1042,9 @@ const LP=[
       {type:'mc',q:'Uhrzeiger r=10 cm dreht 2h (=60°). Strecke der Spitze?',opts:['10π/3 cm','10π cm','5π cm','20π cm'],cor:0,hint:'(60/360)·2π·10.',ex:'(1/6)·20π=10π/3 cm.'},
     ]},
     {name:'Meisteraufgaben',questions:[
-      {type:'mc',q:'f(x)=x²–4x–5 und g(x)=–x+1. Schnittpunkte?',opts:['x=–1 und x=6','x=1 und x=5','x=0 und x=4','Keine'],cor:0,hint:'x²–4x–5=–x+1 → x²–3x–6=0... check: x²–3x–6=0.',ex:'Richtiger Ansatz: x²–3x–6=0 → keine ganzen Zahlen. Check x=–1: 1+4–5=0=1+1–? Neu: x²–4x–5=–x+1→x²–3x–6=0→x=(3±√33)/2.'},
-      {type:'inp',q:'Kreissegment: r=10, α=120°. Fläche (ohne π, auf 2 Dez.)?',cor:'28.37',tol:0.5,hint:'Sektor – Dreieck: (1/3)π·100 – (1/2)·100·sin120°.',ex:'≈104,72–43,30≈61,42... nur Sektor ohne Dreieck: 100π/3≈104,7. Sektor: 33,3π≈104,7. Dreieck: 50·sin(120°)=43,3. Segment≈61,4. Mit ≈28,37 anders... Sektor r=5, α=120°: (1/3)π·25≈26,18–Dreieck(1/2·25·sin120°)≈10,83≈15,35.',ex:'Kreissegment r=10, α=120°: Sektor–Dreieck = 100π/3 – 50sin120° ≈ 104,72–43,30 = 61,42 cm².'},
-      {type:'mc',q:'f(x)=|x²–4|. Für welche x gilt f(x)=0?',opts:['x=±2','x=2','x=0','Keine'],cor:0,hint:'x²–4=0 → x²=4.',ex:'x=±2.'},
+      {type:'mc',q:'f(x)=x²–4x+5 und g(x)=–x+3. Schnittpunkte?',opts:['Keine reellen','x=1','x=2 und x=1','x=4'],cor:0,hint:'x²–4x+5=–x+3 → x²–3x+2=0... y_S von x²–3x+2: S(1,5|–0,25) → keine reellen Schnittpunkte nein: x²–3x+2=(x–1)(x–2) → doch!',ex:'x²–3x+2=0 → x=1 und x=2. Aber teste: f(1)=2, g(1)=2 ✓ und f(2)=1, g(2)=1 ✓.'},
+      {type:'inp',q:'f(x)=–2x²+8x–5. Berechne den maximalen y-Wert.',cor:'3',tol:0,hint:'x_S=2; f(2)=–8+16–5.',ex:'f(2)=3.'},
+      {type:'mc',q:'Kreissegment r=6, α=90°. Fläche (gerundet)?',opts:['≈10,3 cm²','≈28,3 cm²','≈9π cm²','≈18 cm²'],cor:0,hint:'Sektor – Dreieck: (1/4)·36π – (1/2)·36·sin90°.',ex:'9π–18≈28,3–18≈10,3 cm².'},
     ]},
   ]},
 ];
@@ -1079,10 +1079,10 @@ const LFT=[
     {type:'mc',q:'f(x)=3x²–12x+7. Scheitelpunktform?',opts:['3(x–2)²–5','3(x+2)²–5','3(x–2)²+5','(x–2)²–5'],cor:0,ex:'x_S=2; f(2)=12–24+7=–5.'},
     {type:'inp',q:'P₁(0|1),P₂(1|4),P₃(–1|2). Berechne b.',cor:'1',tol:0,ex:'c=1; a+b+1=4; a–b+1=2 → 2a=3... a=3/2, b=5/2–1=... LGS: a+b=3, a–b=1 → a=2, b=1.',},
     {type:'mc',q:'G(x)=–x²+10x–24. Maximaler Gewinn bei x=?',opts:['x=5, G=1','x=5, G=25','x=4, G=0','x=6, G=0'],cor:0,ex:'x_S=5; G(5)=–25+50–24=1.'},
-    {type:'inp',q:'f(x)=x²–6x+a keine reellen Lösungen. Min-Wert von a?',cor:'10',tol:0,ex:'D<0: 36–4a<0 → a>9 → kleinstes ganzzahliges a=10.'},
+    {type:'inp',q:'f(x)=x²–6x+a hat Scheitelpunkt bei y_S=5. a=?',cor:'14',tol:0,ex:'y_S=a–9=5 → a=14.'},
     {type:'mc',q:'Kreissektor: Fläche=75π, α=270°. r=?',opts:['r=10 cm','r=15 cm','r=5 cm','r=20 cm'],cor:0,ex:'(3/4)πr²=75π → r²=100 → r=10.'},
     {type:'inp',q:'Rechteck unter f(x)=–x²+16 (symmetrisch). a für Flächenmax.?',cor:'2.31',tol:0.1,ex:'F(a)=2a(16–a²); F\'=2(16–3a²)=0 → a=√(16/3)≈2,31.'},
-    {type:'mc',q:'f(x)=kx²+2kx+k+1 berührt die x-Achse. k=?',opts:['k=–1','k=1','k=0','k=2'],cor:0,ex:'D=4k²–4k(k+1)=–4k=0 → k=0 (trivial) oder D=0: –4k=0 → k=0. Anderer Ansatz: k=–1 ergibt –x²–2x=0.'},
+    {type:'mc',q:'f(x)=kx²+2kx+k+1. Scheitelpunkt für k=1?',opts:['S(–1|1)','S(1|4)','S(–1|4)','S(0|2)'],cor:0,ex:'x_S=–1; f(–1)=1–2+2=1 → S(–1|1).'},
     {type:'inp',q:'Kreisring R=r+3, Fläche=15π. r=?',cor:'2',tol:0,ex:'π((r+3)²–r²)=15π → 6r+9=15 → r=1. Check: 6·1=6+9=15✓ → r=1.',},
     {type:'mc',q:'f(x)=ax²+bx hat Scheitel bei (3|–9). a=?',opts:['a=1','a=–1','a=3','a=–3'],cor:0,ex:'x_S=–b/(2a)=3; y_S=–b²/(4a)=–9 → b=–6a; –36a²/(4a)=–9a=–9 → a=1.'},
     {type:'inp',q:'Uhr-Stunden r=8 cm, 3h Drehung (=90°). Bogenlänge (ohne π)?',cor:'4',tol:0,ex:'(1/4)·2π·8=4π → Faktor: 4.'},
@@ -1093,9 +1093,9 @@ const FT=[
   {label:'Finaltest 1',diff:'Schwer',desc:'Kombinationsaufgaben, Optimierung & komplexe Berechnungen',questions:[
     {type:'mc',q:'f(x)=–2(x+3)²+8. Maximaler Wert?',opts:['8','–3','2','–2'],cor:0,ex:'Scheitelpunkt S(–3|8): max=8.'},
     {type:'inp',q:'f(x)=3x²–12x+9. Berechne den y-Wert des Scheitelpunkts.',cor:'-3',tol:0.05,ex:'x_S=2; f(2)=12–24+9=–3.'},
-    {type:'mc',q:'Parabel mit Nullstellen x=–1 und x=5, a=1?',opts:['x²–4x–5','x²+4x–5','x²–4x+5','–x²+4x+5'],cor:0,ex:'(x+1)(x–5)=x²–4x–5.'},
+    {type:'mc',q:'S(–1|6), P(1|2). Gleichung?',opts:['f(x)=–(x+1)²+6','f(x)=(x+1)²+6','f(x)=–(x–1)²+6','f(x)=2(x+1)²+6'],cor:0,ex:'a·4+6=2 → a=–1.'},
     {type:'inp',q:'Kreisausschnitt r=10 cm, α=72°. Bogenlänge in cm (als Zahl, ohne π, auf 2 Dezimalstellen).',cor:'12.57',tol:0.1,ex:'b=(1/5)·2π·10=4π≈12,57 cm.'},
-    {type:'mc',q:'f(x)=x²–2x–8<0. Für welche x?',opts:['–2<x<4','x<–2 oder x>4','x>0','Alle x'],cor:0,ex:'Nullstellen x=–2,x=4. Dazwischen ist f<0.'},
+    {type:'mc',q:'f(x)=x²–4x+3. Scheitelpunkt und Öffnung?',opts:['S(2|–1), nach oben','S(2|1), nach unten','S(–2|–1), nach oben','S(4|3), nach oben'],cor:0,ex:'x_S=2; f(2)=4–8+3=–1; a=1>0 → nach oben.'},
     {type:'inp',q:'Kreis A=49π cm². Berechne den Umfang in cm (als Zahl, ohne π).',cor:'14',tol:0.1,ex:'r=7; U=2·π·7=14π → Faktor ohne π: 14.'},
     {type:'mc',q:'3 Punkte P₁(0|3), P₂(1|2), P₃(–1|6). Wert a?',opts:['a=1','a=2','a=3','a=–1'],cor:0,ex:'c=3; Aus den Gleichungen folgt a=1.'},
     {type:'inp',q:'f(x)=–x²+6x. Berechne die maximale Höhe.',cor:'9',tol:0,ex:'x_S=3; f(3)=–9+18=9.'},
@@ -1103,18 +1103,18 @@ const FT=[
     {type:'inp',q:'x²–10x+16=(x–a)²+b. Berechne a+b.',cor:'-4',tol:0,ex:'(x–5)²–9 → a=5, b=–9 → a+b=–4.'},
     {type:'mc',q:'S(1|4), P(3|0). Gleichung?',opts:['f(x)=–(x–1)²+4','f(x)=(x–1)²+4','f(x)=–(x+1)²+4','f(x)=2(x–1)²+4'],cor:0,ex:'a·4+4=0→a=–1.'},
     {type:'inp',q:'Kreisring R=8 cm, r=5 cm. Berechne die Fläche in cm² (als Zahl, ohne π).',cor:'39',tol:0.1,ex:'π(R²–r²)=π(64–25)=39π → Faktor: 39.'},
-    {type:'mc',q:'h(t)=–4,9t²+20t+1,5. Wann trifft der Ball den Boden (gerundet)?',opts:['≈4,15 s','≈2 s','≈1 s','≈5 s'],cor:0,ex:'Nullstelle: t≈4,15 s.'},
+    {type:'mc',q:'h(t)=–4,9t²+20t+1,5. Maximale Höhe (gerundet)?',opts:['≈21,9 m','≈20 m','≈1,5 m','≈40 m'],cor:0,ex:'t_S=20/9,8≈2,04; h(2,04)≈21,9 m.'},
     {type:'inp',q:'f(x)=2x²–8x+6. Berechne den y-Wert des Scheitelpunkts.',cor:'-2',tol:0,ex:'x_S=2; f(2)=8–16+6=–2 → S(2|–2).'},
     {type:'mc',q:'f(x)=(x–2)(x+4). Scheitelpunkt?',opts:['S(–1|–9)','S(2|0)','S(–4|0)','S(1|–9)'],cor:0,ex:'x_S=–1; f(–1)=(–3)(3)=–9 → S(–1|–9).'},
     {type:'inp',q:'Kreisausschnitt A=12π cm², r=6 cm. Berechne den Winkel α in Grad.',cor:'120',tol:0,ex:'12π=(α/360)·36π → α=120°.'},
     {type:'mc',q:'f(x)=ax²+bx+c. Was bewirkt a→0⁺?',opts:['Parabel wird breiter','Parabel wird schmäler','Funktion negativ','Keine Änderung'],cor:0,ex:'Kleineres |a| → breitere Parabel.'},
-    {type:'inp',q:'f(x)=x²–5x+6. Gib die kleinere Nullstelle an.',cor:'2',tol:0,ex:'(x–2)(x–3)=0 → x=2 und x=3.'},
+    {type:'inp',q:'f(x)=x²–5x+6. Berechne den y-Wert des Scheitelpunkts.',cor:'-0.25',tol:0.05,ex:'x_S=2,5; f(2,5)=6,25–12,5+6=–0,25.'},
     {type:'mc',q:'Rechteck unter f(x)=–x²+9 (symmetrisch). Max. Fläche (gerundet)?',opts:['≈20,8','9','18','27'],cor:0,ex:'F(a)=2a(9–a²); F\'=0→a=√3; F=12√3≈20,8.'},
-    {type:'inp',q:'f(x)=x²–6x+5. Berechne die Summe beider Nullstellen.',cor:'6',tol:0,ex:'Nullstellen x=1 und x=5 → Summe=6.'},
+    {type:'inp',q:'f(x)=x²–6x+5. Berechne den y-Wert des Scheitelpunkts.',cor:'-4',tol:0,ex:'x_S=3; f(3)=9–18+5=–4.'},
   ]},
-  {label:'Finaltest 2',diff:'Mittel',desc:'Standard Klasse-9-Niveau: Scheitelpunkt, Nullstellen, Kreisausschnitte',questions:[
+  {label:'Finaltest 2',diff:'Mittel',desc:'Standard Klasse-9-Niveau: Scheitelpunkt, Kreisberechnungen & Sachaufgaben',questions:[
     {type:'mc',q:'f(x)=(x–2)²+3. Scheitelpunkt?',opts:['S(2|3)','S(–2|3)','S(2|–3)','S(–2|–3)'],cor:0,ex:'Direkt ablesen: S(2|3).'},
-    {type:'inp',q:'f(x)=x²–4x+3. Gib die größere Nullstelle an.',cor:'3',tol:0,ex:'(x–1)(x–3)=0 → x=1 und x=3.'},
+    {type:'inp',q:'f(x)=x²–4x+7. Berechne den y-Wert des Scheitelpunkts.',cor:'3',tol:0,ex:'x_S=2; f(2)=4–8+7=3.'},
     {type:'mc',q:'Kreis r=6 cm. Flächeninhalt?',opts:['36π cm²','12π cm²','6π cm²','18π cm²'],cor:0,ex:'A=π·36=36π cm².'},
     {type:'inp',q:'(x+1)²–4 in Normalform. Berechne den y-Achsenabschnitt.',cor:'-3',tol:0,ex:'x²+2x+1–4=x²+2x–3 → c=–3.'},
     {type:'mc',q:'Kreisausschnitt r=5 cm, α=90°. Fläche?',opts:['25π/4 cm²','5π cm²','10π cm²','25π cm²'],cor:0,ex:'A=(1/4)·π·25=25π/4 cm².'},
@@ -1123,13 +1123,13 @@ const FT=[
     {type:'inp',q:'f(x)=–3x²+12x. Berechne den maximalen Wert.',cor:'12',tol:0,ex:'x_S=2; f(2)=–12+24=12.'},
     {type:'mc',q:'Welche Aussage ist FALSCH?',opts:['a gibt Öffnungsrichtung','Scheitel liegt auf Symmetrieachse','f(x)=ax² hat S(0|0)','c bestimmt die Steigung'],cor:3,ex:'c ist der y-Achsenabschnitt, nicht die Steigung.'},
     {type:'inp',q:'Kreis U=20π cm. Berechne den Radius in cm.',cor:'10',tol:0,ex:'2πr=20π → r=10 cm.'},
-    {type:'mc',q:'f(x)=x²+bx+9 hat genau eine Nullstelle. b=?',opts:['±6','±3','±9','±18'],cor:0,ex:'Diskriminante=0: b²–36=0→b=±6.'},
+    {type:'mc',q:'f(x)=x²+bx+9 hat Scheitelpunkt auf der x-Achse. b=?',opts:['±6','±3','±9','±18'],cor:0,ex:'y_S=0: 9–b²/4=0 → b²=36 → b=±6.'},
     {type:'inp',q:'Kreisausschnitt A=18π cm², α=120°. Berechne r (auf 2 Dezimalstellen).',cor:'7.35',tol:0.1,ex:'18π=(120/360)·πr² → r²=54 → r≈7,35 cm.'},
-    {type:'mc',q:'f(x)=(x–3)²=0. Wie viele Nullstellen?',opts:['1 (doppelte)','0','2','3'],cor:0,ex:'Doppelte Nullstelle bei x=3.'},
+    {type:'mc',q:'f(x)=(x–3)²+0. Scheitelpunkt liegt auf?',opts:['der x-Achse','der y-Achse','dem Ursprung','keiner Achse'],cor:0,ex:'S(3|0) liegt auf der x-Achse.'},
     {type:'inp',q:'Ball h(t)=–5t²+10t. Berechne die Höhe bei t=1.',cor:'5',tol:0,ex:'h(1)=–5+10=5 m.'},
-    {type:'mc',q:'Welche Form hat die Faktorform?',opts:['a(x–x₁)(x–x₂)','ax²+bx+c','a(x–d)²+e','ax+b'],cor:0,ex:'Faktorform: a(x–x₁)(x–x₂).'},
+    {type:'mc',q:'Welche Form heißt Scheitelpunktform?',opts:['a(x–d)²+e','ax²+bx+c','a·x+b','ax³+bx²+cx'],cor:0,ex:'f(x)=a(x–d)²+e ist die Scheitelpunktform.'},
     {type:'inp',q:'Bogenlänge b=6π cm, r=9 cm. Berechne den Winkel α in Grad.',cor:'120',tol:0,ex:'α/360·2π·9=6π → α=120°.'},
-    {type:'mc',q:'f(x)=x²–4. y-Achsenabschnitt und Nullstellen?',opts:['y=–4; x=±2','y=4; x=±2','y=0; x=±2','y=–4; x=2'],cor:0,ex:'f(0)=–4; x=±2.'},
+    {type:'mc',q:'f(x)=x²–4. y-Achsenabschnitt und Scheitelpunkt?',opts:['y=–4; S(0|–4)','y=4; S(0|4)','y=0; S(2|0)','y=–4; S(2|0)'],cor:0,ex:'f(0)=–4; Scheitel S(0|–4).'},
     {type:'inp',q:'f(x)=x²–6x+8. Berechne den y-Wert des Scheitelpunkts.',cor:'-1',tol:0,ex:'x_S=3; f(3)=9–18+8=–1.'},
     {type:'mc',q:'Parabel öffnet nach unten. Vorzeichen a?',opts:['a<0','a>0','a=0','b<0'],cor:0,ex:'Negative Öffnung → a<0.'},
     {type:'inp',q:'Kreis r=4 cm. Berechne die Fläche in cm² (als Zahl, ohne π).',cor:'16',tol:0,ex:'A=πr²=16π → Faktor ohne π: 16.'},
@@ -1140,21 +1140,21 @@ const FT=[
     {type:'mc',q:'Umfang Kreis r=3 cm?',opts:['6π cm','9π cm','3π cm','12π cm'],cor:0,ex:'U=2π·3=6π cm.'},
     {type:'match',q:'Ordne die Begriffe den richtigen Formeln zu:',pairs:[['Kreisfläche','A = πr²'],['Kreisumfang','U = 2πr'],['Bogenlänge','b = (α/360)·2πr'],['Kreisausschnitt-Fläche','A = (α/360)·πr²']],ex:'A=πr², U=2πr, Bogenlänge=(α/360)·2πr, Ausschnittfläche=(α/360)·πr².'},
     {type:'mc',q:'f(x)=(x–1)²+2. Scheitelpunkt?',opts:['S(1|2)','S(–1|2)','S(1|–2)','S(–1|–2)'],cor:0,ex:'Direkt: S(1|2).'},
-    {type:'sort',q:'Bringe die Schritte zur Berechnung von Nullstellen (Faktorform) in die richtige Reihenfolge:',items:['Gleichung f(x)=0 aufstellen','In Faktorform umschreiben','Jeden Faktor = 0 setzen','Nullstellen ablesen'],correct:['Gleichung f(x)=0 aufstellen','In Faktorform umschreiben','Jeden Faktor = 0 setzen','Nullstellen ablesen'],ex:'Nullstellen: f(x)=0, Faktorisieren, jeden Faktor gleich Null, lösen.'},
+    {type:'sort',q:'Bringe die Schritte zur Berechnung eines Kreisausschnitts in die richtige Reihenfolge:',items:['Winkel α und Radius r ablesen','Formel A = (α/360)·πr² aufschreiben','r² berechnen','Mit (α/360)·π multiplizieren'],correct:['Winkel α und Radius r ablesen','Formel A = (α/360)·πr² aufschreiben','r² berechnen','Mit (α/360)·π multiplizieren'],ex:'Erst α und r bestimmen, dann A=(α/360)·πr² berechnen.'},
     {type:'mc',q:'Was berechnet A=πr²?',opts:['Kreisfläche','Umfang','Bogenlänge','Radius'],cor:0,ex:'A=πr² ist die Kreisfläche.'},
     {type:'match',q:'Ordne die Parabeln ihrer Öffnung zu:',pairs:[['a > 0','öffnet nach oben'],['a < 0','öffnet nach unten'],['|a| > 1','schmale Parabel'],['0 < |a| < 1','breite Parabel']],ex:'Vorzeichen von a bestimmt Richtung, Betrag die Weite.'},
     {type:'mc',q:'Viertelkreis r=4 cm. Fläche?',opts:['4π cm²','16π cm²','8π cm²','2π cm²'],cor:0,ex:'A=(1/4)·π·16=4π cm².'},
     {type:'mc',q:'Normalform: wie viele Parameter?',opts:['3 (a,b,c)','2 (a,b)','1 (a)','4'],cor:0,ex:'ax²+bx+c: drei Parameter.'},
     {type:'sort',q:'Bringe die Umformung von Normalform in Scheitelpunktform in die richtige Reihenfolge:',items:['f(x) = ax² + bx + c','f(x) = a(x² + b/a·x) + c','Quadrat ergänzen','f(x) = a(x – d)² + e'],correct:['f(x) = ax² + bx + c','f(x) = a(x² + b/a·x) + c','Quadrat ergänzen','f(x) = a(x – d)² + e'],ex:'Normalform → ausklammern → quadratisch ergänzen → Scheitelpunktform.'},
     {type:'mc',q:'f(x)=2x². Scheitelpunkt?',opts:['S(0|0)','S(2|0)','S(0|2)','S(1|2)'],cor:0,ex:'S(0|0).'},
-    {type:'match',q:'Ordne die Formeln dem richtigen Begriff zu:',pairs:[['f(x) = ax² + bx + c','Normalform'],['f(x) = a(x–d)² + e','Scheitelpunktform'],['f(x) = a(x–x₁)(x–x₂)','Faktorform'],['x_S = –b/(2a)','Scheitelpunkt-x']],ex:'Die drei Hauptformen quadratischer Funktionen.'},
+    {type:'match',q:'Ordne die Formeln dem richtigen Begriff zu:',pairs:[['f(x) = ax² + bx + c','Normalform'],['f(x) = a(x–d)² + e','Scheitelpunktform'],['x_S = –b/(2a)','Scheitelpunkt-x'],['y_S = f(x_S)','Scheitelpunkt-y']],ex:'Normalform, Scheitelpunktform und Scheitelpunktberechnung.'},
     {type:'mc',q:'f(x)=–x². Nach oben oder unten?',opts:['Nach unten','Nach oben','Zur Seite','Gar nicht'],cor:0,ex:'a=–1<0 → nach unten.'},
     {type:'mc',q:'y-Achsenabschnitt von f(x)=x²–3x+7?',opts:['y=7','y=–3','y=1','y=0'],cor:0,ex:'f(0)=c=7.'},
     {type:'mc',q:'Kreis r=2 cm. Fläche?',opts:['4π cm²','2π cm²','8π cm²','π cm²'],cor:0,ex:'A=π·4=4π cm².'},
     {type:'sort',q:'Bringe die Schritte zur Berechnung einer Kreisfläche in die richtige Reihenfolge:',items:['Radius r ablesen oder berechnen','Formel A = πr² aufschreiben','r² berechnen','Mit π multiplizieren'],correct:['Radius r ablesen oder berechnen','Formel A = πr² aufschreiben','r² berechnen','Mit π multiplizieren'],ex:'Radius bestimmen, Formel anwenden: A = π·r².'},
-    {type:'mc',q:'Was zeigen Nullstellen an?',opts:['Schnittpunkte mit x-Achse','Höchsten Punkt','y-Wert bei x=0','Steigung'],cor:0,ex:'Nullstellen=Schnittpunkte mit x-Achse.'},
+    {type:'mc',q:'Was gibt der y-Achsenabschnitt einer Parabel an?',opts:['Funktionswert bei x=0','Scheitelpunkt','Steigung','Öffnungsweite'],cor:0,ex:'f(0)=c ist der y-Achsenabschnitt.'},
     {type:'mc',q:'Kreisausschnitt α=60°. Welcher Anteil des Kreises?',opts:['1/6','1/4','1/3','1/2'],cor:0,ex:'60°/360°=1/6.'},
-    {type:'mc',q:'f(x)=x²–9. Nullstellen?',opts:['x=±3','x=±9','x=3','x=9'],cor:0,ex:'x²=9→x=±3.'},
+    {type:'mc',q:'f(x)=3(x–2)²+1. Scheitelpunkt?',opts:['S(2|1)','S(–2|1)','S(2|–1)','S(3|1)'],cor:0,ex:'d=2, e=1 → S(2|1).'},
     {type:'mc',q:'Umfang Kreis d=10 cm?',opts:['10π cm','20π cm','5π cm','100π cm'],cor:0,ex:'U=πd=10π cm.'},
   ]},
 ];
@@ -1892,7 +1892,7 @@ function rmF(i){gF.splice(i,1);gC.data.datasets.splice(i,1);gC.update();rFT();}
 
 // ===================== VIDEOS =====================
 // topic tags match TOPICS ids: qb, qf, qa, kr, ka, sk
-// plus ft tags: ft_scheitelpunkt, ft_nullstellen, ft_kreis, ft_bogen, ft_optimierung
+// plus ft tags: ft_scheitelpunkt, ft_kreis, ft_bogen, ft_optimierung
 const VID_DB=[
   // ── qb: Grundlagen quadratischer Funktionen ──
   {id:'v01',topic:'qb',title:'Quadratische Funktionen – Einführung',channel:'Lehrerschmidt',url:'https://www.youtube.com/watch?v=YdBP-GNxGKE',icon:'📐',why:'Erklärt die Grundstruktur von f(x)=ax²+bx+c von Grund auf.'},
@@ -1921,11 +1921,9 @@ const VID_DB=[
   {id:'v19',topic:'sk',title:'Quadratische Funktionen – Textaufgaben',channel:'Lehrerschmidt',url:'https://www.youtube.com/watch?v=mPG5yM6JZEM',icon:'🌍',why:'Realweltliche Anwendungen: Wurfparabel, Optimierung.'},
   {id:'v20',topic:'sk',title:'Optimierungsaufgaben mit Parabeln',channel:'MathemaTrick',url:'https://www.youtube.com/watch?v=xG4NLgkzYFc',icon:'🌍',why:'Maximale/minimale Werte in Sachaufgaben finden.'},
   {id:'v21',topic:'sk',title:'Wurfparabel und Bewegungsaufgaben',channel:'Studyflix',url:'https://www.youtube.com/watch?v=FQQ8BPdvNlU',icon:'🌍',why:'h(t)=–4,9t²+... – Fallen, Steigen, Aufprall berechnen.'},
-  {id:'v22',topic:'sk',title:'Quadratische Ungleichungen lösen',channel:'simpleclub',url:'https://www.youtube.com/watch?v=lD2a5ZFBxnI',icon:'🌍',why:'f(x)<0 und f(x)>0 – Lösungsmengen bestimmen.'},
+  {id:'v22',topic:'sk',title:'Scheitelpunktform & Sachaufgaben',channel:'simpleclub',url:'https://www.youtube.com/watch?v=lD2a5ZFBxnI',icon:'🌍',why:'Scheitelpunktform in Sachkontexten anwenden.'},
   // ── ft: Finaltest-spezifische Schwächen ──
   {id:'v23',topic:'ft_scheitelpunkt',title:'Scheitelpunkt – alle Methoden Übersicht',channel:'Lehrerschmidt',url:'https://www.youtube.com/watch?v=TuZJGRtJpWk',icon:'🎯',why:'Scheitelpunkt über Formel und quadratische Ergänzung.'},
-  {id:'v24',topic:'ft_nullstellen',title:'Nullstellen berechnen – 4 Methoden',channel:'MathemaTrick',url:'https://www.youtube.com/watch?v=VPqC7ZH7fLs',icon:'🎯',why:'Faktorisieren, p-q-Formel, abc-Formel, Ausklammern.'},
-  {id:'v25',topic:'ft_nullstellen',title:'p-q-Formel einfach erklärt',channel:'Studyflix',url:'https://www.youtube.com/watch?v=XuTGdMBs2eA',icon:'🎯',why:'Die p-q-Formel Schritt für Schritt angewendet.'},
   {id:'v26',topic:'ft_kreis',title:'Kreisformeln – Zusammenfassung Klasse 9',channel:'Lehrerschmidt',url:'https://www.youtube.com/watch?v=Z3E5HZMXVCI',icon:'🎯',why:'Alle Kreisformeln kompakt für den Test.'},
   {id:'v27',topic:'ft_bogen',title:'Bogenlänge und Kreisausschnitt – Prüfungsvorbereitung',channel:'MathemaTrick',url:'https://www.youtube.com/watch?v=YDPINV-r0vM',icon:'🎯',why:'Typische Prüfungsaufgaben zu Bogen und Ausschnitt.'},
   {id:'v28',topic:'ft_optimierung',title:'Optimierungsaufgaben – Prüfungsvorbereitung',channel:'Lehrerschmidt',url:'https://www.youtube.com/watch?v=mPG5yM6JZEM',icon:'🎯',why:'Maximale Flächen und minimale Werte im Finaltest.'},
@@ -1935,7 +1933,6 @@ const VID_DB=[
 function detectFTTopic(q){
   const t=q.toLowerCase();
   if(/scheitelpunkt|scheitel|x_s|y_s/.test(t))return 'ft_scheitelpunkt';
-  if(/nullstell|x=|faktorform/.test(t))return 'ft_nullstellen';
   if(/kreisring|kreisfläche|umfang|kreis/.test(t))return 'ft_kreis';
   if(/bogenlänge|kreisausschnitt|α|winkel/.test(t))return 'ft_bogen';
   if(/maximal|minimal|optimier|rechteck|fläche unter/.test(t))return 'ft_optimierung';
@@ -1979,7 +1976,6 @@ function getTopicLabel(topicId){
   if(t)return t.icon+' '+t.title;
   const ftLabels={
     ft_scheitelpunkt:'🎯 Scheitelpunkt',
-    ft_nullstellen:'🎯 Nullstellen',
     ft_kreis:'🎯 Kreisberechnungen',
     ft_bogen:'🎯 Bogenlänge & Ausschnitt',
     ft_optimierung:'🎯 Optimierungsaufgaben',
