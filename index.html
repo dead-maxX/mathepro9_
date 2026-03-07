@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -80,6 +79,9 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
 .ft-dot{width:13px;height:13px;border-radius:50%;background:var(--bd);border:2px solid var(--bd);transition:all .3s}
 .ft-dot.used{background:var(--red);border-color:var(--red)}
 .ft-dot.avail{border-color:var(--mu)}
+.ft-sel-card{background:var(--sf);border:2px solid var(--bd);border-radius:var(--r);padding:16px 18px;cursor:pointer;transition:all .22s}
+.ft-sel-card:hover:not(.ft-sel-done){border-color:rgba(251,191,36,.6);transform:translateY(-2px);background:linear-gradient(135deg,rgba(251,191,36,.04),transparent)}
+.ft-sel-done{opacity:.5;cursor:not-allowed}
 /* CHAPTERS */
 .ch-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin-top:5px}
 @media(max-width:480px){.ch-grid{grid-template-columns:1fr}}
@@ -189,6 +191,58 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
 .ac{background:var(--sf);border:1px solid var(--bd);border-radius:9px;padding:12px;display:flex;align-items:center;gap:9px;opacity:.3;transition:opacity .3s}
 .ac.u{opacity:1;border-color:rgba(167,139,250,.3)}
 .ai{font-size:1.4rem}.an{font-size:.78rem;font-weight:600}.ad{font-size:.68rem;color:var(--mu)}
+/* VIDEOS */
+.vid-empty{text-align:center;padding:40px 20px;color:var(--mu)}
+.vid-empty-ico{font-size:3rem;margin-bottom:10px}
+.vid-empty-txt{font-size:.88rem;line-height:1.6}
+.vid-section{margin-bottom:24px}
+.vid-section-title{font-size:.72rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--mu);font-family:var(--fm);margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.vid-section-title span{background:var(--sf2);border:1px solid var(--bd);border-radius:20px;padding:1px 8px;font-size:.65rem}
+.vid-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:9px;transition:border-color .2s;position:relative}
+.vid-card.seen{opacity:.5;border-style:dashed}
+.vid-card:hover{border-color:var(--ac2)}
+.vid-top{display:flex;align-items:flex-start;gap:12px}
+.vid-thumb{width:72px;height:48px;border-radius:7px;object-fit:cover;flex-shrink:0;background:var(--sf2)}
+.vid-thumb-ph{width:72px;height:48px;border-radius:7px;flex-shrink:0;background:var(--sf2);display:flex;align-items:center;justify-content:center;font-size:1.5rem;border:1px solid var(--bd)}
+.vid-meta{flex:1;min-width:0}
+.vid-title{font-size:.88rem;font-weight:700;line-height:1.35;margin-bottom:3px}
+.vid-channel{font-size:.7rem;color:var(--mu);font-family:var(--fm)}
+.vid-why{font-size:.72rem;color:var(--ac2);margin-top:5px;display:flex;align-items:center;gap:4px}
+.vid-why::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--ac2);flex-shrink:0}
+.vid-actions{display:flex;gap:7px;margin-top:10px;align-items:center;flex-wrap:wrap}
+.vid-link{background:linear-gradient(135deg,#ff0000,#cc0000);color:#fff;border:none;border-radius:7px;padding:6px 13px;font-size:.76rem;font-weight:700;cursor:pointer;font-family:var(--fd);text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.vid-link:hover{opacity:.88}
+.vid-seen-btn{background:var(--sf2);border:1px solid var(--bd);color:var(--mu);border-radius:7px;padding:6px 11px;font-size:.74rem;cursor:pointer;font-family:var(--fd);transition:all .2s}
+.vid-seen-btn:hover{border-color:var(--ac3);color:var(--ac3)}
+.vid-seen-badge{font-size:.68rem;color:var(--ac3);font-family:var(--fm);display:flex;align-items:center;gap:3px}
+.vid-errors{font-size:.68rem;color:var(--red);font-family:var(--fm);margin-left:auto}
+/* MINESWEEPER */
+.ms-wrap{max-width:520px;margin:0 auto}
+.ms-modes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ms-mode-card{background:var(--sf);border:2px solid var(--bd);border-radius:var(--r);padding:18px 14px;cursor:pointer;transition:all .25s;text-align:center;position:relative;overflow:hidden}
+.ms-mode-card:hover:not(.ms-locked){transform:translateY(-2px);border-color:var(--nc,var(--ac))}
+.ms-mode-card.ms-locked{opacity:.45;cursor:not-allowed}
+.ms-mode-card.ms-locked::after{content:'🔒';position:absolute;top:8px;right:10px;font-size:.9rem}
+.ms-mode-icon{font-size:2rem;margin-bottom:6px}
+.ms-mode-name{font-size:.92rem;font-weight:800;margin-bottom:3px}
+.ms-mode-sub{font-size:.68rem;color:var(--mu);font-family:var(--fm)}
+.ms-mode-unlock{font-size:.63rem;color:var(--mu);margin-top:5px;font-style:italic}
+.ms-topbar{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.ms-info{font-family:var(--fm);font-size:.82rem;color:var(--mu);flex:1}
+.ms-info strong{color:var(--txt)}
+.ms-board{text-align:center;overflow-x:auto;padding:2px}
+.ms-row{display:flex;justify-content:center;gap:2px;margin-bottom:2px}
+.ms-cell{width:28px;height:28px;border-radius:4px;border:none;cursor:pointer;font-family:var(--fm);font-size:.7rem;font-weight:700;transition:background .1s;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0}
+.ms-cell.hid{background:var(--sf2);border:1px solid var(--bd)}
+.ms-cell.hid:hover{background:var(--bd)}
+.ms-cell.flg{background:rgba(249,115,22,.15);border:1px solid rgba(249,115,22,.4);font-size:.8rem}
+.ms-cell.rev{background:var(--bg);border:1px solid rgba(255,255,255,.05);cursor:default}
+.ms-cell.mhit{background:rgba(248,113,113,.25);border:1px solid var(--red);cursor:default}
+.ms-cell.mshow{background:rgba(100,116,139,.08);border:1px solid var(--bd);cursor:default}
+.ms-status{text-align:center;font-size:.9rem;font-weight:700;padding:9px;border-radius:8px;margin-top:8px;display:none}
+.ms-status.won{background:rgba(52,211,153,.1);color:var(--ac3);border:1px solid rgba(52,211,153,.3);display:block}
+.ms-status.lost{background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.3);display:block}
+.c1{color:#6ee7f7}.c2{color:#34d399}.c3{color:#f87171}.c4{color:#a78bfa}.c5{color:#f97316}.c6{color:#38bdf8}.c7{color:#e2e8f0}.c8{color:#94a3b8}
 /* SETTINGS */
 .set-section{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:18px 20px;margin-bottom:14px}
 .set-section-title{font-size:.72rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--mu);font-family:var(--fm);margin-bottom:14px;display:flex;align-items:center;gap:6px}
@@ -245,6 +299,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
 .toast.show{transform:translateY(0);opacity:1}
 .toast.pts{border-color:rgba(52,211,153,.4);color:var(--ac3)}
 .toast.warn{border-color:rgba(249,115,22,.4);color:var(--warn)}
+/* FT sort/match items */
+.ft-sort-item{user-select:none;touch-action:none}
+.ft-sort-item:active{opacity:.7;cursor:grabbing}
+#ft-inp:focus{border-color:var(--ac)!important}
 /* MISC */
 .sect{font-size:1rem;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .sect::after{content:'';flex:1;height:1px;background:var(--bd)}
@@ -263,7 +321,9 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
   <button class="nt active" onclick="showPage('home')">🏠 Start</button>
   <button class="nt" onclick="showPage('tools')">🔢 Rechner</button>
   <button class="nt" onclick="showPage('stats')">📊 Stats</button>
+  <button class="nt" onclick="showPage('videos')">📺 Videos</button>
   <button class="nt" onclick="showPage('settings')">⚙️ Einstellungen</button>
+  <button class="nt" id="nav-ms" onclick="showPage('minesweeper')" style="display:none">💣 Minesweeper</button>
   <div class="nscore">⭐<span class="sb" id="tscore">0 Pkt</span></div>
 </nav>
 
@@ -443,9 +503,45 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
 
   <!-- SECRET -->
   <div style="margin-top:80px;text-align:center;opacity:0.15;transition:opacity .4s" onmouseenter="this.style.opacity='.9'" onmouseleave="this.style.opacity='.15'">
-    <div style="font-size:.6rem;color:var(--mu);font-family:var(--fm);letter-spacing:2px;margin-bottom:8px">· · · · ·</div>
-    <button onclick="devStartFT()" style="background:transparent;border:1px dashed var(--mu);color:var(--mu);border-radius:8px;padding:7px 16px;cursor:pointer;font-family:var(--fm);font-size:.7rem;letter-spacing:1px">🧪 dev: test starten</button>
-    <div style="font-size:.58rem;color:var(--mu);margin-top:6px;font-family:var(--fm)">überspringt freischaltung</div>
+    <div style="font-size:.6rem;color:var(--mu);font-family:var(--fm);letter-spacing:2px;margin-bottom:12px">· · · · ·</div>
+    <div style="display:flex;gap:7px;justify-content:center;margin-bottom:10px">
+      <button onclick="devStartFT(0)" style="background:transparent;border:1px dashed var(--red);color:var(--red);border-radius:8px;padding:6px 12px;cursor:pointer;font-family:var(--fm);font-size:.68rem;letter-spacing:.5px">🔴 Schwer</button>
+      <button onclick="devStartFT(1)" style="background:transparent;border:1px dashed #fbbf24;color:#fbbf24;border-radius:8px;padding:6px 12px;cursor:pointer;font-family:var(--fm);font-size:.68rem;letter-spacing:.5px">🟡 Mittel</button>
+      <button onclick="devStartFT(2)" style="background:transparent;border:1px dashed var(--ac3);color:var(--ac3);border-radius:8px;padding:6px 12px;cursor:pointer;font-family:var(--fm);font-size:.68rem;letter-spacing:.5px">🟢 Leicht</button>
+    </div>
+    <div style="font-size:.58rem;color:var(--mu);font-family:var(--fm)">🧪 dev · überspringt freischaltung</div>
+  </div>
+</div>
+
+<!-- VIDEOS -->
+<div class="page" id="page-videos">
+  <div class="sect" style="margin-bottom:4px">📺 Lernvideos</div>
+  <div style="font-size:.78rem;color:var(--mu);margin-bottom:16px">Basierend auf deinen Fehlern – automatisch angepasst.</div>
+  <div id="vid-content"></div>
+</div>
+
+<!-- MINESWEEPER -->
+<div class="page" id="page-minesweeper">
+  <div class="sect" style="margin-bottom:14px">💣 Minesweeper</div>
+  <div class="ms-wrap">
+    <!-- Mode selection -->
+    <div class="ms-modes" id="ms-modes"></div>
+    <!-- Game area -->
+    <div id="ms-game" style="display:none">
+      <div class="ms-topbar">
+        <div class="ms-info">💣 <strong id="ms-ml">0</strong> &nbsp;⏱ <strong id="ms-t">0</strong>s</div>
+        <button class="btns" onclick="initMs()" style="padding:5px 12px;font-size:.78rem">↺ Neu</button>
+        <button class="btnback" onclick="document.getElementById('ms-game').style.display='none';document.getElementById('ms-modes').style.display='block'">← Modi</button>
+      </div>
+      <div class="ms-board" id="ms-board"></div>
+      <div class="ms-status" id="ms-status"></div>
+      <div style="font-size:.65rem;color:var(--mu);text-align:center;margin-top:6px">Klick: aufdecken · Rechtsklick / Longpress: Flagge 🚩</div>
+      <!-- Best times -->
+      <div style="margin-top:16px">
+        <div style="font-size:.72rem;color:var(--mu);font-family:var(--fm);margin-bottom:6px">🏅 Beste Zeit dieses Modus</div>
+        <div id="ms-best" style="font-family:var(--fm);font-size:.82rem;color:var(--ac)">–</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -459,18 +555,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
   </div>
 </div>
 
-<!-- LAST ATTEMPT WARNING -->
-<div class="mov" id="m-last">
-  <div class="mbox">
-    <div class="mico">💀</div>
-    <div class="mttl">Letzter Versuch!</div>
-    <div class="mbdy">Dies ist dein <strong>allerletzter Versuch</strong>. Wenn du diesen Test nicht bestehst, wird <strong>dein gesamter Fortschritt zurückgesetzt</strong>!</div>
-    <div class="mbtns">
-      <button class="mcancel" onclick="closeM('m-last');showPage('home')">Abbrechen</button>
-      <button class="mconfirm" style="background:var(--red)" onclick="closeM('m-last');startFT()">Trotzdem starten</button>
-    </div>
-  </div>
-</div>
 
 <div class="toast" id="toast"></div>
 
@@ -613,71 +697,72 @@ const TOPICS=[
 
 // ===================== FINAL TESTS =====================
 const FT=[
-  {label:'Finaltest 1',diff:'Schwer',questions:[
-    {q:'f(x)=–2(x+3)²+8. Maximaler Wert?',opts:['8','–3','2','–2'],cor:0,ex:'Scheitelpunkt S(–3|8): max=8.'},
-    {q:'f(x)=3x²–12x+9. Scheitelpunkt?',opts:['S(2|–3)','S(–2|3)','S(2|3)','S(4|9)'],cor:0,ex:'x_S=2; f(2)=12–24+9=–3 → S(2|–3).'},
-    {q:'Parabel mit Nullstellen x=–1 und x=5, a=1?',opts:['x²–4x–5','x²+4x–5','x²–4x+5','–x²+4x+5'],cor:0,ex:'(x+1)(x–5)=x²–4x–5.'},
-    {q:'Kreisausschnitt r=10cm, α=72°. Bogenlänge?',opts:['4π cm','2π cm','10π cm','8π cm'],cor:0,ex:'b=(1/5)·2π·10=4π cm.'},
-    {q:'f(x)=x²–2x–8<0. Für welche x?',opts:['–2<x<4','x<–2 oder x>4','x>0','Alle x'],cor:0,ex:'Nullstellen x=–2,x=4. Dazwischen ist f<0.'},
-    {q:'Kreis A=49π cm². Umfang?',opts:['14π cm','7π cm','49π cm','28π cm'],cor:0,ex:'r=7; U=14π cm.'},
-    {q:'3 Punkte P₁(0|3), P₂(1|2), P₃(–1|6). Wert a?',opts:['a=1','a=2','a=3','a=–1'],cor:0,ex:'c=3; Aus den Gleichungen folgt a=1.'},
-    {q:'f(x)=–x²+6x. Maximale Höhe?',opts:['9','6','3','12'],cor:0,ex:'x_S=3; f(3)=9.'},
-    {q:'Torte r=20cm, 8 Stücke. Bogenlänge eines Stücks?',opts:['5π cm','2,5π cm','4π cm','10π cm'],cor:0,ex:'(1/8)·2π·20=5π cm.'},
-    {q:'x²–10x+16=(x–a)²+b. a+b=?',opts:['–4','4','14','–14'],cor:0,ex:'(x–5)²–9 → a=5,b=–9 → a+b=–4.'},
-    {q:'S(1|4), P(3|0). Gleichung?',opts:['f(x)=–(x–1)²+4','f(x)=(x–1)²+4','f(x)=–(x+1)²+4','f(x)=2(x–1)²+4'],cor:0,ex:'a·4+4=0→a=–1.'},
-    {q:'Kreisring R=8cm, r=5cm. Fläche?',opts:['39π cm²','64π cm²','25π cm²','13π cm²'],cor:0,ex:'π(64–25)=39π cm².'},
-    {q:'h(t)=–4,9t²+20t+1,5. Wann Boden (gerundet)?',opts:['≈4,15 s','≈2 s','≈1 s','≈5 s'],cor:0,ex:'Nullstelle: t≈4,15 s.'},
-    {q:'f(x)=2x²–8x+6. Scheitelpunkt?',opts:['S(2|–2)','S(–2|2)','S(4|6)','S(2|2)'],cor:0,ex:'x_S=2; f(2)=8–16+6=–2 → S(2|–2).'},
-    {q:'Kreis b=U/4. b in Abhängigkeit von r?',opts:['πr/2','2πr','πr²/4','π/r'],cor:0,ex:'b=2πr/4=πr/2.'},
-    {q:'f(x)=(x–2)(x+4). Scheitelpunkt?',opts:['S(–1|–9)','S(2|0)','S(–4|0)','S(1|–9)'],cor:0,ex:'x_S=–1; f(–1)=(–3)(3)=–9 → S(–1|–9).'},
-    {q:'Kreisausschnitt A=12π, r=6. α=?',opts:['120°','60°','180°','90°'],cor:0,ex:'12π=(α/360)·36π → α=120°.'},
-    {q:'f(x)=ax²+bx+c. Was bewirkt a→0⁺?',opts:['Parabel wird breiter','Parabel wird schmäler','Funktion negativ','Keine Änderung'],cor:0,ex:'Kleineres |a| → breitere Parabel.'},
-    {q:'Nullstellen von f(x)=x²–5x+6?',opts:['x=2 und x=3','x=–2 und x=–3','x=1 und x=6','x=5 und x=1'],cor:0,ex:'(x–2)(x–3)=0 → x=2,x=3.'},
-    {q:'Rechteck unter f(x)=–x²+9 (symmetrisch). Max. Fläche?',opts:['12√3≈20,8','9','18','27'],cor:0,ex:'F(a)=2a(9–a²); F\'=0→a=√3; F=12√3.'},
+  {label:'Finaltest 1',diff:'Schwer',desc:'Kombinationsaufgaben, Optimierung & komplexe Berechnungen',questions:[
+    {type:'mc',q:'f(x)=–2(x+3)²+8. Maximaler Wert?',opts:['8','–3','2','–2'],cor:0,ex:'Scheitelpunkt S(–3|8): max=8.'},
+    {type:'inp',q:'f(x)=3x²–12x+9. Berechne den y-Wert des Scheitelpunkts.',cor:'-3',tol:0.05,ex:'x_S=2; f(2)=12–24+9=–3.'},
+    {type:'mc',q:'Parabel mit Nullstellen x=–1 und x=5, a=1?',opts:['x²–4x–5','x²+4x–5','x²–4x+5','–x²+4x+5'],cor:0,ex:'(x+1)(x–5)=x²–4x–5.'},
+    {type:'inp',q:'Kreisausschnitt r=10 cm, α=72°. Bogenlänge in cm (als Zahl, ohne π, auf 2 Dezimalstellen).',cor:'12.57',tol:0.1,ex:'b=(1/5)·2π·10=4π≈12,57 cm.'},
+    {type:'mc',q:'f(x)=x²–2x–8<0. Für welche x?',opts:['–2<x<4','x<–2 oder x>4','x>0','Alle x'],cor:0,ex:'Nullstellen x=–2,x=4. Dazwischen ist f<0.'},
+    {type:'inp',q:'Kreis A=49π cm². Berechne den Umfang in cm (als Zahl, ohne π).',cor:'14',tol:0.1,ex:'r=7; U=2·π·7=14π → Faktor ohne π: 14.'},
+    {type:'mc',q:'3 Punkte P₁(0|3), P₂(1|2), P₃(–1|6). Wert a?',opts:['a=1','a=2','a=3','a=–1'],cor:0,ex:'c=3; Aus den Gleichungen folgt a=1.'},
+    {type:'inp',q:'f(x)=–x²+6x. Berechne die maximale Höhe.',cor:'9',tol:0,ex:'x_S=3; f(3)=–9+18=9.'},
+    {type:'mc',q:'Torte r=20 cm, 8 Stücke. Bogenlänge eines Stücks?',opts:['5π cm','2,5π cm','4π cm','10π cm'],cor:0,ex:'(1/8)·2π·20=5π cm.'},
+    {type:'inp',q:'x²–10x+16=(x–a)²+b. Berechne a+b.',cor:'-4',tol:0,ex:'(x–5)²–9 → a=5, b=–9 → a+b=–4.'},
+    {type:'mc',q:'S(1|4), P(3|0). Gleichung?',opts:['f(x)=–(x–1)²+4','f(x)=(x–1)²+4','f(x)=–(x+1)²+4','f(x)=2(x–1)²+4'],cor:0,ex:'a·4+4=0→a=–1.'},
+    {type:'inp',q:'Kreisring R=8 cm, r=5 cm. Berechne die Fläche in cm² (als Zahl, ohne π).',cor:'39',tol:0.1,ex:'π(R²–r²)=π(64–25)=39π → Faktor: 39.'},
+    {type:'mc',q:'h(t)=–4,9t²+20t+1,5. Wann trifft der Ball den Boden (gerundet)?',opts:['≈4,15 s','≈2 s','≈1 s','≈5 s'],cor:0,ex:'Nullstelle: t≈4,15 s.'},
+    {type:'inp',q:'f(x)=2x²–8x+6. Berechne den y-Wert des Scheitelpunkts.',cor:'-2',tol:0,ex:'x_S=2; f(2)=8–16+6=–2 → S(2|–2).'},
+    {type:'mc',q:'f(x)=(x–2)(x+4). Scheitelpunkt?',opts:['S(–1|–9)','S(2|0)','S(–4|0)','S(1|–9)'],cor:0,ex:'x_S=–1; f(–1)=(–3)(3)=–9 → S(–1|–9).'},
+    {type:'inp',q:'Kreisausschnitt A=12π cm², r=6 cm. Berechne den Winkel α in Grad.',cor:'120',tol:0,ex:'12π=(α/360)·36π → α=120°.'},
+    {type:'mc',q:'f(x)=ax²+bx+c. Was bewirkt a→0⁺?',opts:['Parabel wird breiter','Parabel wird schmäler','Funktion negativ','Keine Änderung'],cor:0,ex:'Kleineres |a| → breitere Parabel.'},
+    {type:'inp',q:'f(x)=x²–5x+6. Gib die kleinere Nullstelle an.',cor:'2',tol:0,ex:'(x–2)(x–3)=0 → x=2 und x=3.'},
+    {type:'mc',q:'Rechteck unter f(x)=–x²+9 (symmetrisch). Max. Fläche (gerundet)?',opts:['≈20,8','9','18','27'],cor:0,ex:'F(a)=2a(9–a²); F\'=0→a=√3; F=12√3≈20,8.'},
+    {type:'inp',q:'f(x)=x²–6x+5. Berechne die Summe beider Nullstellen.',cor:'6',tol:0,ex:'Nullstellen x=1 und x=5 → Summe=6.'},
   ]},
-  {label:'Finaltest 2',diff:'Mittel',questions:[
-    {q:'f(x)=(x–2)²+3. Scheitelpunkt?',opts:['S(2|3)','S(–2|3)','S(2|–3)','S(–2|–3)'],cor:0,ex:'Direkt ablesen: S(2|3).'},
-    {q:'f(x)=x²–4x+3. Nullstellen?',opts:['x=1 und x=3','x=–1 und x=–3','x=4 und x=3','x=0 und x=4'],cor:0,ex:'(x–1)(x–3)=0.'},
-    {q:'Kreis r=6 cm. Flächeninhalt?',opts:['36π cm²','12π cm²','6π cm²','18π cm²'],cor:0,ex:'A=π·36=36π cm².'},
-    {q:'Normalform von (x+1)²–4?',opts:['x²+2x–3','x²+2x+3','x²–2x–3','x²–2x+3'],cor:0,ex:'x²+2x+1–4=x²+2x–3.'},
-    {q:'Kreisausschnitt r=5cm, α=90°. Fläche?',opts:['25π/4 cm²','5π cm²','10π cm²','25π cm²'],cor:0,ex:'A=(1/4)·π·25=25π/4 cm².'},
-    {q:'Parabel öffnet nach unten. Vorzeichen a?',opts:['a<0','a>0','a=0','b<0'],cor:0,ex:'Negative Öffnung → a<0.'},
-    {q:'Scheitelpunkt von f(x)=2x²+8x+5?',opts:['S(–2|–3)','S(2|3)','S(–4|5)','S(–2|3)'],cor:0,ex:'x_S=–2; f(–2)=8–16+5=–3 → S(–2|–3).'},
-    {q:'Bogenlänge bei r=10cm, α=180°?',opts:['10π cm','20π cm','5π cm','π cm'],cor:0,ex:'b=(1/2)·2π·10=10π cm.'},
-    {q:'f(x)=–3x²+12x. Maximaler Wert?',opts:['12','3','–3','0'],cor:0,ex:'x_S=2; f(2)=–12+24=12.'},
-    {q:'S(0|5), P(2|1) mit a=–1. Gleichung?',opts:['–x²+5','x²+5','–x²–5','2x²+5'],cor:0,ex:'f(x)=–x²+5; f(2)=1 ✓'},
-    {q:'Kreis U=20π cm. Radius?',opts:['r=10 cm','r=20 cm','r=5 cm','r=40 cm'],cor:0,ex:'2πr=20π→r=10 cm.'},
-    {q:'Welche Aussage ist FALSCH?',opts:['a gibt Öffnungsrichtung','Scheitel liegt auf Symmetrieachse','f(x)=ax² hat S(0|0)','c bestimmt die Steigung'],cor:3,ex:'c ist der y-Achsenabschnitt, nicht Steigung.'},
-    {q:'Dreieck Grundlinie 2r, Höhe r. Verhältnis zu Kreisfläche?',opts:['1/π','2/π','1/(2π)','r/π'],cor:0,ex:'A_D=r²; A_K=πr² → Verhältnis=1/π.'},
-    {q:'f(x)=x²+bx+9 hat genau eine Nullstelle. b=?',opts:['±6','±3','±9','±18'],cor:0,ex:'Diskriminante=0: b²–36=0→b=±6.'},
-    {q:'Kreisausschnitt A=18π cm², α=120°. r=?',opts:['√54≈7,35 cm','9 cm','6 cm','3 cm'],cor:0,ex:'r²=54→r=√54.'},
-    {q:'f(x)=(x–3)²=0. Wie viele Nullstellen?',opts:['1 (doppelte)','0','2','3'],cor:0,ex:'Doppelte Nullstelle bei x=3.'},
-    {q:'Ball h(t)=–5t²+10t. Höhe bei t=1?',opts:['5 m','10 m','0 m','–5 m'],cor:0,ex:'h(1)=5 m.'},
-    {q:'Bogenlänge b=6π cm, r=9 cm. α=?',opts:['120°','60°','180°','90°'],cor:0,ex:'α=6·360/18=120°.'},
-    {q:'Welche Form hat die Faktorform?',opts:['a(x–x₁)(x–x₂)','ax²+bx+c','a(x–d)²+e','ax+b'],cor:0,ex:'Faktorform: a(x–x₁)(x–x₂).'},
-    {q:'f(x)=x²–4. y-Achsenabschnitt und Nullstellen?',opts:['y=–4; x=±2','y=4; x=±2','y=0; x=±2','y=–4; x=2'],cor:0,ex:'f(0)=–4; x=±2.'},
+  {label:'Finaltest 2',diff:'Mittel',desc:'Standard Klasse-9-Niveau: Scheitelpunkt, Nullstellen, Kreisausschnitte',questions:[
+    {type:'mc',q:'f(x)=(x–2)²+3. Scheitelpunkt?',opts:['S(2|3)','S(–2|3)','S(2|–3)','S(–2|–3)'],cor:0,ex:'Direkt ablesen: S(2|3).'},
+    {type:'inp',q:'f(x)=x²–4x+3. Gib die größere Nullstelle an.',cor:'3',tol:0,ex:'(x–1)(x–3)=0 → x=1 und x=3.'},
+    {type:'mc',q:'Kreis r=6 cm. Flächeninhalt?',opts:['36π cm²','12π cm²','6π cm²','18π cm²'],cor:0,ex:'A=π·36=36π cm².'},
+    {type:'inp',q:'(x+1)²–4 in Normalform. Berechne den y-Achsenabschnitt.',cor:'-3',tol:0,ex:'x²+2x+1–4=x²+2x–3 → c=–3.'},
+    {type:'mc',q:'Kreisausschnitt r=5 cm, α=90°. Fläche?',opts:['25π/4 cm²','5π cm²','10π cm²','25π cm²'],cor:0,ex:'A=(1/4)·π·25=25π/4 cm².'},
+    {type:'inp',q:'f(x)=2x²+8x+5. Berechne den x-Wert des Scheitelpunkts.',cor:'-2',tol:0,ex:'x_S=–b/(2a)=–8/4=–2.'},
+    {type:'mc',q:'Bogenlänge bei r=10 cm, α=180°?',opts:['10π cm','20π cm','5π cm','π cm'],cor:0,ex:'b=(1/2)·2π·10=10π cm.'},
+    {type:'inp',q:'f(x)=–3x²+12x. Berechne den maximalen Wert.',cor:'12',tol:0,ex:'x_S=2; f(2)=–12+24=12.'},
+    {type:'mc',q:'Welche Aussage ist FALSCH?',opts:['a gibt Öffnungsrichtung','Scheitel liegt auf Symmetrieachse','f(x)=ax² hat S(0|0)','c bestimmt die Steigung'],cor:3,ex:'c ist der y-Achsenabschnitt, nicht die Steigung.'},
+    {type:'inp',q:'Kreis U=20π cm. Berechne den Radius in cm.',cor:'10',tol:0,ex:'2πr=20π → r=10 cm.'},
+    {type:'mc',q:'f(x)=x²+bx+9 hat genau eine Nullstelle. b=?',opts:['±6','±3','±9','±18'],cor:0,ex:'Diskriminante=0: b²–36=0→b=±6.'},
+    {type:'inp',q:'Kreisausschnitt A=18π cm², α=120°. Berechne r (auf 2 Dezimalstellen).',cor:'7.35',tol:0.1,ex:'18π=(120/360)·πr² → r²=54 → r≈7,35 cm.'},
+    {type:'mc',q:'f(x)=(x–3)²=0. Wie viele Nullstellen?',opts:['1 (doppelte)','0','2','3'],cor:0,ex:'Doppelte Nullstelle bei x=3.'},
+    {type:'inp',q:'Ball h(t)=–5t²+10t. Berechne die Höhe bei t=1.',cor:'5',tol:0,ex:'h(1)=–5+10=5 m.'},
+    {type:'mc',q:'Welche Form hat die Faktorform?',opts:['a(x–x₁)(x–x₂)','ax²+bx+c','a(x–d)²+e','ax+b'],cor:0,ex:'Faktorform: a(x–x₁)(x–x₂).'},
+    {type:'inp',q:'Bogenlänge b=6π cm, r=9 cm. Berechne den Winkel α in Grad.',cor:'120',tol:0,ex:'α/360·2π·9=6π → α=120°.'},
+    {type:'mc',q:'f(x)=x²–4. y-Achsenabschnitt und Nullstellen?',opts:['y=–4; x=±2','y=4; x=±2','y=0; x=±2','y=–4; x=2'],cor:0,ex:'f(0)=–4; x=±2.'},
+    {type:'inp',q:'f(x)=x²–6x+8. Berechne den y-Wert des Scheitelpunkts.',cor:'-1',tol:0,ex:'x_S=3; f(3)=9–18+8=–1.'},
+    {type:'mc',q:'Parabel öffnet nach unten. Vorzeichen a?',opts:['a<0','a>0','a=0','b<0'],cor:0,ex:'Negative Öffnung → a<0.'},
+    {type:'inp',q:'Kreis r=4 cm. Berechne die Fläche in cm² (als Zahl, ohne π).',cor:'16',tol:0,ex:'A=πr²=16π → Faktor ohne π: 16.'},
   ]},
-  {label:'Finaltest 3',diff:'Leicht',questions:[
-    {q:'f(0) bei f(x)=3x²–2x+5?',opts:['5','3','–2','0'],cor:0,ex:'f(0)=c=5.'},
-    {q:'Parabel öffnet nach oben. Vorzeichen a?',opts:['a>0','a<0','a=0','a=1'],cor:0,ex:'Öffnet nach oben → a>0.'},
-    {q:'Umfang Kreis r=3 cm?',opts:['6π cm','9π cm','3π cm','12π cm'],cor:0,ex:'U=2π·3=6π cm.'},
-    {q:'f(x)=(x–1)²+2. Scheitelpunkt?',opts:['S(1|2)','S(–1|2)','S(1|–2)','S(–1|–2)'],cor:0,ex:'Direkt: S(1|2).'},
-    {q:'Was berechnet A=πr²?',opts:['Kreisfläche','Umfang','Bogenlänge','Radius'],cor:0,ex:'A=πr² ist die Kreisfläche.'},
-    {q:'f(x)=(x+2)². Scheitelpunkt?',opts:['S(–2|0)','S(2|0)','S(–2|4)','S(0|4)'],cor:0,ex:'(x+2)²=0→x=–2; y=0 → S(–2|0).'},
-    {q:'Viertelkreis r=4 cm. Fläche?',opts:['4π cm²','16π cm²','8π cm²','2π cm²'],cor:0,ex:'A=(1/4)·π·16=4π cm².'},
-    {q:'Normalform: wie viele Parameter?',opts:['3 (a,b,c)','2 (a,b)','1 (a)','4'],cor:0,ex:'ax²+bx+c: drei Parameter.'},
-    {q:'f(x)=2x². Scheitelpunkt?',opts:['S(0|0)','S(2|0)','S(0|2)','S(1|2)'],cor:0,ex:'S(0|0).'},
-    {q:'Halbkreis r=5 cm. Bogenlänge (gebogener Teil)?',opts:['5π cm','10π cm','2,5π cm','25π cm'],cor:0,ex:'b=(1/2)·2π·5=5π cm.'},
-    {q:'f(x)=–x². Nach oben oder unten?',opts:['Nach unten','Nach oben','Zur Seite','Gar nicht'],cor:0,ex:'a=–1<0 → nach unten.'},
-    {q:'y-Achsenabschnitt von f(x)=x²–3x+7?',opts:['y=7','y=–3','y=1','y=0'],cor:0,ex:'f(0)=c=7.'},
-    {q:'Kreis r=2 cm. Fläche?',opts:['4π cm²','2π cm²','8π cm²','π cm²'],cor:0,ex:'A=π·4=4π cm².'},
-    {q:'f(x)=(x+3)²–1. Nullstellen?',opts:['x=–2 und x=–4','x=2 und x=4','x=–3','x=3'],cor:0,ex:'(x+3)²=1→x=–2 oder x=–4.'},
-    {q:'Was zeigen Nullstellen an?',opts:['Schnittpunkte mit x-Achse','Höchsten Punkt','y-Wert bei x=0','Steigung'],cor:0,ex:'Nullstellen=Schnittpunkte mit x-Achse.'},
-    {q:'Kreisausschnitt α=60°. Welcher Anteil des Kreises?',opts:['1/6','1/4','1/3','1/2'],cor:0,ex:'60°/360°=1/6.'},
-    {q:'f(x)=x²–9. Nullstellen?',opts:['x=±3','x=±9','x=3','x=9'],cor:0,ex:'x²=9→x=±3.'},
-    {q:'f(x)=a(x–d)²+e. Was ist e?',opts:['y-Wert des Scheitelpunkts','x-Wert des Scheitelpunkts','Steigung','y-Achsenabschnitt'],cor:0,ex:'S(d|e): e ist die y-Koordinate.'},
-    {q:'Umfang Kreis d=10 cm?',opts:['10π cm','20π cm','5π cm','100π cm'],cor:0,ex:'U=πd=10π cm.'},
-    {q:'f(x)=x². Wert bei f(–3)?',opts:['9','–9','3','–3'],cor:0,ex:'f(–3)=(–3)²=9.'},
+  {label:'Finaltest 3',diff:'Leicht',desc:'Grundlagen & direkte Anwendung – einfacher Einstieg',questions:[
+    {type:'mc',q:'f(0) bei f(x)=3x²–2x+5?',opts:['5','3','–2','0'],cor:0,ex:'f(0)=c=5.'},
+    {type:'sort',q:'Bringe die Schritte zur Berechnung des Scheitelpunkts in die richtige Reihenfolge:',items:['Normalform aufschreiben','x_S = –b/(2a) berechnen','y_S = f(x_S) einsetzen','S(x_S | y_S) notieren'],correct:['Normalform aufschreiben','x_S = –b/(2a) berechnen','y_S = f(x_S) einsetzen','S(x_S | y_S) notieren'],ex:'Erst Normalform, dann x_S, dann y_S berechnen, dann Scheitelpunkt angeben.'},
+    {type:'mc',q:'Umfang Kreis r=3 cm?',opts:['6π cm','9π cm','3π cm','12π cm'],cor:0,ex:'U=2π·3=6π cm.'},
+    {type:'match',q:'Ordne die Begriffe den richtigen Formeln zu:',pairs:[['Kreisfläche','A = πr²'],['Kreisumfang','U = 2πr'],['Bogenlänge','b = (α/360)·2πr'],['Kreisausschnitt-Fläche','A = (α/360)·πr²']],ex:'A=πr², U=2πr, Bogenlänge=(α/360)·2πr, Ausschnittfläche=(α/360)·πr².'},
+    {type:'mc',q:'f(x)=(x–1)²+2. Scheitelpunkt?',opts:['S(1|2)','S(–1|2)','S(1|–2)','S(–1|–2)'],cor:0,ex:'Direkt: S(1|2).'},
+    {type:'sort',q:'Bringe die Schritte zur Berechnung von Nullstellen (Faktorform) in die richtige Reihenfolge:',items:['Gleichung f(x)=0 aufstellen','In Faktorform umschreiben','Jeden Faktor = 0 setzen','Nullstellen ablesen'],correct:['Gleichung f(x)=0 aufstellen','In Faktorform umschreiben','Jeden Faktor = 0 setzen','Nullstellen ablesen'],ex:'Nullstellen: f(x)=0, Faktorisieren, jeden Faktor gleich Null, lösen.'},
+    {type:'mc',q:'Was berechnet A=πr²?',opts:['Kreisfläche','Umfang','Bogenlänge','Radius'],cor:0,ex:'A=πr² ist die Kreisfläche.'},
+    {type:'match',q:'Ordne die Parabeln ihrer Öffnung zu:',pairs:[['a > 0','öffnet nach oben'],['a < 0','öffnet nach unten'],['|a| > 1','schmale Parabel'],['0 < |a| < 1','breite Parabel']],ex:'Vorzeichen von a bestimmt Richtung, Betrag die Weite.'},
+    {type:'mc',q:'Viertelkreis r=4 cm. Fläche?',opts:['4π cm²','16π cm²','8π cm²','2π cm²'],cor:0,ex:'A=(1/4)·π·16=4π cm².'},
+    {type:'mc',q:'Normalform: wie viele Parameter?',opts:['3 (a,b,c)','2 (a,b)','1 (a)','4'],cor:0,ex:'ax²+bx+c: drei Parameter.'},
+    {type:'sort',q:'Bringe die Umformung von Normalform in Scheitelpunktform in die richtige Reihenfolge:',items:['f(x) = ax² + bx + c','f(x) = a(x² + b/a·x) + c','Quadrat ergänzen','f(x) = a(x – d)² + e'],correct:['f(x) = ax² + bx + c','f(x) = a(x² + b/a·x) + c','Quadrat ergänzen','f(x) = a(x – d)² + e'],ex:'Normalform → ausklammern → quadratisch ergänzen → Scheitelpunktform.'},
+    {type:'mc',q:'f(x)=2x². Scheitelpunkt?',opts:['S(0|0)','S(2|0)','S(0|2)','S(1|2)'],cor:0,ex:'S(0|0).'},
+    {type:'match',q:'Ordne die Formeln dem richtigen Begriff zu:',pairs:[['f(x) = ax² + bx + c','Normalform'],['f(x) = a(x–d)² + e','Scheitelpunktform'],['f(x) = a(x–x₁)(x–x₂)','Faktorform'],['x_S = –b/(2a)','Scheitelpunkt-x']],ex:'Die drei Hauptformen quadratischer Funktionen.'},
+    {type:'mc',q:'f(x)=–x². Nach oben oder unten?',opts:['Nach unten','Nach oben','Zur Seite','Gar nicht'],cor:0,ex:'a=–1<0 → nach unten.'},
+    {type:'mc',q:'y-Achsenabschnitt von f(x)=x²–3x+7?',opts:['y=7','y=–3','y=1','y=0'],cor:0,ex:'f(0)=c=7.'},
+    {type:'mc',q:'Kreis r=2 cm. Fläche?',opts:['4π cm²','2π cm²','8π cm²','π cm²'],cor:0,ex:'A=π·4=4π cm².'},
+    {type:'sort',q:'Bringe die Schritte zur Berechnung einer Kreisfläche in die richtige Reihenfolge:',items:['Radius r ablesen oder berechnen','Formel A = πr² aufschreiben','r² berechnen','Mit π multiplizieren'],correct:['Radius r ablesen oder berechnen','Formel A = πr² aufschreiben','r² berechnen','Mit π multiplizieren'],ex:'Radius bestimmen, Formel anwenden: A = π·r².'},
+    {type:'mc',q:'Was zeigen Nullstellen an?',opts:['Schnittpunkte mit x-Achse','Höchsten Punkt','y-Wert bei x=0','Steigung'],cor:0,ex:'Nullstellen=Schnittpunkte mit x-Achse.'},
+    {type:'mc',q:'Kreisausschnitt α=60°. Welcher Anteil des Kreises?',opts:['1/6','1/4','1/3','1/2'],cor:0,ex:'60°/360°=1/6.'},
+    {type:'mc',q:'f(x)=x²–9. Nullstellen?',opts:['x=±3','x=±9','x=3','x=9'],cor:0,ex:'x²=9→x=±3.'},
+    {type:'mc',q:'Umfang Kreis d=10 cm?',opts:['10π cm','20π cm','5π cm','100π cm'],cor:0,ex:'U=πd=10π cm.'},
   ]},
 ];
 
@@ -694,7 +779,7 @@ const ACHS=[
 ];
 
 // ===================== STATE =====================
-let S={tp:0,tprog:{},cpTp:0,perfC:0,noHC:0,bonC:0,bStr:0,cStr:0,ach:[],ft:{ti:0,att:[0,0,0],passed:false}};
+let S={tp:0,tprog:{},cpTp:0,perfC:0,noHC:0,bonC:0,bStr:0,cStr:0,ach:[],ft:{ti:0,att:[0,0,0],passed:false,passedTests:[false,false,false]},errors:{},vidSeen:{}};
 function lS(){try{const d=localStorage.getItem('mp9v4');if(d)S=JSON.parse(d);}catch(e){}}
 function sS(){localStorage.setItem('mp9v4',JSON.stringify(S));}
 function gTp(id){if(!S.tprog[id])S.tprog[id]={};return S.tprog[id];}
@@ -703,7 +788,7 @@ function chapOk(tid,ci){if(ci===0)return true;return !!gTp(tid)[ci-1]?.done;}
 function allDone(){return TOPICS.every(t=>{const pr=gTp(t.id);return t.chapters.every((_,ci)=>pr[ci]?.done);});}
 function doneChaps(){return TOPICS.reduce((s,t)=>{const pr=gTp(t.id);return s+t.chapters.filter((_,ci)=>pr[ci]?.done).length;},0);}
 function totalChaps(){return TOPICS.reduce((s,t)=>s+t.chapters.length,0);}
-function resetAll(){if(!confirm('Fortschritt wirklich zurücksetzen?'))return;S={tp:0,tprog:{},cpTp:0,perfC:0,noHC:0,bonC:0,bStr:0,cStr:0,ach:[],ft:{ti:0,att:[0,0,0],passed:false}};sS();updateUI();showToast('Zurückgesetzt','');}
+function resetAll(){if(!confirm('Fortschritt wirklich zurücksetzen?'))return;S={tp:0,tprog:{},cpTp:0,perfC:0,noHC:0,bonC:0,bStr:0,cStr:0,ach:[],ft:{ti:0,att:[0,0,0],passed:false,passedTests:[false,false,false]},errors:{},vidSeen:{}};sS();updateUI();showToast('Zurückgesetzt','');}
 
 // ===================== QUIZ STATE =====================
 let QT=null,QCI=0,QCH=null,QL=[],QI=0,QChPts=0,QHU=false,QCHint=false,QAns=false,QBL=false;
@@ -753,6 +838,13 @@ function procA(ok,pts,ex,cv){
   document.getElementById('bn').style.display='inline-block';
   document.getElementById('bh').disabled=true;
   document.getElementById('qpr').textContent=(QChPts+pts)+' Pkt';
+  if(!ok&&QT){
+    // track error for this topic
+    if(!S.errors)S.errors={};
+    if(!S.errors[QT.id])S.errors[QT.id]={count:0,last:0};
+    S.errors[QT.id].count++;
+    S.errors[QT.id].last=Date.now();
+  }
   if(ok){QChPts+=pts;S.cStr++;if(S.cStr>S.bStr)S.bStr=S.cStr;fb.className='fbbox ok';fb.innerHTML=`✅ Richtig! ${pts===2?'+2 ✨':'+1 (Tipp)'}<br><small style="opacity:.85">${esc(ex)}</small>`;showToast(`+${pts} ${pts===2?'⭐⭐':'⭐'}`,'pts');}
   else{S.cStr=0;QBL=true;fb.className='fbbox bad';fb.innerHTML=`❌ Falsch. Richtig: <strong>${esc(String(cv))}</strong><br><small style="opacity:.85">${esc(ex)}</small>`;}
 }
@@ -795,12 +887,17 @@ function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nt').forEach(t=>t.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
-  const tabs={home:0,tools:1,stats:2,settings:3};
+  const tabs={home:0,tools:1,stats:2,videos:3,settings:4};
   const allT=document.querySelectorAll('.nt');
   if(tabs[id]!==undefined)allT[tabs[id]].classList.add('active');
+  if(id==='minesweeper'){allT[5]?.classList.add('active');renderMsModes();}
   if(id==='home')renderRM();
   if(id==='stats')renderStats();
+  if(id==='videos')renderVideos();
   if(id==='settings')initSettingsUI();
+  // show/hide ms nav
+  const msNav=document.getElementById('nav-ms');
+  if(msNav)msNav.style.display=msModeUnlocked()>0?'inline-flex':'none';
 }
 function showChaps(tid){
   const t=TOPICS.find(x=>x.id===tid),ti=TOPICS.indexOf(t);
@@ -857,22 +954,52 @@ function renderFTNode(rm){
     const rem=tc-dc;
     html=`<div class="ft-card ft-lk ft-prep" onclick="showPrepSummary()">
       <div class="ft-icon">🔒</div><div class="ft-title">Finaltest</div>
-      <div class="ft-sub">20 schwere Fragen · Bestehensgrenze 80%</div>
+      <div class="ft-sub">20 Fragen · Bestehensgrenze 80%</div>
       <div class="ft-prog-txt">Noch ${rem} Kapitel${rem!==1?'':'s'} zu absolvieren</div>
       <div class="ft-pbar"><div class="ft-pfill" style="width:${pct}%"></div></div>
       <div style="font-size:.66rem;color:var(--mu);margin-top:6px;font-family:var(--fm)">${dc}/${tc} Kapitel · Klick für offene Fragen</div>
     </div>`;
   }else{
-    const ti=ft.ti||0,att=ft.att||[0,0,0],attLeft=3-att[ti];
-    const dots=Array.from({length:3},(_,i)=>`<div class="ft-dot${i<att[ti]?' used':' avail'}"></div>`).join('');
-    html=`<div class="ft-card ft-open" onclick="onFTClick()">
-      <div class="ft-icon">🎯</div><div class="ft-title">${FT[ti].label}</div>
-      <div class="ft-sub">Schwierigkeit: ${FT[ti].diff} · 20 Fragen</div>
-      <div class="ft-dots">${dots}</div>
-      <div style="font-size:.7rem;color:var(--mu);margin-top:5px;font-family:var(--fm)">${attLeft} Versuch${attLeft!==1?'e':''} verbleibend</div>
+    const att=ft.att||[0,0,0];
+    html=`<div class="ft-card ft-open" onclick="showFTSelect()">
+      <div class="ft-icon">🎯</div><div class="ft-title">Finaltest</div>
+      <div class="ft-sub">3 Schwierigkeitsstufen · 20 Fragen</div>
+      <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">
+        ${FT.map((t,i)=>{const done=ft.passed&&ft.ti===i;return `<div style="flex:1;min-width:70px;background:${done?'rgba(52,211,153,.1)':'rgba(110,231,247,.07)'};border:1px solid ${done?'rgba(52,211,153,.3)':'rgba(110,231,247,.2)'};border-radius:8px;padding:6px 8px;text-align:center"><div style="font-size:.72rem;font-weight:700;color:${done?'var(--ac3)':'var(--txt)'}">${t.diff}</div><div style="font-size:.63rem;color:var(--mu);font-family:var(--fm);margin-top:2px">${done?'✓ bestanden':'offen'}</div></div>`;}).join('')}
+      </div>
     </div>`;
   }
   wrap.innerHTML=html;rm.appendChild(wrap);
+}
+function showFTSelect(){
+  if(!allDone())return;
+  showPage('finaltest');
+  document.getElementById('ft-badge').textContent='🎯 Finaltest wählen';
+  document.getElementById('ftpl').textContent='Wähle einen Test';
+  document.getElementById('ftpr').textContent='';
+  document.getElementById('ftpf').style.width='0%';
+  const cards=FT.map((t,i)=>{
+    const wasPassed=S.ft?.passed&&S.ft?.ti===i;
+    return `<div class="ft-sel-card${wasPassed?' ft-sel-done':''}" onclick="selectFT(${i})">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div style="font-size:1rem;font-weight:800">${t.label}</div>
+        <div style="font-size:.72rem;font-family:var(--fm);color:var(--mu)">${t.diff}</div>
+      </div>
+      <div style="font-size:.78rem;color:var(--mu);margin-bottom:10px">${t.desc}</div>
+      <div style="text-align:right">
+        <div style="font-size:.7rem;color:${wasPassed?'var(--ac3)':'var(--mu)'};font-family:var(--fm)">${wasPassed?'✅ Bestanden':'Unbegrenzte Versuche'}</div>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('ft-content').innerHTML=`
+    <div style="padding:8px 0 4px;color:var(--mu);font-size:.82rem;margin-bottom:12px">Wähle einen Test – unbegrenzte Versuche.</div>
+    <div style="display:flex;flex-direction:column;gap:10px">${cards}</div>
+    <div style="margin-top:14px;text-align:center"><button class="btns" onclick="showPage('home')">← Zurück</button></div>`;
+}
+function selectFT(i){
+  if(!S.ft)S.ft={ti:0,att:[0,0,0],passed:false};
+  S.ft.ti=i;
+  startFT();
 }
 function showPrepSummary(){
   showPage('finaltest');
@@ -907,36 +1034,59 @@ function showPrepSummary(){
     </div>`;
 }
 function onFTClick(){
-  const ft=S.ft||{ti:0,att:[0,0,0],passed:false};
-  const ti=ft.ti||0,att=ft.att||[0,0,0];
-  const isLastEver=(ti===2&&att[2]===2);
-  if(isLastEver){document.getElementById('m-last').classList.add('show');}
-  else startFT();
+  showFTSelect();
 }
 // FT quiz
 let FTQ=[],FTI=0,FTScore=0,FTAns=false,FTUserAnswers=[];
 function startFT(){
   if(!S.ft)S.ft={ti:0,att:[0,0,0],passed:false};
   const ti=S.ft.ti||0,test=FT[ti];
-  FTQ=shuffle([...test.questions]);FTI=0;FTScore=0;FTAns=false;FTUserAnswers=[];
+  FTQ=shuffle([...test.questions]).map(q=>shuffleFTOpts(q));FTI=0;FTScore=0;FTAns=false;FTUserAnswers=[];
   showPage('finaltest');
   document.getElementById('ft-badge').textContent='🎯 '+test.label+' ('+test.diff+')';
   renderFTQ();
 }
 function renderFTQ(){
   const q=FTQ[FTI];FTAns=false;
-  document.getElementById('ftpl').textContent=`Frage ${FTI+1}/20`;
+  document.getElementById('ftpl').textContent=`Frage ${FTI+1}/${FTQ.length}`;
   document.getElementById('ftpr').textContent=`${FTScore} richtig`;
-  document.getElementById('ftpf').style.width=(FTI/20*100)+'%';
+  document.getElementById('ftpf').style.width=(FTI/FTQ.length*100)+'%';
   const LB=['A','B','C','D'];
-  let h=`<div class="qcard"><div class="qtxt" style="font-size:.95rem">${esc(q.q)}</div><div class="opts">`;
-  q.opts.forEach((o,i)=>h+=`<button class="obtn" id="fto${i}" onclick="ftAnswer(${i})"><span class="olbl">${LB[i]}</span>${esc(o)}</button>`);
-  h+=`</div><div class="fbbox" id="ftfb"></div><button class="btnnxt" id="ftbn" onclick="ftNext()">Weiter →</button>`;
-  h+=iCalcHTML();
-  h+=`</div>`;
-  document.getElementById('ft-content').innerHTML=h;
+  let inner='';
+  if(q.type==='mc'){
+    inner=`<div class="opts">${q.opts.map((o,i)=>`<button class="obtn" id="fto${i}" onclick="ftAnswer(${i})"><span class="olbl">${LB[i]}</span>${esc(o)}</button>`).join('')}</div>`;
+  }else if(q.type==='inp'){
+    inner=`<div style="margin-top:14px">
+      <input id="ft-inp" type="text" placeholder="Antwort eingeben…" style="width:100%;background:var(--sf2);border:1px solid var(--bd);border-radius:9px;padding:11px 14px;color:var(--txt);font-family:var(--fm);font-size:.95rem;outline:none;transition:border .2s" onkeydown="if(event.key==='Enter')ftAnswerInp()">
+      <button class="btna" onclick="ftAnswerInp()" style="margin-top:9px;width:100%">Prüfen ✓</button>
+    </div>`;
+  }else if(q.type==='sort'){
+    // Drag-to-sort interactive question
+    inner=`<div style="margin-top:12px;font-size:.78rem;color:var(--mu);margin-bottom:7px">Bringe die Schritte in die richtige Reihenfolge:</div>
+      <div id="ft-sort-list" style="display:flex;flex-direction:column;gap:6px">${shuffle([...q.items]).map((item,i)=>`<div class="ft-sort-item" draggable="true" data-val="${esc(item)}" ondragstart="ftSortDragStart(event,this)" ondragover="ftSortDragOver(event)" ondrop="ftSortDrop(event,this)" ontouchstart="ftTouchStart(event,this)" ontouchmove="ftTouchMove(event)" ontouchend="ftTouchEnd(event,this)" style="background:var(--sf2);border:1px solid var(--bd);border-radius:8px;padding:9px 12px;cursor:grab;font-size:.84rem;display:flex;align-items:center;gap:8px"><span style="color:var(--mu);font-family:var(--fm);font-size:.7rem">${i+1}</span>${esc(item)}</div>`).join('')}</div>
+      <button class="btna" onclick="ftAnswerSort()" style="margin-top:10px;width:100%">Reihenfolge bestätigen ✓</button>`;
+  }else if(q.type==='match'){
+    // Drag-to-match: pair left with right
+    const shuffledR=shuffle([...q.pairs.map(p=>p[1])]);
+    inner=`<div style="margin-top:12px;font-size:.78rem;color:var(--mu);margin-bottom:7px">Ziehe die rechte Spalte in die richtige Reihenfolge:</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:start">
+        <div style="display:flex;flex-direction:column;gap:6px">${q.pairs.map((p,i)=>`<div style="background:rgba(110,231,247,.07);border:1px solid rgba(110,231,247,.15);border-radius:8px;padding:9px 11px;font-size:.82rem;min-height:42px;display:flex;align-items:center">${esc(p[0])}</div>`).join('')}</div>
+        <div id="ft-match-right" style="display:flex;flex-direction:column;gap:6px">${shuffledR.map((r,i)=>`<div class="ft-sort-item" draggable="true" data-val="${esc(r)}" ondragstart="ftSortDragStart(event,this)" ondragover="ftSortDragOver(event)" ondrop="ftSortDrop(event,this)" ontouchstart="ftTouchStart(event,this)" ontouchmove="ftTouchMove(event)" ontouchend="ftTouchEnd(event,this)" style="background:var(--sf2);border:1px solid var(--bd);border-radius:8px;padding:9px 11px;cursor:grab;font-size:.82rem">${esc(r)}</div>`).join('')}</div>
+      </div>
+      <button class="btna" onclick="ftAnswerMatch()" style="margin-top:10px;width:100%">Zuordnung bestätigen ✓</button>`;
+  }
+  document.getElementById('ft-content').innerHTML=`<div class="qcard">
+    <div class="qtxt" style="font-size:.95rem">${esc(q.q)}</div>
+    ${inner}
+    <div class="fbbox" id="ftfb"></div>
+    <button class="btnnxt" id="ftbn" onclick="ftNext()" style="display:none">Weiter →</button>
+    ${iCalcHTML()}
+  </div>`;
   icE='';
+  // drag-sort state
+  window._ftDragSrc=null;
 }
+// ---- answer handlers ----
 function ftAnswer(idx){
   if(FTAns)return;FTAns=true;
   const q=FTQ[FTI],ok=idx===q.cor;
@@ -947,6 +1097,76 @@ function ftAnswer(idx){
   for(let i=0;i<q.opts.length;i++){const b=document.getElementById('fto'+i);b.disabled=true;if(i===q.cor)b.classList.add('ok');else if(i===idx&&!ok)b.classList.add('bad');}
   fb.className='fbbox '+(ok?'ok':'bad');
   fb.innerHTML=(ok?'✅ Richtig!':'❌ Falsch. Richtig: <strong>'+esc(q.opts[q.cor])+'</strong>')+' <small style="opacity:.8">'+esc(q.ex)+'</small>';
+}
+function ftAnswerInp(){
+  if(FTAns)return;
+  const inp=document.getElementById('ft-inp');if(!inp)return;
+  const val=inp.value.trim().replace(',','.');
+  const q=FTQ[FTI];
+  const num=parseFloat(val);
+  const corNum=parseFloat(q.cor);
+  const ok=!isNaN(num)&&!isNaN(corNum)?Math.abs(num-corNum)<=(q.tol||0.05):val.toLowerCase()===String(q.cor).toLowerCase();
+  if(ok)FTScore++;FTAns=true;
+  FTUserAnswers.push({ok,chosen:val,cor:q.cor,q:q.q,opts:[],ex:q.ex});
+  inp.disabled=true;inp.style.borderColor=ok?'var(--ac3)':'var(--red)';
+  const fb=document.getElementById('ftfb');fb.style.display='block';
+  document.getElementById('ftbn').style.display='inline-block';
+  fb.className='fbbox '+(ok?'ok':'bad');
+  fb.innerHTML=(ok?'✅ Richtig!':'❌ Falsch. Richtig: <strong>'+esc(String(q.cor))+'</strong>')+' <small style="opacity:.8">'+esc(q.ex)+'</small>';
+}
+// ---- sort/match drag ----
+function ftSortDragStart(e,el){window._ftDragSrc=el;e.dataTransfer.effectAllowed='move';}
+function ftSortDragOver(e){e.preventDefault();e.dataTransfer.dropEffect='move';}
+function ftSortDrop(e,target){
+  e.preventDefault();
+  if(!window._ftDragSrc||window._ftDragSrc===target)return;
+  const list=target.parentNode;
+  const items=[...list.children];
+  const si=items.indexOf(window._ftDragSrc),ti=items.indexOf(target);
+  if(si<ti)list.insertBefore(window._ftDragSrc,target.nextSibling);else list.insertBefore(window._ftDragSrc,target);
+  // renumber sort items
+  [...list.children].forEach((el,i)=>{const sp=el.querySelector('span');if(sp&&sp.style.fontFamily)sp.textContent=i+1;});
+}
+// touch drag
+function ftTouchStart(e,el){window._ftDragSrc=el;window._ftDragClone=el.cloneNode(true);window._ftDragClone.style.cssText='position:fixed;opacity:.8;pointer-events:none;z-index:9999;width:'+el.offsetWidth+'px';document.body.appendChild(window._ftDragClone);}
+function ftTouchMove(e){if(!window._ftDragClone)return;e.preventDefault();const t=e.touches[0];window._ftDragClone.style.left=(t.clientX-60)+'px';window._ftDragClone.style.top=(t.clientY-20)+'px';}
+function ftTouchEnd(e,el){
+  if(window._ftDragClone){window._ftDragClone.remove();window._ftDragClone=null;}
+  if(!window._ftDragSrc)return;
+  const t=e.changedTouches[0];
+  const under=document.elementFromPoint(t.clientX,t.clientY);
+  const target=under?.closest('.ft-sort-item');
+  if(target&&target!==window._ftDragSrc)ftSortDrop({preventDefault:()=>{}},target);
+  window._ftDragSrc=null;
+}
+function ftAnswerSort(){
+  if(FTAns)return;FTAns=true;
+  const q=FTQ[FTI];
+  const list=document.getElementById('ft-sort-list');
+  const order=[...list.children].map(el=>el.getAttribute('data-val'));
+  const ok=order.every((v,i)=>v===q.correct[i]);
+  if(ok)FTScore++;
+  FTUserAnswers.push({ok,chosen:order.join('→'),cor:q.correct.join('→'),q:q.q,opts:[],ex:q.ex});
+  document.getElementById('ftbn').style.display='inline-block';
+  const fb=document.getElementById('ftfb');fb.style.display='block';
+  fb.className='fbbox '+(ok?'ok':'bad');
+  fb.innerHTML=(ok?'✅ Richtig!':'❌ Falsch. Richtig: <strong>'+esc(q.correct.join(' → '))+'</strong>')+' <small style="opacity:.8">'+esc(q.ex)+'</small>';
+  // Color items
+  [...list.children].forEach((el,i)=>{el.style.borderColor=el.getAttribute('data-val')===q.correct[i]?'var(--ac3)':'var(--red)';});
+}
+function ftAnswerMatch(){
+  if(FTAns)return;FTAns=true;
+  const q=FTQ[FTI];
+  const list=document.getElementById('ft-match-right');
+  const order=[...list.children].map(el=>el.getAttribute('data-val'));
+  const ok=order.every((v,i)=>v===q.pairs[i][1]);
+  if(ok)FTScore++;
+  FTUserAnswers.push({ok,chosen:order.join('|'),cor:q.pairs.map(p=>p[1]).join('|'),q:q.q,opts:[],ex:q.ex});
+  document.getElementById('ftbn').style.display='inline-block';
+  const fb=document.getElementById('ftfb');fb.style.display='block';
+  fb.className='fbbox '+(ok?'ok':'bad');
+  fb.innerHTML=(ok?'✅ Richtig! Alle Zuordnungen korrekt.':'❌ Falsch. '+esc(q.ex))+' <small style="opacity:.8">'+esc(q.ex)+'</small>';
+  [...list.children].forEach((el,i)=>{el.style.borderColor=el.getAttribute('data-val')===q.pairs[i][1]?'var(--ac3)':'var(--red)';});
 }
 function ftNext(){document.getElementById('ftpf').style.width=((FTI+1)/20*100)+'%';FTI++;if(FTI>=FTQ.length)finishFT();else renderFTQ();}
 function confirmLeaveFT(){if(confirm('Finaltest wirklich abbrechen? Der Versuch zählt nicht.'))showPage('home');}
@@ -959,71 +1179,65 @@ function getGrade(pct){
   return{n:6,l:'Ungenügend',cls:'g6',msg:'Nicht bestanden. Gib nicht auf, geh die Themen nochmal durch!'};
 }
 function finishFT(){
-  if(!S.ft)S.ft={ti:0,att:[0,0,0],passed:false};
+  if(!S.ft)S.ft={ti:0,att:[0,0,0],passed:false,passedTests:[false,false,false]};
+  if(!S.ft.passedTests)S.ft.passedTests=[false,false,false];
   const ti=S.ft.ti;
-  S.ft.att[ti]=(S.ft.att[ti]||0)+1;
   const pct=Math.round(FTScore/FTQ.length*100);
   const passed=pct>=80;
   const grade=getGrade(pct);
   document.getElementById('ftpf').style.width='100%';
   if(passed){
     S.ft.passed=true;
+    S.ft.passedTests[ti]=true;
     checkAchs();sS();updateUI();
-    showToast('🎉 Bestanden! Minesweeper freigeschaltet!','pts');
+    showToast('🎉 Bestanden!','pts');
   }else{
-    const attUsed=S.ft.att[ti];
-    if(attUsed>=3){
-      if(ti<2){
-        S.ft.ti=ti+1;
-        sS();updateUI();
-        showToast(`⚠️ Versuche verbraucht → ${FT[ti+1].label}`,'warn');
-      }else{
-        // ALL FAILED → FULL RESET
-        sS();
-        setTimeout(()=>{
-          document.getElementById('ft-content').innerHTML=`
-            <div style="text-align:center;padding:32px 16px">
-              <div style="font-size:3rem;margin-bottom:12px">💀</div>
-              <div style="font-size:1.4rem;font-weight:800;color:var(--red);margin-bottom:8px">Alle Versuche aufgebraucht!</div>
-              <div style="color:var(--mu);font-size:.9rem;line-height:1.7;margin-bottom:20px">Du hast alle drei Tests nicht bestanden.<br>Dein Fortschritt wird in 5 Sekunden zurückgesetzt...</div>
-              <div style="font-size:2rem;font-weight:800;font-family:var(--fm);color:var(--red)" id="cntdwn">5</div>
-            </div>`;
-          let cnt=5;const iv=setInterval(()=>{cnt--;const el=document.getElementById('cntdwn');if(el)el.textContent=cnt;if(cnt<=0){clearInterval(iv);S={tp:0,tprog:{},cpTp:0,perfC:0,noHC:0,bonC:0,bStr:0,cStr:0,ach:[],ft:{ti:0,att:[0,0,0],passed:false}};sS();updateUI();showToast('💀 Fortschritt zurückgesetzt!','warn');showPage('home');}},1000);
-        },200);
-        return;
-      }
-    }else{sS();updateUI();}
+    sS();updateUI();
   }
-  // Build result UI
-  const ti2=S.ft.ti||0,attLeft=3-(S.ft.att[ti2]||0);
-  let btns='';
-  if(passed){
-    btns=`<button class="btna" onclick="showPage('home')">🏠 Zum Lernpfad</button>`;
-  }else if(S.ft.ti!==ti){
-    btns=`<button class="btnw" onclick="startFT()">Weiter → ${FT[S.ft.ti].label}</button>`;
-  }else{
-    btns=`<button class="btnw" onclick="startFT()">🔁 Nochmal (${attLeft} übrig)</button>`;
+  // Track FT errors by topic
+  if(!S.errors)S.errors={};
+  FTUserAnswers.filter(a=>!a.ok).forEach(a=>{
+    const topic=detectFTTopic(a.q);
+    if(!S.errors[topic])S.errors[topic]={count:0,last:0};
+    S.errors[topic].count++;
+    S.errors[topic].last=Date.now();
+  });
+  sS();
+  // Minesweeper unlock info
+  const msUnlocked=msModeUnlocked();
+  const newUnlock=passed?['🟢 Leicht','🟡 Mittel','🔴 Schwer','🌌 Ultra'][ti===2?0:ti===1?1:ti===0?2:-1]||null:null;
+  let msBtn='';
+  if(msUnlocked>0){
+    msBtn=`<button class="btna" onclick="showPage('minesweeper')" style="background:linear-gradient(135deg,#1e3a5f,#0d2040);border:1px solid rgba(110,231,247,.3)">💣 Minesweeper</button>`;
   }
+  const btns=passed
+    ? `${msBtn}<button class="btns" onclick="showPage('home')">🏠 Lernpfad</button>`
+    : `<button class="btnw" onclick="startFT()">🔁 Nochmal</button>
+       <button class="btns" onclick="showFTSelect()">← Testauswahl</button>`;
   // Wrong answers review
   const wrongs=FTUserAnswers.filter(a=>!a.ok);
   let reviewHtml='';
   if(wrongs.length>0){
     reviewHtml=`<div style="margin-top:18px"><div style="font-size:.82rem;font-weight:700;color:var(--mu);margin-bottom:8px">❌ Falsch beantwortet (${wrongs.length}):</div><div class="prep-list">`;
-    wrongs.slice(0,5).forEach(a=>{reviewHtml+=`<div class="prep-item" style="border-color:rgba(248,113,113,.25)"><div class="pi-q" style="margin-bottom:4px">${esc(a.q)}</div><div style="font-size:.75rem"><span style="color:var(--red)">Deine Antwort: ${esc(a.opts[a.chosen])}</span> · <span style="color:var(--ac3)">Richtig: ${esc(a.opts[a.cor])}</span></div></div>`;});
+    wrongs.slice(0,5).forEach(a=>{
+      const chosenTxt=a.opts&&a.opts.length?esc(a.opts[a.chosen]??a.chosen):esc(String(a.chosen));
+      const corTxt=a.opts&&a.opts.length?esc(a.opts[a.cor]??a.cor):esc(String(a.cor));
+      reviewHtml+=`<div class="prep-item" style="border-color:rgba(248,113,113,.25)"><div class="pi-q" style="margin-bottom:4px">${esc(a.q)}</div><div style="font-size:.75rem"><span style="color:var(--red)">Deine Antwort: ${chosenTxt}</span> · <span style="color:var(--ac3)">Richtig: ${corTxt}</span></div></div>`;
+    });
     if(wrongs.length>5)reviewHtml+=`<div style="text-align:center;color:var(--mu);font-size:.75rem;padding:6px">… und ${wrongs.length-5} weitere</div>`;
     reviewHtml+='</div></div>';
   }
   document.getElementById('ft-content').innerHTML=`
     <div class="grade-wrap">
-      <div style="font-size:.72rem;color:var(--mu);font-family:var(--fm);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Ergebnis</div>
+      <div style="font-size:.72rem;color:var(--mu);font-family:var(--fm);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Ergebnis · ${FT[ti].label}</div>
       <div class="grade-n ${grade.cls}">${grade.n}</div>
       <div class="grade-lbl">${grade.l}</div>
       <div class="grade-pct">${FTScore}/20 richtig · ${pct}%</div>
       <div class="grade-msg">${grade.msg}</div>
-      ${passed?'<div style="color:var(--ac3);font-weight:700;margin-top:10px;font-size:.88rem">🎉 Bestanden! (≥80%)</div>':'<div style="color:var(--red);margin-top:8px;font-size:.82rem">❌ Nicht bestanden (mind. 80% nötig)</div>'}
+      ${passed?`<div style="color:var(--ac3);font-weight:700;margin-top:10px;font-size:.88rem">🎉 Bestanden! (≥80%)</div>${newUnlock?`<div style="color:var(--ac);font-size:.82rem;margin-top:4px">💣 Minesweeper ${newUnlock} freigeschaltet!</div>`:''}`:
+      '<div style="color:var(--red);margin-top:8px;font-size:.82rem">❌ Nicht bestanden (mind. 80% nötig)</div>'}
       <div style="margin-top:20px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
         ${btns}
-        <button class="btns" onclick="showPage('home')">🏠 Lernpfad</button>
       </div>
     </div>
     ${reviewHtml}`;
@@ -1098,6 +1312,291 @@ function clrG(){gF=[];gC.data.datasets=[];gC.update();rFT();}
 function rFT(){document.getElementById('g-funcs').innerHTML=gF.map((f,i)=>`<div class="gtag" style="background:${f.color}22;border:1px solid ${f.color}55;color:${f.color}" onclick="rmF(${i})">f${i+1}=${f.expr} ✕</div>`).join('');}
 function rmF(i){gF.splice(i,1);gC.data.datasets.splice(i,1);gC.update();rFT();}
 
+
+// ===================== VIDEOS =====================
+// topic tags match TOPICS ids: qb, qf, qa, kr, ka, sk
+// plus ft tags: ft_scheitelpunkt, ft_nullstellen, ft_kreis, ft_bogen, ft_optimierung
+const VID_DB=[
+  // ── qb: Grundlagen quadratischer Funktionen ──
+  {id:'v01',topic:'qb',title:'Quadratische Funktionen – Einführung',channel:'Lehrerschmidt',url:'https://www.youtube.com/watch?v=YdBP-GNxGKE',icon:'📐',why:'Erklärt die Grundstruktur von f(x)=ax²+bx+c von Grund auf.'},
+  {id:'v02',topic:'qb',title:'Parabel – Öffnung, Streckung & Koeffizienten',channel:'MathemaTrick',url:'https://www.youtube.com/watch?v=4fGdYkpDpVw',icon:'📐',why:'Was a, b und c wirklich bedeuten – mit vielen Beispielen.'},
+  {id:'v03',topic:'qb',title:'Quadratische Funktionen – Eigenschaften',channel:'Studyflix',url:'https://www.youtube.com/watch?v=oC1SuGcD8y0',icon:'📐',why:'Kompakte Zusammenfassung aller Eigenschaften.'},
+  // ── qf: Normal- & Scheitelpunktform ──
+  {id:'v04',topic:'qf',title:'Scheitelpunktform – Herleitung & Umformung',channel:'Lehrerschmidt',url:'https://www.youtube.com/watch?v=TuZJGRtJpWk',icon:'🔄',why:'Schritt für Schritt von Normalform zur Scheitelpunktform.'},
+  {id:'v05',topic:'qf',title:'Quadratische Ergänzung einfach erklärt',channel:'MathemaTrick',url:'https://www.youtube.com/watch?v=k2XYBuNBsTc',icon:'🔄',why:'Die quadratische Ergänzung – das wichtigste Werkzeug.'},
+  {id:'v06',topic:'qf',title:'Scheitelpunkt berechnen – alle Methoden',channel:'Studyflix',url:'https://www.youtube.com/watch?v=7cBJHuJHMpM',icon:'🔄',why:'x_S=–b/2a und Scheitelpunktform – beide Wege erklärt.'},
+  {id:'v07',topic:'qf',title:'Normal- in Scheitelpunktform umformen',channel:'simpleclub',url:'https://www.youtube.com/watch?v=9VJzL7PFvfM',icon:'🔄',why:'Visuell und klar erklärt, ideal zum Nachlernen.'},
+  // ── qa: Funktionsgleichung aufstellen ──
+  {id:'v08',topic:'qa',title:'Funktionsgleichung aus Punkten aufstellen',channel:'Lehrerschmidt',url:'https://www.youtube.com/watch?v=8gFM1lF5EqI',icon:'📌',why:'Gegeben Punkte, gesucht Gleichung – Schritt für Schritt.'},
+  {id:'v09',topic:'qa',title:'Parabel durch 3 Punkte bestimmen',channel:'MathemaTrick',url:'https://www.youtube.com/watch?v=KvPGK5AEBvk',icon:'📌',why:'Lineares Gleichungssystem aufstellen und lösen.'},
+  {id:'v10',topic:'qa',title:'Faktorform & Nullstellen-Form',channel:'Studyflix',url:'https://www.youtube.com/watch?v=Wh6LUZGBPZE',icon:'📌',why:'Faktorform a(x–x₁)(x–x₂) verstehen und anwenden.'},
+  {id:'v11',topic:'qa',title:'Scheitelpunkt + Punkt → Gleichung',channel:'simpleclub',url:'https://www.youtube.com/watch?v=3DxFTHKD6Ms',icon:'📌',why:'Wenn Scheitelpunkt und ein weiterer Punkt gegeben sind.'},
+  // ── kr: Kreis – Fläche & Umfang ──
+  {id:'v12',topic:'kr',title:'Kreisfläche und Kreisumfang berechnen',channel:'Lehrerschmidt',url:'https://www.youtube.com/watch?v=Z3E5HZMXVCI',icon:'⭕',why:'A=πr² und U=2πr – beide Formeln mit Aufgaben.'},
+  {id:'v13',topic:'kr',title:'Kreis – Fläche, Umfang, Durchmesser',channel:'MathemaTrick',url:'https://www.youtube.com/watch?v=1hxRNeMkFMI',icon:'⭕',why:'Zusammenhang zwischen r, d, A und U klar erklärt.'},
+  {id:'v14',topic:'kr',title:'Kreisberechnung – Übungsaufgaben',channel:'Studyflix',url:'https://www.youtube.com/watch?v=yKbCsD-BSGA',icon:'⭕',why:'Typische Schulaufgaben zu Kreis Fläche und Umfang.'},
+  // ── ka: Kreisausschnitt & Kreisbogen ──
+  {id:'v15',topic:'ka',title:'Kreisausschnitt Fläche und Bogenlänge',channel:'Lehrerschmidt',url:'https://www.youtube.com/watch?v=YDPINV-r0vM',icon:'🥧',why:'Formel für Ausschnittfläche und Bogenlänge mit α.'},
+  {id:'v16',topic:'ka',title:'Kreisbogen berechnen – Formel & Beispiele',channel:'MathemaTrick',url:'https://www.youtube.com/watch?v=n5xVMUqBoJI',icon:'🥧',why:'b=(α/360)·2πr – Herleitung und Übungsaufgaben.'},
+  {id:'v17',topic:'ka',title:'Kreisausschnitt – alle Formeln',channel:'Studyflix',url:'https://www.youtube.com/watch?v=lFNxIzJbsWM',icon:'🥧',why:'Zusammenfassung: Winkel, Bogenlänge, Fläche.'},
+  {id:'v18',topic:'ka',title:'Kreisring Fläche berechnen',channel:'simpleclub',url:'https://www.youtube.com/watch?v=xHY_PNqr9r0',icon:'🥧',why:'Kreisring A=π(R²–r²) erklärt und geübt.'},
+  // ── sk: Anwendungsaufgaben ──
+  {id:'v19',topic:'sk',title:'Quadratische Funktionen – Textaufgaben',channel:'Lehrerschmidt',url:'https://www.youtube.com/watch?v=mPG5yM6JZEM',icon:'🌍',why:'Realweltliche Anwendungen: Wurfparabel, Optimierung.'},
+  {id:'v20',topic:'sk',title:'Optimierungsaufgaben mit Parabeln',channel:'MathemaTrick',url:'https://www.youtube.com/watch?v=xG4NLgkzYFc',icon:'🌍',why:'Maximale/minimale Werte in Sachaufgaben finden.'},
+  {id:'v21',topic:'sk',title:'Wurfparabel und Bewegungsaufgaben',channel:'Studyflix',url:'https://www.youtube.com/watch?v=FQQ8BPdvNlU',icon:'🌍',why:'h(t)=–4,9t²+... – Fallen, Steigen, Aufprall berechnen.'},
+  {id:'v22',topic:'sk',title:'Quadratische Ungleichungen lösen',channel:'simpleclub',url:'https://www.youtube.com/watch?v=lD2a5ZFBxnI',icon:'🌍',why:'f(x)<0 und f(x)>0 – Lösungsmengen bestimmen.'},
+  // ── ft: Finaltest-spezifische Schwächen ──
+  {id:'v23',topic:'ft_scheitelpunkt',title:'Scheitelpunkt – alle Methoden Übersicht',channel:'Lehrerschmidt',url:'https://www.youtube.com/watch?v=TuZJGRtJpWk',icon:'🎯',why:'Scheitelpunkt über Formel und quadratische Ergänzung.'},
+  {id:'v24',topic:'ft_nullstellen',title:'Nullstellen berechnen – 4 Methoden',channel:'MathemaTrick',url:'https://www.youtube.com/watch?v=VPqC7ZH7fLs',icon:'🎯',why:'Faktorisieren, p-q-Formel, abc-Formel, Ausklammern.'},
+  {id:'v25',topic:'ft_nullstellen',title:'p-q-Formel einfach erklärt',channel:'Studyflix',url:'https://www.youtube.com/watch?v=XuTGdMBs2eA',icon:'🎯',why:'Die p-q-Formel Schritt für Schritt angewendet.'},
+  {id:'v26',topic:'ft_kreis',title:'Kreisformeln – Zusammenfassung Klasse 9',channel:'Lehrerschmidt',url:'https://www.youtube.com/watch?v=Z3E5HZMXVCI',icon:'🎯',why:'Alle Kreisformeln kompakt für den Test.'},
+  {id:'v27',topic:'ft_bogen',title:'Bogenlänge und Kreisausschnitt – Prüfungsvorbereitung',channel:'MathemaTrick',url:'https://www.youtube.com/watch?v=YDPINV-r0vM',icon:'🎯',why:'Typische Prüfungsaufgaben zu Bogen und Ausschnitt.'},
+  {id:'v28',topic:'ft_optimierung',title:'Optimierungsaufgaben – Prüfungsvorbereitung',channel:'Lehrerschmidt',url:'https://www.youtube.com/watch?v=mPG5yM6JZEM',icon:'🎯',why:'Maximale Flächen und minimale Werte im Finaltest.'},
+];
+
+// maps keywords in question text → ft_topic
+function detectFTTopic(q){
+  const t=q.toLowerCase();
+  if(/scheitelpunkt|scheitel|x_s|y_s/.test(t))return 'ft_scheitelpunkt';
+  if(/nullstell|x=|faktorform/.test(t))return 'ft_nullstellen';
+  if(/kreisring|kreisfläche|umfang|kreis/.test(t))return 'ft_kreis';
+  if(/bogenlänge|kreisausschnitt|α|winkel/.test(t))return 'ft_bogen';
+  if(/maximal|minimal|optimier|rechteck|fläche unter/.test(t))return 'ft_optimierung';
+  return 'qb'; // fallback
+}
+
+function getTopicErrors(){
+  // returns array of {topicId, count} sorted by count desc
+  if(!S.errors)return [];
+  return Object.entries(S.errors)
+    .filter(([,v])=>v.count>0)
+    .sort((a,b)=>b[1].count-a[1].count)
+    .map(([id,v])=>({topicId:id,count:v.count,last:v.last}));
+}
+
+function getVideoRecommendations(){
+  const errs=getTopicErrors();
+  if(!errs.length)return [];
+  // for each errored topic, pick matching videos
+  const seen=S.vidSeen||{};
+  const recs=[];
+  const addedIds=new Set();
+  errs.forEach(({topicId,count})=>{
+    VID_DB.filter(v=>v.topic===topicId).forEach(v=>{
+      if(!addedIds.has(v.id)){
+        addedIds.add(v.id);
+        recs.push({...v,errCount:count,isSeen:!!seen[v.id]});
+      }
+    });
+  });
+  // Sort: unseen first, then by error count desc
+  recs.sort((a,b)=>{
+    if(a.isSeen!==b.isSeen)return a.isSeen?1:-1;
+    return b.errCount-a.errCount;
+  });
+  return recs;
+}
+
+function getTopicLabel(topicId){
+  const t=TOPICS.find(t=>t.id===topicId);
+  if(t)return t.icon+' '+t.title;
+  const ftLabels={
+    ft_scheitelpunkt:'🎯 Scheitelpunkt',
+    ft_nullstellen:'🎯 Nullstellen',
+    ft_kreis:'🎯 Kreisberechnungen',
+    ft_bogen:'🎯 Bogenlänge & Ausschnitt',
+    ft_optimierung:'🎯 Optimierungsaufgaben',
+  };
+  return ftLabels[topicId]||topicId;
+}
+
+function markVideoSeen(id){
+  if(!S.vidSeen)S.vidSeen={};
+  S.vidSeen[id]=true;
+  sS();renderVideos();
+  showToast('✅ Als gesehen markiert','pts');
+}
+
+function renderVideos(){
+  const cont=document.getElementById('vid-content');
+  if(!cont)return;
+  const recs=getVideoRecommendations();
+  if(!recs.length){
+    cont.innerHTML=`<div class="vid-empty">
+      <div class="vid-empty-ico">📺</div>
+      <div class="vid-empty-txt">Noch keine Videoempfehlungen.<br>
+      Mach ein paar Quiz-Kapitel oder einen Finaltest –<br>
+      dann erscheinen hier passende Videos für deine Schwächen.</div>
+    </div>`;
+    return;
+  }
+  const unseen=recs.filter(v=>!v.isSeen);
+  const seenList=recs.filter(v=>v.isSeen);
+  // Group unseen by topic
+  const byTopic={};
+  unseen.forEach(v=>{
+    if(!byTopic[v.topic])byTopic[v.topic]=[];
+    byTopic[v.topic].push(v);
+  });
+  let html='';
+  // Unseen videos grouped by topic
+  Object.entries(byTopic).forEach(([topicId,vids])=>{
+    const errCount=vids[0].errCount;
+    html+=`<div class="vid-section">
+      <div class="vid-section-title">${getTopicLabel(topicId)} <span>${errCount} Fehler</span></div>`;
+    vids.forEach(v=>{
+      html+=renderVidCard(v,false);
+    });
+    html+='</div>';
+  });
+  // Seen videos (collapsed at bottom)
+  if(seenList.length){
+    html+=`<div class="vid-section">
+      <div class="vid-section-title" style="opacity:.5">✅ Bereits angeschaut <span>${seenList.length}</span></div>`;
+    seenList.forEach(v=>{html+=renderVidCard(v,true);});
+    html+='</div>';
+  }
+  cont.innerHTML=html;
+}
+
+function renderVidCard(v,seen){
+  return `<div class="vid-card${seen?' seen':''}">
+    <div class="vid-top">
+      <div class="vid-thumb-ph">${v.icon}</div>
+      <div class="vid-meta">
+        <div class="vid-title">${esc(v.title)}</div>
+        <div class="vid-channel">▶ ${esc(v.channel)}</div>
+        <div class="vid-why">${esc(v.why)}</div>
+      </div>
+      ${!seen?`<div class="vid-errors">❌ ${v.errCount}×</div>`:''}
+    </div>
+    <div class="vid-actions">
+      <a class="vid-link" href="${v.url}" target="_blank" rel="noopener">▶ YouTube öffnen</a>
+      ${seen
+        ? `<span class="vid-seen-badge">✅ Angeschaut</span>`
+        : `<button class="vid-seen-btn" onclick="markVideoSeen('${v.id}')">✓ Als gesehen markieren</button>`}
+    </div>
+  </div>`;
+}
+
+// ===================== MINESWEEPER =====================
+const MS_MODES=[
+  {id:'easy',  name:'🟢 Leicht', sub:'9×9 · 10 Minen',  r:9,  c:9,  m:10, color:'#34d399', unlockTest:2, unlockDesc:'Leichten Finaltest bestehen'},
+  {id:'medium',name:'🟡 Mittel', sub:'12×12 · 20 Minen', r:12, c:12, m:20, color:'#fbbf24', unlockTest:1, unlockDesc:'Mittleren Finaltest bestehen'},
+  {id:'hard',  name:'🔴 Schwer', sub:'16×16 · 40 Minen', r:16, c:16, m:40, color:'#f87171', unlockTest:0, unlockDesc:'Schweren Finaltest bestehen'},
+  {id:'ultra', name:'🌌 Ultra',  sub:'20×20 · 70 Minen', r:20, c:20, m:70, color:'#a78bfa', unlockTest:-1,unlockDesc:'Alle drei Tests bestehen'},
+];
+let msCfg=null,msB=[],msRev=[],msFlg=[],msGO=false,msWon=false,msFst=true,msTv=0,msTi=null,msMl=0;
+let msLongPress=null;
+
+function msModeUnlocked(){
+  const pt=S.ft?.passedTests||[false,false,false];
+  let count=0;
+  if(pt[2])count++; // leicht → easy
+  if(pt[1])count++; // mittel → medium
+  if(pt[0])count++; // schwer → hard
+  if(pt[0]&&pt[1]&&pt[2])count++; // ultra
+  return count;
+}
+function msModeAvail(mode){
+  const pt=S.ft?.passedTests||[false,false,false];
+  if(mode.id==='easy')  return pt[2]; // Finaltest 3 = Leicht
+  if(mode.id==='medium')return pt[1]; // Finaltest 2 = Mittel
+  if(mode.id==='hard')  return pt[0]; // Finaltest 1 = Schwer
+  if(mode.id==='ultra') return pt[0]&&pt[1]&&pt[2];
+  return false;
+}
+function renderMsModes(){
+  document.getElementById('ms-game').style.display='none';
+  document.getElementById('ms-modes').style.display='grid';
+  const html=MS_MODES.map(m=>{
+    const avail=msModeAvail(m);
+    return `<div class="ms-mode-card${avail?'':' ms-locked'}" style="--nc:${m.color};border-color:${avail?m.color+'44':'var(--bd)'}" onclick="${avail?`startMsMode('${m.id}')`:``}">
+      <div class="ms-mode-icon">${m.name.split(' ')[0]}</div>
+      <div class="ms-mode-name" style="color:${avail?m.color:'var(--mu)'}">${m.name.split(' ').slice(1).join(' ')}</div>
+      <div class="ms-mode-sub">${m.sub}</div>
+      ${avail
+        ? `<div style="margin-top:8px;background:${m.color}22;border:1px solid ${m.color}44;border-radius:20px;padding:2px 8px;font-size:.63rem;font-family:var(--fm);color:${m.color}">✅ Freigeschaltet</div>`
+        : `<div class="ms-mode-unlock">🔒 ${m.unlockDesc}</div>`}
+    </div>`;
+  }).join('');
+  document.getElementById('ms-modes').innerHTML=html;
+}
+function startMsMode(id){
+  msCfg=MS_MODES.find(m=>m.id===id);
+  document.getElementById('ms-modes').style.display='none';
+  document.getElementById('ms-game').style.display='block';
+  initMs();
+}
+function initMs(){
+  clearInterval(msTi);msTv=0;msFst=true;msGO=false;msWon=false;
+  const{r,c,m}=msCfg;msMl=m;
+  msB=Array.from({length:r},()=>Array(c).fill(0));
+  msRev=Array.from({length:r},()=>Array(c).fill(false));
+  msFlg=Array.from({length:r},()=>Array(c).fill(false));
+  updMsUI();renderMsBoard();
+  const st=document.getElementById('ms-status');if(st){st.className='ms-status';st.textContent='';}
+  updMsBest();
+}
+function placeMines(fr,fc){
+  const{r,c,m}=msCfg;let p=0;
+  while(p<m){const rr=Math.floor(Math.random()*r),cc=Math.floor(Math.random()*c);
+    if(msB[rr][cc]===0&&!(Math.abs(rr-fr)<=1&&Math.abs(cc-fc)<=1)){msB[rr][cc]=-1;p++;}}
+  for(let i=0;i<r;i++)for(let j=0;j<c;j++)if(msB[i][j]!==-1){
+    let cnt=0;for(let di=-1;di<=1;di++)for(let dj=-1;dj<=1;dj++){const ni=i+di,nj=j+dj;if(ni>=0&&ni<r&&nj>=0&&nj<c&&msB[ni][nj]===-1)cnt++;}msB[i][j]=cnt;}
+}
+function msClick(r,c){
+  if(msGO||msWon||msRev[r][c]||msFlg[r][c])return;
+  if(msFst){msFst=false;placeMines(r,c);msTi=setInterval(()=>{msTv++;const el=document.getElementById('ms-t');if(el)el.textContent=msTv;},1000);}
+  if(msB[r][c]===-1){msRev[r][c]=true;msGO=true;revAllMines(r,c);clearInterval(msTi);
+    const st=document.getElementById('ms-status');if(st){st.className='ms-status lost';st.textContent='💥 Boom! Spiel vorbei.';}renderMsBoard();return;}
+  flood(r,c);renderMsBoard();chkWin();
+}
+function msFlag(e,r,c){if(e)e.preventDefault();if(msGO||msWon||msRev[r][c])return;
+  msFlg[r][c]=!msFlg[r][c];msMl+=msFlg[r][c]?-1:1;updMsUI();renderMsBoard();}
+function flood(r,c){const{r:rows,c:cols}=msCfg;
+  if(r<0||r>=rows||c<0||c>=cols||msRev[r][c]||msFlg[r][c])return;
+  msRev[r][c]=true;if(msB[r][c]===0)for(let di=-1;di<=1;di++)for(let dj=-1;dj<=1;dj++)flood(r+di,c+dj);}
+function revAllMines(hr,hc){for(let i=0;i<msCfg.r;i++)for(let j=0;j<msCfg.c;j++)if(msB[i][j]===-1&&!(i===hr&&j===hc))msRev[i][j]=true;}
+function chkWin(){
+  const{r,c,m}=msCfg;let hidden=0;
+  for(let i=0;i<r;i++)for(let j=0;j<c;j++)if(!msRev[i][j])hidden++;
+  if(hidden===m){msWon=true;clearInterval(msTi);
+    const st=document.getElementById('ms-status');if(st){st.className='ms-status won';st.textContent=`🎉 Gewonnen in ${msTv}s!`;}
+    saveMsBest(msTv);renderMsBoard();}
+}
+function renderMsBoard(){
+  const{r,c}=msCfg;let h='';
+  for(let i=0;i<r;i++){h+='<div class="ms-row">';
+    for(let j=0;j<c;j++){
+      if(msRev[i][j]){const v=msB[i][j];
+        if(v===-1){h+=`<button class="ms-cell mhit" disabled>💣</button>`;}
+        else{h+=`<button class="ms-cell rev ${v>0?'c'+v:''}" disabled>${v||''}</button>`;}}
+      else if(msFlg[i][j]){h+=`<button class="ms-cell flg" oncontextmenu="msFlag(event,${i},${j})">🚩</button>`;}
+      else{h+=`<button class="ms-cell hid" onclick="msClick(${i},${j})" oncontextmenu="msFlag(event,${i},${j})"
+        ontouchstart="msTouchStart(event,${i},${j})" ontouchend="msTouchEnd(event,${i},${j})" ontouchmove="msTouchMove(event)"></button>`;}
+    }h+='</div>';}
+  const bd=document.getElementById('ms-board');if(bd)bd.innerHTML=h;
+}
+// Long press for flagging on mobile
+function msTouchStart(e,r,c){msLongPress=setTimeout(()=>{msFlag(null,r,c);msLongPress=null;},500);}
+function msTouchEnd(e,r,c){if(msLongPress){clearTimeout(msLongPress);msLongPress=null;}}
+function msTouchMove(e){if(msLongPress){clearTimeout(msLongPress);msLongPress=null;}}
+function updMsUI(){
+  const ml=document.getElementById('ms-ml');if(ml)ml.textContent=msMl;
+  const t=document.getElementById('ms-t');if(t)t.textContent=msTv;
+}
+function saveMsBest(t){
+  if(!S.msBest)S.msBest={};
+  const id=msCfg.id;
+  if(!S.msBest[id]||t<S.msBest[id]){S.msBest[id]=t;sS();showToast('🏅 Neue Bestzeit: '+t+'s!','pts');}
+  updMsBest();
+}
+function updMsBest(){
+  const el=document.getElementById('ms-best');if(!el||!msCfg)return;
+  const best=S.msBest?.[msCfg.id];
+  el.textContent=best?`${best}s`:'–';
+}
 
 // ===================== SETTINGS =====================
 const THEMES={
@@ -1230,14 +1729,26 @@ function resetSettings(){
   saveCFG();applyCFG();initSettingsUI();showToast('🔧 Design zurückgesetzt','');
 }
 
-function devStartFT(){
-  S.ft={ti:0,att:[0,0,0],passed:false};
-  showToast('🧪 Dev: Finaltest gestartet','warn');
+function devStartFT(ti){
+  if(!S.ft)S.ft={ti:0,att:[0,0,0],passed:false,passedTests:[false,false,false]};
+  if(!S.ft.passedTests)S.ft.passedTests=[false,false,false];
+  S.ft.ti=ti;
+  const labels=['🔴 Schwer','🟡 Mittel','🟢 Leicht'];
+  showToast('🧪 Dev: '+labels[ti],'warn');
   setTimeout(()=>startFT(),300);
+}
+
+function shuffleFTOpts(q){
+  if(q.type!=='mc')return q;
+  const indexed=q.opts.map((o,i)=>({o,correct:i===q.cor}));
+  for(let i=indexed.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[indexed[i],indexed[j]]=[indexed[j],indexed[i]];}
+  return {...q, opts:indexed.map(x=>x.o), cor:indexed.findIndex(x=>x.correct)};
 }
 
 // ===================== INIT =====================
 lS();loadCFG();applyCFG();updateUI();renderRM();buildTC();setTimeout(initG,100);
+// show ms nav if already unlocked
+const _msNav=document.getElementById('nav-ms');if(_msNav&&msModeUnlocked()>0)_msNav.style.display='inline-flex';
 </script>
 </body>
 </html>
