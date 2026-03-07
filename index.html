@@ -481,6 +481,25 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
 .toast.show{transform:translateY(0);opacity:1}
 .toast.pts{border-color:rgba(52,211,153,.4);color:var(--ac3)}
 .toast.warn{border-color:rgba(249,115,22,.4);color:var(--warn)}
+/* UPDATE BANNER */
+.update-banner{
+  position:fixed;bottom:0;left:0;right:0;z-index:10000;
+  background:linear-gradient(135deg,rgba(16,22,36,.97),rgba(20,28,48,.97));
+  border-top:2px solid rgba(110,231,247,.35);
+  padding:16px 20px 20px;
+  transform:translateY(100%);opacity:0;
+  transition:all .45s cubic-bezier(.34,1.2,.64,1);
+  backdrop-filter:blur(12px);
+}
+.update-banner.show{transform:translateY(0);opacity:1}
+.update-banner-inner{max-width:520px;margin:0 auto}
+.update-banner-title{font-size:.88rem;font-weight:800;color:var(--ac);margin-bottom:6px;display:flex;align-items:center;gap:7px}
+.update-banner-msg{font-size:.76rem;color:var(--mu);line-height:1.55;margin-bottom:12px}
+.update-banner-close{
+  background:var(--ac);color:#0a0e1a;border:none;border-radius:8px;
+  padding:7px 18px;font-family:var(--fd);font-size:.78rem;font-weight:800;
+  cursor:pointer;transition:opacity .18s}
+.update-banner-close:hover{opacity:.85}
 /* FT sort/match items */
 .ft-sort-item{user-select:none;touch-action:none}
 .ft-sort-item:active{opacity:.7;cursor:grabbing}
@@ -773,6 +792,13 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
 
 
 <div class="toast" id="toast"></div>
+<div class="update-banner" id="update-banner">
+  <div class="update-banner-inner">
+    <div class="update-banner-title" id="update-title"></div>
+    <div class="update-banner-msg" id="update-msg"></div>
+    <button class="update-banner-close" onclick="closeUpdate()">✓ Verstanden</button>
+  </div>
+</div>
 
 <script>
 // ===================== DATA =====================
@@ -2555,8 +2581,32 @@ function shuffleFTOpts(q){
   return {...q, opts:indexed.map(x=>x.o), cor:indexed.findIndex(x=>x.correct)};
 }
 
+// ===================== UPDATE NOTIFICATION =====================
+const UPDATES=[
+  {v:'1.3',title:'Nullstellen entfernt 🧹',msg:'Das Thema Nullstellen wurde vollständig aus allen Kapiteln, Finaltests und Legendenpfaden entfernt – es ist kein Teil eures Schulstoffs. Alle betroffenen Fragen wurden durch passende Aufgaben zu Scheitelpunkt, Kreisberechnungen & Optimierung ersetzt.'},
+];
+function checkUpdates(){
+  const seen=localStorage.getItem('mp9_seen_update')||'';
+  const latest=UPDATES[UPDATES.length-1];
+  if(seen===latest.v)return;
+  setTimeout(()=>showUpdateBanner(latest),700);
+}
+function showUpdateBanner(u){
+  const el=document.getElementById('update-banner');
+  if(!el)return;
+  document.getElementById('update-title').textContent='🔔 Update '+u.v+' – '+u.title;
+  document.getElementById('update-msg').textContent=u.msg;
+  el.classList.add('show');
+}
+function closeUpdate(){
+  const el=document.getElementById('update-banner');
+  el.classList.remove('show');
+  const latest=UPDATES[UPDATES.length-1];
+  localStorage.setItem('mp9_seen_update',latest.v);
+}
+
 // ===================== INIT =====================
-lS();loadCFG();applyCFG();updateUI();renderRM();buildTC();setTimeout(initG,100);
+lS();loadCFG();applyCFG();updateUI();renderRM();buildTC();setTimeout(initG,100);checkUpdates();
 // show ms nav if already unlocked
 const _msNav=document.getElementById('nav-ms');if(_msNav&&msModeUnlocked()>0)_msNav.style.display='inline-flex';
 </script>
