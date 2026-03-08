@@ -4768,11 +4768,22 @@ async function battleNextQ(){
 
 async function markBattleRead(battleId,field,isWinner){
   try{
-    await fetch(`${SUPABASE_URL}/rest/v1/battles?id=eq.${battleId}`,{
+    // First mark as read
+    const patchRes=await fetch(`${SUPABASE_URL}/rest/v1/battles?id=eq.${battleId}`,{
       method:'PATCH',
-      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=representation'},
       body:JSON.stringify({[field]:true})
     });
+    if(!patchRes.ok)throw new Error('HTTP '+patchRes.status);
+    const rows=await patchRes.json();
+    // If both have read → delete
+    const b=rows[0];
+    if(b&&b.challenger_read&&b.opponent_read){
+      await fetch(`${SUPABASE_URL}/rest/v1/battles?id=eq.${battleId}`,{
+        method:'DELETE',
+        headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+      });
+    }
     if(isWinner){
       S.ml=(S.ml||0)+69;sS();updateUI();
       showToast('🏆 +69 ML – Gewinner-Belohnung!','pts');
