@@ -3671,10 +3671,17 @@ async function loadLeaderboard(){
   const errEl=document.getElementById('lb-error');
   listEl.innerHTML='';loadEl.style.display='block';errEl.style.display='none';
   try{
-    const res=await fetch(`${SUPABASE_URL}/rest/v1/${LB_TABLE}?select=name,pts,avatar,frame,created_at&order=pts.desc&limit=50`,{
-      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/${LB_TABLE}?select=*&order=pts.desc&limit=50`,{
+      headers:{
+        'apikey':SUPABASE_KEY,
+        'Authorization':'Bearer '+SUPABASE_KEY,
+        'Content-Type':'application/json'
+      }
     });
-    if(!res.ok)throw new Error('HTTP '+res.status);
+    if(!res.ok){
+      const errBody=await res.text().catch(()=>'');
+      throw new Error(`HTTP ${res.status}${errBody?' – '+errBody.slice(0,120):''}`);
+    }
     const data=await res.json();
     loadEl.style.display='none';
     if(!data.length){listEl.innerHTML='<div class="lb-empty">🏁 Noch keine Einträge – sei der Erste!</div>';return;}
@@ -3686,9 +3693,8 @@ async function loadLeaderboard(){
       const isMe=myName&&row.name===myName;
       const rank=i<3?`<span class="lb-rank ${rankCls[i]}">${medals[i]}</span>`:`<span class="lb-rank">${i+1}</span>`;
       const date=new Date(row.created_at).toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'});
-      // Avatar & frame from shop items
-      const avItem=SHOP_ITEMS.find(it=>it.id===row.avatar)||SHOP_ITEMS.find(it=>it.id==='av01');
-      const frItem=SHOP_ITEMS.find(it=>it.id===row.frame);
+      const avItem=(row.avatar&&SHOP_ITEMS)?SHOP_ITEMS.find(it=>it.id===row.avatar):null;
+      const frItem=(row.frame&&SHOP_ITEMS)?SHOP_ITEMS.find(it=>it.id===row.frame):null;
       const frameColor=frItem?frItem.color:'transparent';
       const avatarStyle=frameColor==='rainbow'
         ?'background:linear-gradient(135deg,#f87171,#fbbf24,#34d399,#6ee7f7,#a78bfa);border-radius:50%;padding:2px;display:inline-block'
@@ -3700,13 +3706,13 @@ async function loadLeaderboard(){
         <span style="${avatarStyle};font-size:1.1rem;flex-shrink:0;line-height:1">${avItem?avItem.icon:'👤'}</span>
         <div class="lb-name">${esc(row.name)}${isMe?'<span class="lb-me-tag">Du</span>':''}</div>
         <div class="lb-date">${date}</div>
-        <div class="lb-pts">${row.pts} Pkt</div>
+        <div class="lb-pts">${row.pts} ML</div>
       </div>`;
     }).join('');
   }catch(e){
     loadEl.style.display='none';
     errEl.style.display='block';
-    errEl.textContent='⚠️ Laden fehlgeschlagen: '+e.message+' – Internetverbindung prüfen.';
+    errEl.textContent='⚠️ Laden fehlgeschlagen: '+e.message;
   }
 }
 
@@ -3743,7 +3749,10 @@ async function submitScore(){
       },
       body:JSON.stringify({name,pts:S.tp||0,avatar:av?av.id:null,frame:fr?fr.id:null})
     });
-    if(!res.ok)throw new Error('HTTP '+res.status);
+    if(!res.ok){
+      const errBody=await res.text().catch(()=>'');
+      throw new Error(`HTTP ${res.status}${errBody?' – '+errBody.slice(0,120):''}`);
+    }
     localStorage.setItem('mp9_lb_name',name);
     closeM('m-lb-submit');
     showToast('🏆 Eingetragen!','pts');
