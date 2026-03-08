@@ -4358,7 +4358,7 @@ async function submitScore(){
         'Content-Type':'application/json',
         'Prefer':'return=minimal'
       },
-      body:JSON.stringify({name,pts:S.tp||0,avatar:av?av.id:null,frame:fr?fr.id:null})
+      body:JSON.stringify({name,pts:S.tp||0})
     });
     if(!res.ok){
       const errBody=await res.text().catch(()=>'');
