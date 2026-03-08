@@ -425,6 +425,219 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
   justify-content:center;flex-wrap:wrap}
 .ms-tips span{display:flex;align-items:center;gap:4px}
 .ms-tips span b{color:var(--txt)}
+/* MATHBOT */
+.bot-fab{
+  position:fixed;bottom:24px;right:20px;z-index:8000;
+  width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(135deg,var(--ac),var(--ac2));
+  border:none;cursor:pointer;font-size:1.5rem;
+  box-shadow:0 4px 20px rgba(0,0,0,.4),0 0 0 0 var(--ac);
+  transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;
+  display:flex;align-items:center;justify-content:center;
+  animation:bot-float 3s ease-in-out infinite}
+@keyframes bot-float{
+  0%,100%{transform:translateY(0) rotate(0deg);box-shadow:0 4px 20px rgba(0,0,0,.4),0 0 0 0 var(--ac)44}
+  25%{transform:translateY(-4px) rotate(-5deg)}
+  50%{transform:translateY(-7px) rotate(0deg);box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 0 8px transparent}
+  75%{transform:translateY(-4px) rotate(5deg)}}
+.bot-fab:hover{animation:none;transform:scale(1.15) rotate(-10deg)!important;box-shadow:0 6px 24px rgba(0,0,0,.5),0 0 20px var(--ac)66}
+.bot-fab:active{transform:scale(.9)!important;animation:none}
+.bot-overlay{
+  position:fixed;inset:0;z-index:8001;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(4px);
+  opacity:0;pointer-events:none;transition:opacity .25s}
+.bot-overlay.open{opacity:1;pointer-events:all}
+.bot-panel{
+  position:fixed;bottom:0;right:0;left:0;z-index:8002;
+  max-width:480px;margin:0 auto;
+  background:var(--bg);border-top:2px solid var(--bd);
+  border-radius:22px 22px 0 0;
+  max-height:82vh;display:flex;flex-direction:column;
+  transform:translateY(100%);transition:transform .4s cubic-bezier(.34,1.15,.64,1)}
+.bot-panel.open{transform:translateY(0)}
+.bot-head{
+  display:flex;align-items:center;gap:10px;
+  padding:14px 18px 10px;border-bottom:1px solid var(--bd);flex-shrink:0;
+  position:relative;overflow:hidden}
+.bot-head::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,var(--ac)08,transparent,var(--ac2)08);
+  animation:bot-head-shimmer 4s linear infinite;pointer-events:none}
+@keyframes bot-head-shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.bot-avatar{
+  width:38px;height:38px;border-radius:50%;
+  background:linear-gradient(135deg,var(--ac),var(--ac2));
+  display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;
+  animation:bot-avatar-spin 8s linear infinite;
+  box-shadow:0 0 10px var(--ac)44}
+@keyframes bot-avatar-spin{0%{box-shadow:0 0 8px var(--ac)44}50%{box-shadow:0 0 16px var(--ac)88,0 0 24px var(--ac2)44}100%{box-shadow:0 0 8px var(--ac)44}}
+.bot-head-name{font-size:.88rem;font-weight:800}
+.bot-head-status{font-size:.65rem;color:var(--ac3);font-family:var(--fm);animation:bot-blink 2s ease infinite}
+@keyframes bot-blink{0%,100%{opacity:1}50%{opacity:.5}}
+.bot-close{background:var(--sf2);border:none;border-radius:8px;padding:6px 10px;cursor:pointer;color:var(--mu);font-size:.85rem;transition:all .18s}
+.bot-close:hover{color:var(--txt);transform:rotate(90deg)}
+.bot-messages{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.bot-msg{display:flex;gap:8px;align-items:flex-start;animation:bot-msg-in .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes bot-msg-in{from{opacity:0;transform:translateY(12px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.bot-msg-avatar{
+  width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(135deg,var(--ac),var(--ac2));
+  display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;margin-top:2px}
+.bot-bubble{
+  background:var(--sf);border:1px solid var(--bd);border-radius:14px 14px 14px 4px;
+  padding:10px 13px;font-size:.82rem;line-height:1.55;max-width:88%;
+  position:relative;overflow:hidden}
+.bot-bubble::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--ac),var(--ac2),var(--ac3));
+  opacity:.4}
+.bot-bubble b{color:var(--ac)}
+.bot-bubble .bot-formula{
+  background:var(--sf2);border:1px solid rgba(110,231,247,.25);border-radius:8px;
+  padding:8px 12px;margin-top:8px;font-family:var(--fm);
+  font-size:.78rem;color:var(--ac);letter-spacing:.3px;
+  animation:bot-formula-in .4s .1s both cubic-bezier(.34,1.3,.64,1)}
+@keyframes bot-formula-in{from{opacity:0;transform:scale(.95) translateY(4px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.bot-choices{display:flex;flex-direction:column;gap:6px;padding:4px 16px 14px;flex-shrink:0}
+.bot-choice{
+  background:var(--sf);border:1px solid var(--bd);border-radius:10px;
+  padding:9px 13px;font-size:.8rem;font-weight:600;cursor:pointer;
+  text-align:left;transition:all .2s cubic-bezier(.34,1.3,.64,1);
+  color:var(--txt);font-family:var(--fd);
+  animation:bot-choice-in .25s both cubic-bezier(.34,1.3,.64,1)}
+.bot-choice:nth-child(1){animation-delay:.05s}
+.bot-choice:nth-child(2){animation-delay:.1s}
+.bot-choice:nth-child(3){animation-delay:.15s}
+.bot-choice:nth-child(4){animation-delay:.2s}
+.bot-choice:nth-child(5){animation-delay:.25s}
+@keyframes bot-choice-in{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}
+.bot-choice:hover{border-color:var(--ac);background:var(--sf2);color:var(--ac);transform:translateX(4px)}
+.bot-choice:active{transform:scale(.97)}
+.bot-choice.back{color:var(--mu);font-size:.75rem;padding:7px 13px}
+.bot-choice.back:hover{transform:translateX(-4px)}
+.bot-choice.hint-btn{border-color:rgba(251,191,36,.4);color:#fbbf24}
+.bot-choice.hint-btn:hover{background:rgba(251,191,36,.08);transform:translateX(4px) scale(1.01)}
+/* Bot Tab page */
+.bot-home-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.bot-cat-card{
+  background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);
+  padding:16px 14px;cursor:pointer;transition:all .25s cubic-bezier(.34,1.3,.64,1);
+  text-align:center;animation:bot-card-in .4s both cubic-bezier(.34,1.3,.64,1)}
+.bot-cat-card:nth-child(1){animation-delay:.05s}
+.bot-cat-card:nth-child(2){animation-delay:.1s}
+.bot-cat-card:nth-child(3){animation-delay:.15s}
+.bot-cat-card:nth-child(4){animation-delay:.2s}
+@keyframes bot-card-in{from{opacity:0;transform:translateY(16px) scale(.93)}to{opacity:1;transform:translateY(0) scale(1)}}
+.bot-cat-card:hover{border-color:var(--ac);transform:translateY(-4px) scale(1.03);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.bot-cat-card:active{transform:scale(.97)}
+.bot-cat-icon{font-size:1.8rem;margin-bottom:6px;display:block;
+  transition:transform .2s;animation:bot-icon-wiggle 4s ease-in-out infinite}
+.bot-cat-card:hover .bot-cat-icon{animation:none;transform:rotate(-10deg) scale(1.2)}
+@keyframes bot-icon-wiggle{0%,90%,100%{transform:rotate(0)}93%{transform:rotate(-8deg)}96%{transform:rotate(8deg)}}
+.bot-cat-name{font-size:.82rem;font-weight:700}
+.bot-cat-desc{font-size:.67rem;color:var(--mu);margin-top:3px}
+/* SHOP */
+.shop-ml-badge{
+  background:linear-gradient(135deg,rgba(251,191,36,.15),rgba(251,191,36,.06));
+  border:1px solid rgba(251,191,36,.35);border-radius:20px;
+  padding:5px 12px;font-size:.82rem;font-weight:800;color:#fbbf24;font-family:var(--fm)}
+.sect-sm{font-size:.7rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--mu);font-family:var(--fm);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.shop-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+@media(max-width:500px){.shop-grid{grid-template-columns:repeat(3,1fr)}}
+.shop-card{
+  background:var(--sf);border:2px solid var(--bd);border-radius:14px;
+  padding:10px 6px;text-align:center;cursor:pointer;
+  transition:all .22s cubic-bezier(.34,1.3,.64,1);
+  position:relative;animation:bot-card-in .35s both}
+.shop-card:hover{transform:translateY(-3px) scale(1.04);border-color:var(--ac)}
+.shop-card.owned{border-color:var(--ac3);background:rgba(52,211,153,.06);cursor:default}
+.shop-card.owned:hover{transform:none}
+.shop-card.equipped{border-color:#fbbf24;background:rgba(251,191,36,.08)}
+.shop-card.equipped:hover{transform:none;border-color:#fbbf24}
+.shop-card-avatar{font-size:1.8rem;margin-bottom:4px;display:block;line-height:1}
+.shop-card-name{font-size:.6rem;font-weight:700;margin-bottom:3px;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shop-card-price{font-size:.62rem;font-family:var(--fm);color:#fbbf24;font-weight:700}
+.shop-card-price.free{color:var(--ac3)}
+.shop-card-badge{
+  position:absolute;top:-6px;right:-6px;
+  font-size:.5rem;font-weight:800;border-radius:10px;padding:2px 5px;
+  font-family:var(--fm);letter-spacing:.3px}
+.shop-card-badge.owned-badge{background:var(--ac3);color:#0a0e1a}
+.shop-card-badge.eq-badge{background:#fbbf24;color:#0a0e1a}
+.shop-card-badge.frame-badge{background:var(--ac2);color:#0a0e1a}
+.shop-card-badge.theme-badge{background:var(--ac);color:#0a0e1a}
+.shop-equipped-row{display:flex;gap:12px;flex-wrap:wrap}
+.shop-eq-slot{
+  background:var(--sf);border:1px solid var(--bd);border-radius:12px;
+  padding:12px 16px;display:flex;align-items:center;gap:10px;flex:1;min-width:120px}
+.shop-eq-slot-icon{font-size:1.6rem}
+.shop-eq-slot-info{flex:1}
+.shop-eq-slot-label{font-size:.6rem;color:var(--mu);font-family:var(--fm);text-transform:uppercase;letter-spacing:.8px}
+.shop-eq-slot-name{font-size:.8rem;font-weight:700;margin-top:2px}
+.shop-eq-unequip{font-size:.6rem;color:var(--red);background:none;border:none;cursor:pointer;font-family:var(--fm);padding:0;margin-top:2px}
+/* LEADERBOARD */
+.lb-config-box{
+  background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);
+  padding:20px;text-align:center;margin-bottom:16px}
+.lb-my-card{
+  background:linear-gradient(135deg,rgba(110,231,247,.1),rgba(167,139,250,.06));
+  border:1px solid rgba(110,231,247,.3);border-radius:var(--r);
+  padding:14px 18px;margin-bottom:16px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px}
+.lb-my-label{font-size:.7rem;color:var(--mu);font-family:var(--fm);margin-bottom:3px;text-transform:uppercase;letter-spacing:.8px}
+.lb-my-pts{font-size:1.4rem;font-weight:800;color:var(--ac)}
+.lb-submit-btn{
+  background:var(--ac);color:#0a0e1a;border:none;border-radius:10px;
+  padding:9px 16px;font-family:var(--fd);font-size:.78rem;font-weight:800;
+  cursor:pointer;transition:all .18s;flex-shrink:0}
+.lb-submit-btn:hover{opacity:.85;transform:scale(1.04)}
+.lb-submit-btn.submitted{background:var(--ac3);color:#fff}
+.lb-entry{
+  display:flex;align-items:center;gap:12px;
+  background:var(--sf);border:1px solid var(--bd);border-radius:12px;
+  padding:12px 16px;margin-bottom:8px;
+  animation:cl-in .3s both;transition:border-color .2s}
+.lb-entry.lb-me{border-color:rgba(110,231,247,.5);background:linear-gradient(135deg,rgba(110,231,247,.06),transparent)}
+.lb-entry.lb-top1{border-color:rgba(251,191,36,.5)}
+.lb-entry.lb-top2{border-color:rgba(192,192,192,.4)}
+.lb-entry.lb-top3{border-color:rgba(205,127,50,.4)}
+.lb-rank{
+  font-size:.85rem;font-weight:800;font-family:var(--fm);
+  width:28px;text-align:center;flex-shrink:0}
+.lb-rank.gold{color:#fbbf24}
+.lb-rank.silver{color:#94a3b8}
+.lb-rank.bronze{color:#cd7f32}
+.lb-name{flex:1;font-size:.88rem;font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb-name .lb-me-tag{font-size:.6rem;color:var(--ac);font-family:var(--fm);margin-left:6px;background:rgba(110,231,247,.12);border:1px solid rgba(110,231,247,.25);border-radius:10px;padding:1px 6px}
+.lb-pts{font-size:.88rem;font-weight:800;color:var(--ac);font-family:var(--fm);flex-shrink:0}
+.lb-date{font-size:.6rem;color:var(--mu);font-family:var(--fm);flex-shrink:0}
+.lb-spinner{
+  width:22px;height:22px;border:3px solid var(--bd);border-top-color:var(--ac);
+  border-radius:50%;animation:lb-spin .8s linear infinite;margin:0 auto 10px}
+@keyframes lb-spin{to{transform:rotate(360deg)}}
+.lb-error-box{
+  background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.3);
+  border-radius:var(--r);padding:14px 16px;font-size:.8rem;color:var(--red);
+  text-align:center;margin-bottom:12px}
+.lb-empty{text-align:center;padding:30px;color:var(--mu);font-size:.82rem}
+/* CHANGELOG */
+.cl-entry{
+  background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);
+  padding:16px 18px;margin-bottom:12px;position:relative;overflow:hidden;
+  animation:cl-in .35s both cubic-bezier(.34,1.2,.64,1)}
+.cl-entry:nth-child(1){animation-delay:.04s}
+.cl-entry:nth-child(2){animation-delay:.08s}
+.cl-entry:nth-child(3){animation-delay:.12s}
+.cl-entry:nth-child(4){animation-delay:.16s}
+.cl-entry:nth-child(5){animation-delay:.2s}
+@keyframes cl-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.cl-entry.latest{border-color:rgba(110,231,247,.45);background:linear-gradient(135deg,rgba(110,231,247,.05),transparent)}
+.cl-entry.latest::before{content:'NEU';position:absolute;top:10px;right:12px;font-size:.55rem;font-family:var(--fm);font-weight:800;color:var(--ac);letter-spacing:1px;background:rgba(110,231,247,.12);border:1px solid rgba(110,231,247,.3);border-radius:20px;padding:2px 7px}
+.cl-version{font-size:.7rem;font-family:var(--fm);color:var(--mu);margin-bottom:4px;letter-spacing:.5px}
+.cl-title{font-size:.95rem;font-weight:800;margin-bottom:8px}
+.cl-items{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:4px}
+.cl-items li{font-size:.78rem;color:var(--mu);padding-left:18px;position:relative;line-height:1.45}
+.cl-items li::before{content:'•';position:absolute;left:6px;color:var(--ac)}
 /* SETTINGS */
 .set-section{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:18px 20px;margin-bottom:14px}
 .set-section-title{font-size:.72rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--mu);font-family:var(--fm);margin-bottom:14px;display:flex;align-items:center;gap:6px}
@@ -500,6 +713,11 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
   padding:7px 18px;font-family:var(--fd);font-size:.78rem;font-weight:800;
   cursor:pointer;transition:opacity .18s}
 .update-banner-close:hover{opacity:.85}
+.update-banner-log{
+  background:transparent;color:var(--ac);border:1px solid rgba(110,231,247,.35);
+  border-radius:8px;padding:7px 14px;font-family:var(--fd);font-size:.78rem;font-weight:700;
+  cursor:pointer;transition:all .18s;margin-left:8px}
+.update-banner-log:hover{background:rgba(110,231,247,.1)}
 /* FT sort/match items */
 .ft-sort-item{user-select:none;touch-action:none}
 .ft-sort-item:active{opacity:.7;cursor:grabbing}
@@ -525,8 +743,30 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
   <button class="nt" onclick="showPage('videos')">📺 Videos</button>
   <button class="nt" onclick="showPage('settings')">⚙️ Einstellungen</button>
   <button class="nt" id="nav-ms" onclick="showPage('minesweeper')" style="display:none">💣 Minesweeper</button>
-  <div class="nscore">⭐<span class="sb" id="tscore">0 Pkt</span></div>
+  <button class="nt" onclick="showPage('bot')">🤖 MathBot</button>
+  <button class="nt" onclick="showPage('changelog')">📋 Updates</button>
+  <button class="nt" onclick="showPage('leaderboard')">🏆 Rangliste</button>
+  <button class="nt" onclick="showPage('shop')">🛒 Shop</button>
+  <div class="nscore">🪙<span class="sb" id="tscore">0 ML</span></div>
 </nav>
+
+<!-- MATHBOT FLOATING BUTTON -->
+<button class="bot-fab" id="bot-fab" onclick="openBot()" title="MathBot öffnen">🤖</button>
+
+<!-- MATHBOT OVERLAY -->
+<div class="bot-overlay" id="bot-overlay" onclick="closeBot()"></div>
+<div class="bot-panel" id="bot-panel">
+  <div class="bot-head">
+    <div class="bot-avatar">🤖</div>
+    <div class="bot-head-info">
+      <div class="bot-head-name">MathBot</div>
+      <div class="bot-head-status" id="bot-status">● Online · bereit zu helfen</div>
+    </div>
+    <button class="bot-close" onclick="closeBot()">✕</button>
+  </div>
+  <div class="bot-messages" id="bot-messages"></div>
+  <div class="bot-choices" id="bot-choices"></div>
+</div>
 
 <!-- HOME -->
 <div class="page active" id="page-home">
@@ -714,6 +954,91 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
   </div>
 </div>
 
+<!-- BOT TAB PAGE -->
+<div class="page" id="page-bot">
+  <div class="sect" style="margin-bottom:4px">🤖 MathBot</div>
+  <div style="font-size:.78rem;color:var(--mu);margin-bottom:16px">Dein persönlicher Mathe-Assistent – wähle ein Thema.</div>
+  <div class="bot-home-grid" id="bot-page-grid"></div>
+</div>
+
+<!-- CHANGELOG -->
+<div class="page" id="page-changelog">
+  <div class="sect" style="margin-bottom:4px">📋 Update-Log</div>
+  <div style="font-size:.78rem;color:var(--mu);margin-bottom:20px">Alle Änderungen & Verbesserungen auf einen Blick.</div>
+  <div id="changelog-content"></div>
+</div>
+
+<!-- LEADERBOARD -->
+<div class="page" id="page-leaderboard">
+  <div class="sect" style="margin-bottom:4px">🏆 Rangliste</div>
+  <div style="font-size:.78rem;color:var(--mu);margin-bottom:16px">Die besten MathePro 9 Spieler weltweit.</div>
+
+  <!-- Config Banner (shown when not configured) -->
+  <div id="lb-config-banner" style="display:none">
+    <div class="lb-config-box">
+      <div style="font-size:1.4rem;margin-bottom:8px">⚙️</div>
+      <div style="font-weight:800;font-size:.9rem;margin-bottom:6px">Supabase noch nicht eingerichtet</div>
+      <div style="font-size:.75rem;color:var(--mu);line-height:1.5">Trage deine Supabase-URL und deinen API-Key in den Code ein um die Online-Rangliste zu aktivieren.</div>
+    </div>
+  </div>
+
+  <!-- My Score Card -->
+  <div id="lb-my-score" class="lb-my-card" style="display:none">
+    <div class="lb-my-left">
+      <div class="lb-my-label">Mein Punktestand</div>
+      <div class="lb-my-pts" id="lb-my-pts-val">0 Pkt</div>
+    </div>
+    <button class="lb-submit-btn" id="lb-submit-btn" onclick="openSubmitModal()">📤 Eintragen</button>
+  </div>
+
+  <!-- Top list -->
+  <div id="lb-list"></div>
+  <div id="lb-loading" style="text-align:center;padding:30px;color:var(--mu);font-size:.82rem;display:none">
+    <div class="lb-spinner"></div>Rangliste wird geladen…
+  </div>
+  <div id="lb-error" style="display:none" class="lb-error-box"></div>
+  <button id="lb-refresh-btn" onclick="loadLeaderboard()" style="display:none" class="btns" style="width:100%;margin-top:12px">🔄 Aktualisieren</button>
+</div>
+
+<!-- Submit Modal -->
+<div class="mov" id="m-lb-submit">
+  <div class="mbox">
+    <div class="mttl">📤 Punktestand eintragen</div>
+    <div style="font-size:.82rem;color:var(--mu);margin-bottom:14px">Trage deinen Namen ein und erscheine in der weltweiten Rangliste!</div>
+    <div id="lb-submit-pts-display" style="font-size:1.1rem;font-weight:800;color:var(--ac);text-align:center;margin-bottom:14px"></div>
+    <input id="lb-name-input" type="text" maxlength="20" placeholder="Dein Name (max. 20 Zeichen)"
+      style="width:100%;background:var(--sf2);border:1px solid var(--bd);border-radius:9px;padding:11px 14px;color:var(--txt);font-family:var(--fd);font-size:.88rem;outline:none;box-sizing:border-box;transition:border .2s"
+      oninput="document.getElementById('lb-name-input').style.borderColor='var(--bd)'"
+      onkeydown="if(event.key==='Enter')submitScore()">
+    <div style="font-size:.68rem;color:var(--mu);margin-top:6px;margin-bottom:16px">⚠️ Dein Name wird öffentlich in der Rangliste angezeigt.</div>
+    <div style="display:flex;gap:8px">
+      <button class="btna" onclick="submitScore()" id="lb-submit-confirm">✓ Eintragen</button>
+      <button class="btnw" onclick="closeM('m-lb-submit')">Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<!-- SHOP -->
+<div class="page" id="page-shop">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+    <div class="sect" style="margin-bottom:0">🛒 Item-Shop</div>
+    <div class="shop-ml-badge">🪙 <span id="shop-ml-display">0</span> ML</div>
+  </div>
+  <div style="font-size:.75rem;color:var(--mu);margin-bottom:16px">Shop rotiert alle 5 Min · <span id="shop-timer" style="color:var(--ac);font-family:var(--fm)"></span></div>
+
+  <!-- Shop rotation -->
+  <div class="sect-sm">🔄 Heutige Angebote</div>
+  <div id="shop-rotation" class="shop-grid"></div>
+
+  <!-- Inventory -->
+  <div class="sect-sm" style="margin-top:20px">🎒 Mein Inventar</div>
+  <div id="shop-inventory" class="shop-grid"></div>
+
+  <!-- Equipped -->
+  <div class="sect-sm" style="margin-top:20px">✨ Ausgerüstet</div>
+  <div id="shop-equipped" class="shop-equipped-row"></div>
+</div>
+
 <!-- VIDEOS -->
 <div class="page" id="page-videos">
   <div class="sect" style="margin-bottom:4px">📺 Lernvideos</div>
@@ -797,6 +1122,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
     <div class="update-banner-title" id="update-title"></div>
     <div class="update-banner-msg" id="update-msg"></div>
     <button class="update-banner-close" onclick="closeUpdate()">✓ Verstanden</button>
+    <button class="update-banner-log" onclick="closeUpdate();showPage('changelog')">📋 Update-Log</button>
   </div>
 </div>
 
@@ -1189,22 +1515,22 @@ const FT=[
 
 // ===================== ACHIEVEMENTS =====================
 const ACHS=[
-  {id:'fp',ico:'⭐',name:'Erster Punkt!',desc:'1 Punkt erzielt',c:s=>s.tp>=1},
-  {id:'tp',ico:'🔟',name:'Zehn Punkte',desc:'10 Punkte erzielt',c:s=>s.tp>=10},
-  {id:'pc',ico:'💯',name:'Perfektes Kapitel',desc:'Kapitel ohne Fehler & Tipp',c:s=>s.perfC>=1},
-  {id:'db',ico:'⚡',name:'Doppel-Bonus!',desc:'Doppelbonus erhalten',c:s=>s.bonC>=1},
-  {id:'s5',ico:'🔥',name:'Auf Feuer!',desc:'5 richtige in Folge',c:s=>s.bStr>=5},
-  {id:'s10',ico:'🌋',name:'Unaufhaltbar!',desc:'10 richtige in Folge',c:s=>s.bStr>=10},
-  {id:'at',ico:'🎓',name:'Alles gelernt',desc:'Alle Hauptthemen fertig',c:s=>s.cpTp>=TOPICS.length},
-  {id:'mm',ico:'🏆',name:'Mathe-Meister',desc:'Alle Kapitel perfekt + alle Tests bestanden',c:s=>matheMeisterCheck(s)},
-  {id:'nh',ico:'🧠',name:'Kein Tipp nötig',desc:'Kapitel ohne Tipp',c:s=>s.noHC>=1},
-  {id:'ft',ico:'🎯',name:'Finaltest bestanden!',desc:'Einen Finaltest gemeistert',c:s=>s.ft?.passed},
-  {id:'ft3',ico:'🥇',name:'Alle Finaltests',desc:'Alle 3 Finaltests bestanden',c:s=>(s.ft?.passedTests||[]).every(Boolean)},
-  {id:'lp1',ico:'🌿',name:'Leichter Weg',desc:'Legendenpfad Leicht abgeschlossen',c:s=>lpPathDone(s,'lp_easy')},
-  {id:'lp2',ico:'⚡',name:'Mittlerer Weg',desc:'Legendenpfad Mittel abgeschlossen',c:s=>lpPathDone(s,'lp_mid')},
-  {id:'lp3',ico:'🔥',name:'Schwerer Weg',desc:'Legendenpfad Schwer abgeschlossen',c:s=>lpPathDone(s,'lp_hard')},
-  {id:'lp_all',ico:'👑',name:'Legendär!',desc:'Alle Legendenpfade abgeschlossen',c:s=>LP.every(p=>lpPathDone(s,p.id))},
-  {id:'lft1',ico:'🏅',name:'Legendentest bestanden',desc:'Einen Legendentest gemeistert',c:s=>(s.lft?.passed||[]).some(Boolean)},
+  {id:'fp',  ico:'⭐', name:'Erster Punkt!',        desc:'1 Punkt erzielt',                              pts:2,  c:s=>s.tp>=1},
+  {id:'tp',  ico:'🔟', name:'Zehn Punkte',          desc:'10 Punkte erzielt',                            pts:3,  c:s=>s.tp>=10},
+  {id:'pc',  ico:'💯', name:'Perfektes Kapitel',    desc:'Kapitel ohne Fehler & Tipp',                   pts:5,  c:s=>s.perfC>=1},
+  {id:'db',  ico:'⚡', name:'Doppel-Bonus!',        desc:'Doppelbonus erhalten',                         pts:3,  c:s=>s.bonC>=1},
+  {id:'s5',  ico:'🔥', name:'Auf Feuer!',           desc:'5 richtige in Folge',                          pts:5,  c:s=>s.bStr>=5},
+  {id:'s10', ico:'🌋', name:'Unaufhaltbar!',        desc:'10 richtige in Folge',                         pts:10, c:s=>s.bStr>=10},
+  {id:'at',  ico:'🎓', name:'Alles gelernt',        desc:'Alle Hauptthemen fertig',                      pts:15, c:s=>s.cpTp>=TOPICS.length},
+  {id:'mm',  ico:'🏆', name:'Mathe-Meister',        desc:'Alle Kapitel perfekt + alle Tests bestanden',  pts:25, c:s=>matheMeisterCheck(s)},
+  {id:'nh',  ico:'🧠', name:'Kein Tipp nötig',      desc:'Kapitel ohne Tipp',                            pts:5,  c:s=>s.noHC>=1},
+  {id:'ft',  ico:'🎯', name:'Finaltest bestanden!', desc:'Einen Finaltest gemeistert',                   pts:10, c:s=>s.ft?.passed},
+  {id:'ft3', ico:'🥇', name:'Alle Finaltests',      desc:'Alle 3 Finaltests bestanden',                  pts:20, c:s=>(s.ft?.passedTests||[]).every(Boolean)},
+  {id:'lp1', ico:'🌿', name:'Leichter Weg',         desc:'Legendenpfad Leicht abgeschlossen',            pts:10, c:s=>lpPathDone(s,'lp_easy')},
+  {id:'lp2', ico:'⚡', name:'Mittlerer Weg',        desc:'Legendenpfad Mittel abgeschlossen',            pts:15, c:s=>lpPathDone(s,'lp_mid')},
+  {id:'lp3', ico:'🔥', name:'Schwerer Weg',         desc:'Legendenpfad Schwer abgeschlossen',            pts:20, c:s=>lpPathDone(s,'lp_hard')},
+  {id:'lp_all',ico:'👑',name:'Legendär!',           desc:'Alle Legendenpfade abgeschlossen',             pts:30, c:s=>LP.every(p=>lpPathDone(s,p.id))},
+  {id:'lft1',ico:'🏅', name:'Legendentest bestanden',desc:'Einen Legendentest gemeistert',               pts:10, c:s=>(s.lft?.passed||[]).some(Boolean)},
 ];
 function matheMeisterCheck(s){
   const allTopicPerf=TOPICS.every(t=>{
@@ -1225,8 +1551,17 @@ function lpPathDone(s,pathId){
 let S={tp:0,tprog:{},cpTp:0,perfC:0,noHC:0,bonC:0,bStr:0,cStr:0,ach:[],
   ft:{ti:0,att:[0,0,0],passed:false,passedTests:[false,false,false]},
   lp:{},lft:{passed:[false,false,false]},
-  errors:{},vidSeen:{}};
-function lS(){try{const d=localStorage.getItem('mp9v4');if(d)S=JSON.parse(d);}catch(e){}}
+  errors:{},vidSeen:{},
+  ml:null, // Matheloin (null = not initialized yet, will sync from tp)
+  inv:[], // purchased item ids
+  eq:{avatar:null,frame:null,theme:null} // equipped items
+};
+function lS(){try{const d=localStorage.getItem('mp9v4');if(d)S=JSON.parse(d);}catch(e){}
+  // Init Matheloin from tp if not set yet
+  if(S.ml===null||S.ml===undefined)S.ml=S.tp||0;
+  if(!S.inv)S.inv=[];
+  if(!S.eq)S.eq={avatar:null,frame:null,theme:null};
+}
 function sS(){localStorage.setItem('mp9v4',JSON.stringify(S));}
 function gTp(id){if(!S.tprog[id])S.tprog[id]={};return S.tprog[id];}
 function topicOk(i){if(i===0)return true;const p=TOPICS[i-1];const pr=gTp(p.id);return p.chapters.every((_,ci)=>pr[ci]?.done);}
@@ -1287,15 +1622,25 @@ function renderQ(){
     h+=`<div class="inpw"><input class="inpa" id="ans" placeholder="Antwort..." onkeydown="if(event.key==='Enter')aInp()"/><button class="btnchk" onclick="aInp()">Prüfen</button></div>`;
   }
   h+=`<div class="fbbox" id="fb"></div><div class="hintbox" id="hb">💡 ${esc(q.hint)}</div>`;
-  h+=`<div class="qacts"><button class="btnhint" id="bh" onclick="reqHint()">💡 Tipp</button><button class="btnnxt" id="bn" onclick="nextQ()">Weiter →</button></div>`;
+  h+=`<div class="qacts"><button class="btnhint" id="bh" onclick="botQuizHint()">🤖 Tipp</button><button class="btnnxt" id="bn" onclick="nextQ()">Weiter →</button></div>`;
   if(q.calc)h+=iCalcHTML();
   h+=`</div>`;
   document.getElementById('quiz-content').innerHTML=h;
   if(q.calc)icE='';
 }
+// Points per correct answer: depends on mode
+// Normal chapters: 2 pts (1 with hint)
+// LP easy: 3 pts (2 with hint), LP mid: 4 pts (3 with hint), LP hard: 5 pts (4 with hint)
+function qPtsBase(){
+  if(!QLP) return 2;
+  if(QLP==='lp_easy') return 3;
+  if(QLP==='lp_mid')  return 4;
+  if(QLP==='lp_hard') return 5;
+  return 2;
+}
 function aMC(idx){
   if(QAns)return;QAns=true;
-  const q=QL[QI],ok=idx===q.cor,pts=ok?(QHU?1:2):0;
+  const q=QL[QI],base=qPtsBase(),ok=idx===q.cor,pts=ok?(QHU?base-1:base):0;
   procA(ok,pts,q.ex,q.opts[q.cor]);
   for(let i=0;i<q.opts.length;i++){const b=document.getElementById('o'+i);b.disabled=true;if(i===q.cor)b.classList.add('ok');else if(i===idx&&!ok)b.classList.add('bad');}
 }
@@ -1303,9 +1648,11 @@ function aInp(){
   if(QAns)return;const inp=document.getElementById('ans');if(!inp)return;
   const v=(inp.value||'').trim().replace(',','.');const q=QL[QI];
   const ok=Math.abs(parseFloat(v)-parseFloat(q.cor))<=(q.tol||0);
-  QAns=true;inp.disabled=true;procA(ok,ok?(QHU?1:2):0,q.ex,q.cor);
+  const base=qPtsBase();
+  QAns=true;inp.disabled=true;procA(ok,ok?(QHU?base-1:base):0,q.ex,q.cor);
 }
 function procA(ok,pts,ex,cv){
+  const base=qPtsBase();
   const fb=document.getElementById('fb');fb.style.display='block';
   document.getElementById('bn').style.display='inline-block';
   document.getElementById('bh').disabled=true;
@@ -1317,7 +1664,10 @@ function procA(ok,pts,ex,cv){
     S.errors[QT.id].count++;
     S.errors[QT.id].last=Date.now();
   }
-  if(ok){QChPts+=pts;S.cStr++;if(S.cStr>S.bStr)S.bStr=S.cStr;fb.className='fbbox ok';fb.innerHTML=`✅ Richtig! ${pts===2?'+2 ✨':'+1 (Tipp)'}<br><small style="opacity:.85">${esc(ex)}</small>`;showToast(`+${pts} ${pts===2?'⭐⭐':'⭐'}`,'pts');}
+  if(ok){QChPts+=pts;S.cStr++;if(S.cStr>S.bStr)S.bStr=S.cStr;
+    const stars=pts>=5?'⭐⭐⭐':pts>=4?'⭐⭐⭐':pts>=3?'⭐⭐⭐':pts===2?'⭐⭐':'⭐';
+    const tipLabel=QHU?` (Tipp -1)`:'';
+    fb.className='fbbox ok';fb.innerHTML=`✅ Richtig! +${pts} ML${tipLabel}<br><small style="opacity:.85">${esc(ex)}</small>`;showToast(`+${pts} ML`,'pts');}
   else{S.cStr=0;QBL=true;fb.className='fbbox bad';fb.innerHTML=`❌ Falsch. Richtig: <strong>${esc(String(cv))}</strong><br><small style="opacity:.85">${esc(ex)}</small>`;}
 }
 function reqHint(){
@@ -1327,16 +1677,23 @@ function reqHint(){
 }
 function closeM(id){document.getElementById(id).classList.remove('show');}
 function doHint(){closeM('m-hint');QBL=true;QCHint=true;doHintNow();}
-function doHintNow(){QHU=true;document.getElementById('hb').style.display='block';document.getElementById('bh').disabled=true;document.getElementById('ptsbdg').textContent='Max. 1 Pkt';document.getElementById('ptsbdg').className='ptsbdg hlv';showToast('Tipp – max. 1 Pkt','warn');}
+function doHintNow(){
+  const base=qPtsBase();
+  QHU=true;document.getElementById('hb').style.display='block';
+  document.getElementById('bh').disabled=true;
+  document.getElementById('ptsbdg').textContent=`Max. ${base-1} Pkt`;
+  document.getElementById('ptsbdg').className='ptsbdg hlv';
+  showToast(`Tipp – max. ${base-1} Pkt`,'warn');
+}
 function nextQ(){document.getElementById('qpf').style.width=((QI+1)/QL.length*100)+'%';QI++;if(QI>=QL.length)finishCh();else renderQ();}
 function confirmLeave(){if(confirm('Quiz beenden?'))showPage('chapters');}
 function finishCh(){
-  const maxP=QL.length*2,pct=Math.round(QChPts/maxP*100);
+  const base=qPtsBase(),maxP=QL.length*base,pct=Math.round(QChPts/maxP*100);
   let bonus=0;const perf=!QBL&&!QCHint;
   if(perf){bonus=QChPts;QChPts*=2;S.bonC=(S.bonC||0)+1;}
   if(perf)S.perfC=(S.perfC||0)+1;
   if(!QCHint)S.noHC=(S.noHC||0)+1;
-  S.tp+=QChPts;
+  S.tp+=QChPts;S.ml=(S.ml||0)+QChPts;
   // Save progress – either legend path or normal topic
   if(QLP){
     const pr=glp(QLP);pr[QCI]={done:true,pts:QChPts,perf};
@@ -1368,14 +1725,18 @@ function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nt').forEach(t=>t.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
-  const tabs={home:0,tools:1,stats:2,videos:3,settings:4};
+  const tabs={home:0,tools:1,stats:2,videos:3,settings:4,bot:6,changelog:7,leaderboard:8,shop:9};
   const allT=document.querySelectorAll('.nt');
   if(tabs[id]!==undefined)allT[tabs[id]].classList.add('active');
   if(id==='minesweeper'){allT[5]?.classList.add('active');renderMsModes();}
-  if(id==='home')renderRM();
+  if(id==='home'){renderRM();botCtx=null;}
   if(id==='stats')renderStats();
   if(id==='videos')renderVideos();
   if(id==='settings')initSettingsUI();
+  if(id==='bot')renderBotPage();
+  if(id==='changelog')renderChangelog();
+  if(id==='leaderboard')initLeaderboard();
+  if(id==='shop')initShop();
   // show/hide ms nav
   const msNav=document.getElementById('nav-ms');
   if(msNav)msNav.style.display=msModeUnlocked()>0?'inline-flex':'none';
@@ -1550,6 +1911,22 @@ function buildLPColumn(path){
     <div class="lp-final-title">${lft.label}</div>
     <div class="lp-final-sub">${lftPassed?'✅ Bestanden':lftAvail?'Bereit · 10 Fragen':'🔒 Alle Kapitel abschließen'}</div>`;
   col.appendChild(ftCard);
+  // Minesweeper unlock card for this path
+  const msMap={'lp_easy':{mode:'easy',label:'🟢 Minesweeper Leicht',sub:'9×9 · 10 Minen'},
+               'lp_mid': {mode:'medium',label:'🟡 Minesweeper Mittel',sub:'12×12 · 20 Minen'},
+               'lp_hard':{mode:'hard',  label:'🔴 Minesweeper Schwer',sub:'16×16 · 40 Minen'}};
+  const msInfo=msMap[path.id];
+  if(msInfo){
+    const msUnlocked=lftPassed;
+    const msCard=document.createElement('div');
+    msCard.className='lp-final-card'+(msUnlocked?'':' lp-ft-lk')+(msUnlocked?' lp-ft-pass':'');
+    msCard.style.setProperty('--lc',path.color);
+    if(msUnlocked)msCard.onclick=()=>showPage('minesweeper');
+    msCard.innerHTML=`<div class="lp-final-icon">💣</div>
+      <div class="lp-final-title">${msInfo.label}</div>
+      <div class="lp-final-sub">${msUnlocked?`✅ Freigeschaltet · ${msInfo.sub}`:'🔒 Legendentest bestehen'}</div>`;
+    col.appendChild(msCard);
+  }
   return col;
 }
 
@@ -1788,12 +2165,16 @@ function finishFT(){
   const pct=Math.round(FTScore/FTQ.length*100);
   const passed=pct>=80;
   const grade=getGrade(pct);
+  // FT points per correct answer: Schwer(0)=15, Mittel(1)=10, Leicht(2)=5
+  const ftPtsPerQ=[15,10,5][ti]||5;
+  const ftPtsEarned=FTScore*ftPtsPerQ;
   document.getElementById('ftpf').style.width='100%';
   if(passed){
     S.ft.passed=true;
     S.ft.passedTests[ti]=true;
+    S.tp=(S.tp||0)+ftPtsEarned;S.ml=(S.ml||0)+ftPtsEarned;
     checkAchs();sS();updateUI();
-    showToast('🎉 Bestanden!','pts');
+    showToast(`🎉 Bestanden! +${ftPtsEarned} Pkt`,'pts');
   }else{
     sS();updateUI();
   }
@@ -1837,7 +2218,7 @@ function finishFT(){
       <div class="grade-lbl">${grade.l}</div>
       <div class="grade-pct">${FTScore}/20 richtig · ${pct}%</div>
       <div class="grade-msg">${grade.msg}</div>
-      ${passed?`<div style="color:var(--ac3);font-weight:700;margin-top:10px;font-size:.88rem">🎉 Bestanden! (≥80%)</div>${newUnlock?`<div style="color:var(--ac);font-size:.82rem;margin-top:4px">💣 Minesweeper ${newUnlock} freigeschaltet!</div>`:''}`:
+      ${passed?`<div style="color:var(--ac3);font-weight:700;margin-top:10px;font-size:.88rem">🎉 Bestanden! (≥80%) · <span style="color:var(--ac)">+${ftPtsEarned} Pkt</span></div>${newUnlock?`<div style="color:var(--ac);font-size:.82rem;margin-top:4px">💣 Minesweeper ${newUnlock} freigeschaltet!</div>`:''}`:
       '<div style="color:var(--red);margin-top:8px;font-size:.82rem">❌ Nicht bestanden (mind. 80% nötig)</div>'}
       <div style="margin-top:20px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
         ${btns}
@@ -1848,17 +2229,18 @@ function finishFT(){
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
 // ===================== MISC =====================
-function updateUI(){document.getElementById('tscore').textContent=(S.tp||0)+' Pkt';}
+function updateUI(){document.getElementById('tscore').textContent=(S.ml||0)+' ML';}
 function renderStats(){
   document.getElementById('sg').innerHTML=`
-    <div class="sc"><div class="sn">${S.tp||0}</div><div class="sl">Punkte gesamt</div></div>
+    <div class="sc"><div class="sn">${S.tp||0}</div><div class="sl">Punkte (Score)</div></div>
+    <div class="sc"><div class="sn">🪙 ${S.ml||0}</div><div class="sl">Matheloin</div></div>
     <div class="sc"><div class="sn">${S.cpTp||0}/${TOPICS.length}</div><div class="sl">Themen fertig</div></div>
     <div class="sc"><div class="sn">${S.perfC||0}</div><div class="sl">Perfekte Kapitel</div></div>
     <div class="sc"><div class="sn">${S.bonC||0}</div><div class="sl">Doppelboni</div></div>
     <div class="sc"><div class="sn">${S.bStr||0}</div><div class="sl">Beste Serie</div></div>`;
-  document.getElementById('ag').innerHTML=ACHS.map(a=>{const u=(S.ach||[]).includes(a.id);return `<div class="ac${u?' u':''}"><div class="ai">${a.ico}</div><div><div class="an">${a.name}</div><div class="ad">${a.desc}</div></div></div>`;}).join('');
+  document.getElementById('ag').innerHTML=ACHS.map(a=>{const u=(S.ach||[]).includes(a.id);return `<div class="ac${u?' u':''}"><div class="ai">${a.ico}</div><div style="flex:1"><div class="an">${a.name}</div><div class="ad">${a.desc}</div></div><div style="font-size:.65rem;font-family:var(--fm);color:${u?'var(--ac)':'var(--mu)'};font-weight:700;flex-shrink:0;margin-left:6px">+${a.pts} Pkt</div></div>`;}).join('');
 }
-function checkAchs(){ACHS.forEach(a=>{if(!(S.ach||[]).includes(a.id)&&a.c(S)){S.ach=[...(S.ach||[]),a.id];setTimeout(()=>showToast(`${a.ico} ${a.name}`,'pts'),600);}});}
+function checkAchs(){ACHS.forEach(a=>{if(!(S.ach||[]).includes(a.id)&&a.c(S)){S.ach=[...(S.ach||[]),a.id];const p=a.pts||0;if(p>0){S.tp=(S.tp||0)+p;S.ml=(S.ml||0)+p;}setTimeout(()=>{showToast(`${a.ico} ${a.name} +${p} ML`,'pts');updateUI();},600);}});}
 let toastT;
 function showToast(msg,type){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show'+(type?' '+type:'');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600);}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
@@ -2210,11 +2592,11 @@ function msModeUnlocked(){
   return count;
 }
 function msModeAvail(mode){
-  const pt=S.ft?.passedTests||[false,false,false];
   const lftP=S.lft?.passed||[false,false,false];
-  if(mode.id==='easy')  return pt[2];
-  if(mode.id==='medium')return pt[1];
-  if(mode.id==='hard')  return pt[0];
+  // lftP[0]=easy(lp_easy), lftP[1]=mid(lp_mid), lftP[2]=hard(lp_hard)
+  if(mode.id==='easy')  return lftP[0]; // Legendentest Leicht bestanden
+  if(mode.id==='medium')return lftP[1]; // Legendentest Mittel bestanden
+  if(mode.id==='hard')  return lftP[2]; // Legendentest Schwer bestanden
   if(mode.id==='ultra') return lftP.every(Boolean);
   return false;
 }
@@ -2581,9 +2963,808 @@ function shuffleFTOpts(q){
   return {...q, opts:indexed.map(x=>x.o), cor:indexed.findIndex(x=>x.correct)};
 }
 
+// ===================== MATHBOT =====================
+const BOT_KB = {
+  categories: [
+    {id:'themen',  icon:'📐', name:'Themen erklären', desc:'Erklärungen zu allen Themen'},
+    {id:'progress',icon:'📊', name:'Mein Fortschritt',desc:'Wie läuft\'s? Motivation!'},
+    {id:'formeln', icon:'🔢', name:'Formelblatt',     desc:'Alle Formeln auf einen Blick'},
+  ],
+  themen: [
+    {id:'qb', label:'📈 Grundlagen Parabeln', questions:[
+      {q:'Was ist eine quadratische Funktion?', a:'Eine quadratische Funktion hat die Form <b>f(x) = ax² + bx + c</b> (Normalform). Ihr Graph ist eine <b>Parabel</b>. Der Koeffizient <b>a</b> bestimmt Öffnungsrichtung und Breite, <b>b</b> verschiebt die Achse, <b>c</b> ist der y-Achsenabschnitt.', formula:'f(x) = ax² + bx + c\na > 0 → öffnet nach oben\na < 0 → öffnet nach unten'},
+      {q:'Was macht der Koeffizient a?', a:'<b>a</b> steuert zwei Dinge gleichzeitig:\n\n• <b>Vorzeichen:</b> a > 0 → Parabel öffnet nach oben (∪); a < 0 → nach unten (∩)\n• <b>Betrag:</b> |a| > 1 → schmale Parabel; 0 < |a| < 1 → breite Parabel; |a| = 1 → Normalparabel', formula:'|a| > 1 → schmal\n0 < |a| < 1 → breit\na = 1 → Normalparabel'},
+      {q:'Was ist der y-Achsenabschnitt?', a:'Der y-Achsenabschnitt ist der Punkt, wo die Parabel die y-Achse schneidet. Du berechnest ihn, indem du <b>x = 0</b> einsetzt. In der Normalform ist das direkt der Wert <b>c</b>.', formula:'y-Achsenabschnitt: f(0) = c'},
+      {q:'Wie berechne ich f(x) für einen bestimmten x-Wert?', a:'Einfach den x-Wert in die Funktion einsetzen und ausrechnen. Beispiel: f(x) = 2x² – 3x + 1, gesucht f(4):\n\nf(4) = 2·16 – 3·4 + 1 = 32 – 12 + 1 = <b>21</b>', formula:'Einsetzen: x-Wert statt x schreiben\ndann Schritt für Schritt berechnen'},
+    ]},
+    {id:'qf', label:'🔄 Scheitelpunktform', questions:[
+      {q:'Was ist die Scheitelpunktform?', a:'Die Scheitelpunktform lautet <b>f(x) = a(x – d)² + e</b>. Der große Vorteil: Du kannst den Scheitelpunkt <b>S(d | e)</b> direkt ablesen! Achtung: Das Vorzeichen von d ist umgekehrt – bei (x – 3) ist d = 3, bei (x + 2) ist d = –2.', formula:'f(x) = a(x – d)² + e\nScheitelpunkt: S(d | e)'},
+      {q:'Wie lese ich den Scheitelpunkt ab?', a:'Bei f(x) = a(x – <b>d</b>)² + <b>e</b> gilt:\n• d ist die x-Koordinate des Scheitelpunkts\n• e ist die y-Koordinate\n\nBeispiel: f(x) = 3(x – 2)² + 5 → S(<b>2</b> | <b>5</b>)\nBeispiel: f(x) = –(x + 4)² – 1 → S(<b>–4</b> | <b>–1</b>)', formula:'S(d | e) direkt ablesen\nAchtung: (x+2) → d = –2'},
+      {q:'Was ist quadratische Ergänzung?', a:'Die quadratische Ergänzung wandelt die Normalform in die Scheitelpunktform um. Vorgehen:\n1. Koeffizient a ausklammern (falls a ≠ 1)\n2. Den Term (b/2)² ergänzen und abziehen\n3. Binomische Formel anwenden\n\nBeispiel: x² – 6x + 5\n= (x – 3)² – 9 + 5 = <b>(x – 3)² – 4</b>', formula:'x² + bx = (x + b/2)² – (b/2)²'},
+      {q:'Wie rechne ich Normalform → Scheitelpunktform?', a:'Schnellste Methode ohne quadratische Ergänzung:\n1. <b>x_S = –b / (2a)</b> berechnen\n2. <b>y_S = f(x_S)</b> ausrechnen\n3. Einsetzen: f(x) = a(x – x_S)² + y_S\n\nBeispiel: f(x) = x² – 4x + 7\nx_S = 4/2 = 2; y_S = 4 – 8 + 7 = 3\n→ <b>f(x) = (x – 2)² + 3</b>', formula:'x_S = –b/(2a)\ny_S = f(x_S)'},
+    ]},
+    {id:'qa', label:'📌 Funktionsgleichung aufstellen', questions:[
+      {q:'Wie stelle ich eine Gleichung aus Scheitel + Punkt auf?', a:'Wenn du den Scheitelpunkt S(d|e) und einen weiteren Punkt P(x₀|y₀) kennst:\n1. Schreibe f(x) = a(x – d)² + e\n2. Setze den Punkt ein: y₀ = a(x₀ – d)² + e\n3. Löse nach a auf\n\nBeispiel: S(2|3), P(0|7)\nf(0) = a·4 + 3 = 7 → a = 1\n→ <b>f(x) = (x – 2)² + 3</b>', formula:'Ansatz: f(x) = a(x – d)² + e\nPunkt einsetzen → a ausrechnen'},
+      {q:'Was ist die 3-Punkte-Methode?', a:'Wenn du drei Punkte P₁, P₂, P₃ kennst, aber keinen Scheitel:\n1. Jeden Punkt in f(x) = ax² + bx + c einsetzen\n2. Du erhältst 3 Gleichungen mit 3 Unbekannten (a, b, c)\n3. Löse das LGS (Tipp: P(0|y) gibt direkt c = y!)\n\nMerke: 3 Unbekannte → 3 Punkte nötig!', formula:'3 Punkte → 3 Gleichungen → LGS\nP(0|y) → c = y direkt'},
+      {q:'Wie rechne ich Scheitelpunktform → Normalform?', a:'Einfach ausmultiplizieren:\n1. (x – d)² = x² – 2dx + d² ausrechnen\n2. Mit a multiplizieren\n3. e addieren\n\nBeispiel: 2(x – 3)² + 1\n= 2(x² – 6x + 9) + 1\n= 2x² – 12x + 18 + 1\n= <b>2x² – 12x + 19</b>', formula:'a(x–d)² + e ausklammern\n(x–d)² = x² – 2dx + d²'},
+    ]},
+    {id:'kr', label:'⭕ Kreisfläche & Umfang', questions:[
+      {q:'Was sind die Grundformeln für den Kreis?', a:'Die zwei wichtigsten Kreisformeln:\n\n• <b>Umfang</b>: U = 2πr = πd\n• <b>Fläche</b>: A = πr²\n\nErinnerung: r = Radius, d = Durchmesser = 2r.\nπ ≈ 3,14159...', formula:'U = 2πr (Umfang)\nA = πr² (Fläche)\nd = 2r'},
+      {q:'Wie berechne ich den Radius aus Fläche oder Umfang?', a:'Aus dem Umfang:\nU = 2πr → <b>r = U / (2π)</b>\n\nAus der Fläche:\nA = πr² → r² = A/π → <b>r = √(A/π)</b>\n\nBeispiel: A = 36π cm² → r = √36 = <b>6 cm</b>', formula:'r = U/(2π)\nr = √(A/π)'},
+      {q:'Was passiert wenn ich den Radius verdopple?', a:'Beim Umfang: U = 2π·(2r) = 2·(2πr) → <b>Umfang verdoppelt sich</b>\n\nBei der Fläche: A = π·(2r)² = 4πr² → <b>Fläche vervierfacht sich!</b>\n\nDas liegt daran, dass r in der Flächenformel quadratisch vorkommt.', formula:'r → 2r:\nU ×2\nA ×4'},
+    ]},
+    {id:'ka', label:'🥧 Bogenlänge & Kreisausschnitt', questions:[
+      {q:'Was sind Bogenlänge und Kreisausschnitt?', a:'Ein <b>Kreisausschnitt</b> (Sektor) ist ein "Tortenstück" – der Anteil des Kreises beim Winkel α.\n\nDie <b>Bogenlänge b</b> ist die Länge des Kreisbogens (der "Kante" des Tortenstücks).\n\nBeide sind proportional zum Winkel α: Je größer α, desto größer der Anteil.', formula:'Anteil = α/360°\nb = (α/360)·2πr\nA = (α/360)·πr²'},
+      {q:'Wie berechne ich die Bogenlänge?', a:'Die Bogenlänge ist ein Anteil des vollen Kreisumfangs:\n\nb = (α/360)·2πr\n\nBeispiel: r = 6 cm, α = 90°\nb = (90/360)·2π·6 = (1/4)·12π = <b>3π ≈ 9,42 cm</b>', formula:'b = (α/360)·2πr'},
+      {q:'Wie berechne ich die Fläche eines Kreisausschnitts?', a:'Die Fläche ist ein Anteil der vollen Kreisfläche:\n\nA = (α/360)·πr²\n\nBeispiel: r = 8 cm, α = 45°\nA = (45/360)·π·64 = (1/8)·64π = <b>8π ≈ 25,13 cm²</b>', formula:'A = (α/360)·πr²'},
+      {q:'Wie berechne ich den Winkel aus Bogenlänge oder Fläche?', a:'Aus der Bogenlänge:\nb = (α/360)·2πr → <b>α = (b·360)/(2πr)</b>\n\nAus der Fläche:\nA = (α/360)·πr² → <b>α = (A·360)/(πr²)</b>\n\nBeispiel: b = 4π, r = 6 → α = (4π·360)/(12π) = <b>120°</b>', formula:'α = (b·360)/(2πr)\nα = (A·360)/(πr²)'},
+    ]},
+    {id:'sk', label:'🌍 Anwendungsaufgaben', questions:[
+      {q:'Wie löse ich Optimierungsaufgaben?', a:'Bei Optimierungsaufgaben suchst du ein Maximum oder Minimum:\n\n1. Funktion aufstellen (oft schon gegeben)\n2. <b>Scheitelpunkt berechnen</b> → x_S = –b/(2a)\n3. Maximaler/minimaler Wert = y_S = f(x_S)\n\nBeispiel: Gewinn G(x) = –x² + 10x – 16\nx_S = 5; G(5) = –25 + 50 – 16 = <b>9</b> (Maximalgewinn)', formula:'Maximum/Minimum → Scheitelpunkt!\nx_S = –b/(2a), y_S = f(x_S)'},
+      {q:'Wie erkenne ich Sachaufgaben mit Parabeln?', a:'Typische Hinweise:\n• <b>Wurfparabel</b>: h(t) = –4,9t² + v₀t + h₀ (Höhe über Zeit)\n• <b>Brücke/Bogen</b>: Scheitelpunkt ist der höchste Punkt\n• <b>Gewinn/Umsatz</b>: Maximum gesucht → Scheitel\n• <b>Fläche unter Parabel</b>: Rechteck rein → Optimierung\n\nImmer: Was ist das Gesuchte? Scheitelpunkt? f(x) für bestimmtes x?', formula:'Wurfparabel: h(t)=–4,9t²+v₀t+h₀\nMaximum → Scheitelpunkt'},
+    ]},
+  ],
+  tipps: [
+    {id:'t_scheitel', label:'Scheitelpunkt berechnen', a:'<b>Schritt für Schritt:</b>\n1. Aus der Normalform ax²+bx+c: <b>x_S = –b/(2a)</b>\n2. x_S in f(x) einsetzen → y_S\n3. S(x_S | y_S) notieren\n\n<b>Häufige Fehler:</b>\n• Vorzeichen vergessen: –b/(2a), nicht b/(2a)!\n• Bei a≠1: Teiler richtig: –b/(2·a)\n• Den y-Wert vergessen zu berechnen', formula:'x_S = –b/(2a)\ny_S = f(x_S)'},
+    {id:'t_spf', label:'Scheitelpunktform lesen/umformen', a:'<b>Ablesen:</b> f(x)=a(x–d)²+e → S(d|e)\nAchtung: (x+2) bedeutet d=–2 (Vorzeichen dreht sich!)\n\n<b>Umformen Normalform→SPF:</b>\n• Schnell: x_S berechnen, y_S einsetzen\n• Exakt: quadratische Ergänzung\n\n<b>Häufiger Fehler:</b>\nBei f(x)=(x+3)²+1 → S(–3|1), NICHT S(3|1)!', formula:'(x–d)² → d direkt\n(x+d)² → Scheitelpunkt bei –d'},
+    {id:'t_kreis', label:'Kreisformeln anwenden', a:'<b>Merkhilfe:</b>\n• U = 2πr → "Umfang hat r hoch 1"\n• A = πr² → "Fläche hat r hoch 2"\n\n<b>Typische Aufgabe: r aus A oder U berechnen</b>\n• U gegeben: r = U/(2π)\n• A gegeben: r = √(A/π)\n\n<b>Häufiger Fehler:</b>\nDurchmesser d≠Radius r! Immer prüfen: Was ist gegeben?', formula:'U=2πr; A=πr²\nr=U/(2π); r=√(A/π)'},
+    {id:'t_bogen', label:'Bogenlänge & Ausschnitt', a:'<b>Merkhilfe:</b> Alles ist ein Anteil α/360 des vollen Kreises!\n\nb = <b>(α/360)</b>·2πr\nA = <b>(α/360)</b>·πr²\n\n<b>Häufige Fehler:</b>\n• α in Grad (nicht Bogenmaß!) verwenden\n• α und r verwechseln\n• Für den Umfang des Sektors: 2r + Bogenlänge (nicht nur Bogen!)', formula:'b=(α/360)·2πr\nA=(α/360)·πr²\nSektor-Umfang=2r+b'},
+    {id:'t_aufstellen', label:'Gleichung aufstellen', a:'<b>Welche Methode wählen?</b>\n\n✅ Scheitel + 1 Punkt → Scheitelpunktform, a einsetzen\n✅ 3 Punkte → Normalform, LGS aufstellen\n✅ P(0|y) gegeben → c = y direkt!\n\n<b>Vorgehen bei S+P:</b>\nf(x) = a(x–d)²+e → Punkt einsetzen → a lösen\n\n<b>Häufiger Fehler:</b>\nNicht c=f(0) vergessen wenn P(0|y) dabei ist!', formula:'S+P: a(x–d)²+e, Punkt einsetzen\n3P: LGS mit ax²+bx+c'},
+    {id:'t_optimierung', label:'Optimierungsaufgaben', a:'<b>Schema:</b>\n1. Funktion lesen/aufstellen\n2. Maximum/Minimum → Scheitelpunkt!\n3. x_S = –b/(2a) → y_S = f(x_S)\n4. Antwort in Sachkontext formulieren\n\n<b>Häufige Fehler:</b>\n• Vergessen, den y-Wert zu berechnen (nicht nur x_S!)\n• Bei "Wann?" → x_S, bei "Wie viel/hoch?" → y_S\n• Einheiten nicht angeben', formula:'Maximum/Minimum = Scheitelpunkt\nx_S = –b/(2a), y_S = f(x_S)'},
+  ],
+  formeln: [
+    {label:'📈 Quadratische Funktionen', lines:[
+      'Normalform:      f(x) = ax² + bx + c',
+      'Scheitelpunktf.: f(x) = a(x – d)² + e',
+      'Scheitelpunkt:   x_S = –b/(2a)',
+      '                 y_S = f(x_S)',
+      'Scheitelpunkt:   S(x_S | y_S)',
+      'a > 0 → ∪ (oben offen)',
+      'a < 0 → ∩ (unten offen)',
+    ]},
+    {label:'⭕ Kreisberechnungen', lines:[
+      'Umfang:          U = 2πr = πd',
+      'Fläche:          A = πr²',
+      'Radius aus U:    r = U / (2π)',
+      'Radius aus A:    r = √(A / π)',
+      'Durchmesser:     d = 2r',
+    ]},
+    {label:'🥧 Bogenlänge & Ausschnitt', lines:[
+      'Bogenlänge:      b = (α/360) · 2πr',
+      'Ausschnitt-A:    A = (α/360) · πr²',
+      'Winkel aus b:    α = (b·360) / (2πr)',
+      'Winkel aus A:    α = (A·360) / (πr²)',
+      'Sektor-Umfang:   2r + b',
+    ]},
+    {label:'🔄 Umformungen', lines:[
+      'Normal→SPF:      x_S berechnen, y_S einsetzen',
+      'SPF→Normal:      ausmultiplizieren',
+      '(x–d)²=x²–2dx+d²',
+      'Quad. Ergänzung: x²+bx = (x+b/2)²–(b/2)²',
+    ]},
+  ],
+};
+
+// Bot state
+let botOpen=false;
+let botCtx=null; // current quiz context: {topicId, chapName, qText} or null
+
+function openBot(){
+  botOpen=true;
+  document.getElementById('bot-overlay').classList.add('open');
+  document.getElementById('bot-panel').classList.add('open');
+  botRender();
+}
+function closeBot(){
+  botOpen=false;
+  document.getElementById('bot-overlay').classList.remove('open');
+  document.getElementById('bot-panel').classList.remove('open');
+}
+function botMsg(html, formula=''){
+  const msgs=document.getElementById('bot-messages');
+  const div=document.createElement('div');div.className='bot-msg';
+  let bubble=`<div class="bot-bubble">${html.replace(/\n/g,'<br>')}`;
+  if(formula)bubble+=`<div class="bot-formula">${formula.replace(/\n/g,'<br>')}</div>`;
+  bubble+=`</div>`;
+  div.innerHTML=`<div class="bot-msg-avatar">🤖</div>${bubble}`;
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+function botChoices(arr){
+  const el=document.getElementById('bot-choices');
+  el.innerHTML=arr.map(c=>`<button class="bot-choice${c.cls?' '+c.cls:''}" onclick="${c.fn}">${c.label}</button>`).join('');
+}
+function botClear(){
+  document.getElementById('bot-messages').innerHTML='';
+  document.getElementById('bot-choices').innerHTML='';
+}
+
+function botRender(){
+  botClear();
+  // Check if we're in a quiz
+  if(botCtx){
+    // In-quiz context
+    const topic=TOPICS.find(t=>t.id===botCtx.topicId)||LP.flatMap(p=>p.chapters).length?null:null;
+    const topicTitle=TOPICS.find(t=>t.id===botCtx.topicId)?.title||botCtx.topicId;
+    const motis=[
+      `Du schaffst das! 💪 Bleib dran – Fehler sind der Weg zum Lernen.`,
+      `Gut gemacht, dass du weitermachst! 🚀 Jede Aufgabe macht dich besser.`,
+      `Konzentriert bleiben – du bist auf dem richtigen Weg! ⭐`,
+      `Schau dir die Formel genau an – manchmal steckt die Lösung direkt drin! 🔍`,
+    ];
+    const moti=motis[Math.floor(Math.random()*motis.length)];
+    // Find matching formula
+    const formulas={'qb':'f(x) = ax² + bx + c\nx_S = –b/(2a), y_S = f(x_S)',
+      'qf':'f(x) = a(x–d)² + e\nScheitelpunkt S(d|e) direkt ablesen',
+      'qa':'Scheitel+Punkt: a(x–d)²+e einsetzen\n3 Punkte: LGS aufstellen',
+      'kr':'U = 2πr\nA = πr²',
+      'ka':'b = (α/360)·2πr\nA = (α/360)·πr²',
+      'sk':'Maximum/Minimum → Scheitelpunkt!\nx_S = –b/(2a), y_S = f(x_S)'};
+    const formula=formulas[botCtx.topicId]||'x_S = –b/(2a)\ny_S = f(x_S)';
+    document.getElementById('bot-status').textContent=`● Im Kapitel: ${botCtx.chapName}`;
+    if(botCtx.hideFormula){
+      botMsg(`Ich sehe, du bist gerade bei <b>${botCtx.chapName}</b>.<br><br>${moti}<br><br>💡 Bei dieser Aufgabe geht es darum, die richtige Formel zu erkennen – die zeige ich dir nicht, sonst wäre es ja langweilig! 😄 Denk nach: Welches Thema passt zur Frage?`);
+    } else {
+      botMsg(`Ich sehe, du bist gerade bei <b>${botCtx.chapName}</b> (Thema: ${topicTitle}).<br><br>${moti}<br><br>Hier die passende Formel für dich:`, formula);
+    }
+    botChoices([
+      {label:'💡 Tipp zur aktuellen Aufgabe', fn:'botShowQuizHint()', cls:'hint-btn'},
+      {label:'📐 Mehr zu diesem Thema', fn:`botThema('${botCtx.topicId}')`},
+      {label:'🔢 Alle Formeln', fn:'botFormeln()'},
+      {label:'← Zurück', fn:'botRender()', cls:'back'},
+    ]);
+  } else {
+    // Normal mode – category selection
+    document.getElementById('bot-status').textContent='● Online · bereit zu helfen';
+    botMsg('Hallo! 👋 Ich bin <b>MathBot</b>, dein Mathe-Assistent.<br>Womit kann ich dir helfen?');
+    botChoices(BOT_KB.categories.map(c=>({label:`${c.icon} ${c.name}`, fn:`botCat('${c.id}')`})));
+  }
+}
+
+function botCat(id){
+  botClear();
+  if(id==='themen'){
+    botMsg('Zu welchem Thema möchtest du eine Erklärung?');
+    botChoices([
+      ...BOT_KB.themen.map(t=>({label:t.label, fn:`botThema('${t.id}')`})),
+      {label:'← Zurück', fn:'botRender()', cls:'back'},
+    ]);
+  } else if(id==='progress'){
+    botProgress();
+  } else if(id==='formeln'){
+    botFormeln();
+  }
+}
+
+function botThema(id){
+  botClear();
+  const thema=BOT_KB.themen.find(t=>t.id===id);
+  if(!thema)return;
+  botMsg(`<b>${thema.label}</b><br>Was möchtest du wissen?`);
+  botChoices([
+    ...thema.questions.map((q,i)=>({label:'❓ '+q.q, fn:`botAntwort('${id}',${i})`})),
+    {label:'← Zurück zu Themen', fn:"botCat('themen')", cls:'back'},
+    {label:'🏠 Hauptmenü', fn:'botRender()', cls:'back'},
+  ]);
+}
+
+function botAntwort(tid, qi){
+  botClear();
+  const thema=BOT_KB.themen.find(t=>t.id===tid);
+  const q=thema.questions[qi];
+  botMsg(q.a, q.formula||'');
+  botChoices([
+    {label:'← Weitere Fragen zu '+thema.label.split(' ').slice(1).join(' '), fn:`botThema('${tid}')`, cls:'back'},
+    {label:'🔢 Formelblatt', fn:'botFormeln()'},
+    {label:'🏠 Hauptmenü', fn:'botRender()', cls:'back'},
+  ]);
+}
+
+function botTipp(id){
+  botClear();
+  const tipp=BOT_KB.tipps.find(t=>t.id===id);
+  if(!tipp)return;
+  botMsg(tipp.a, tipp.formula||'');
+  botChoices([
+    {label:'← Weitere Tipps', fn:"botCat('tipps')", cls:'back'},
+    {label:'🏠 Hauptmenü', fn:'botRender()', cls:'back'},
+  ]);
+}
+
+function botProgress(){
+  botClear();
+  const dc=doneChaps(),tc=totalChaps(),pct=Math.round(dc/tc*100);
+  const achCount=(S.ach||[]).length;
+  const pt=S.ft?.passedTests||[false,false,false];
+  const ftDone=pt.filter(Boolean).length;
+  const lftDone=(S.lft?.passed||[]).filter(Boolean).length;
+  let msg='',emoji='';
+  if(pct===100){emoji='🏆';msg='Absolut beeindruckend! Du hast alle Kapitel abgeschlossen!';}
+  else if(pct>=75){emoji='🔥';msg='Stark! Du bist auf der Zielgeraden!';}
+  else if(pct>=50){emoji='⭐';msg='Super Fortschritt – mehr als die Hälfte geschafft!';}
+  else if(pct>=25){emoji='💪';msg='Guter Start! Du bist auf dem richtigen Weg.';}
+  else{emoji='🚀';msg='Der Anfang ist gemacht – jetzt kommt Fahrt auf!';}
+  const text=`${emoji} <b>${msg}</b><br><br>📚 <b>Kapitel:</b> ${dc}/${tc} abgeschlossen (${pct}%)<br>⭐ <b>Punkte:</b> ${S.tp||0} Pkt<br>🏅 <b>Errungenschaften:</b> ${achCount} / ${ACHS.length}<br>🎯 <b>Finaltests bestanden:</b> ${ftDone}/3<br>🗺️ <b>Legendentests bestanden:</b> ${lftDone}/3`;
+  botMsg(text);
+  botChoices([
+    {label:'📐 Thema erklären lassen', fn:"botCat('themen')"},
+    {label:'🔢 Formelblatt', fn:'botFormeln()'},
+    {label:'🏠 Hauptmenü', fn:'botRender()', cls:'back'},
+  ]);
+}
+
+function unlockedFormulaGroups(){
+  // formeln: [0]=📈 Quad.Funktionen (qb), [1]=⭕ Kreisberechnungen (kr), [2]=🥧 Bogenlänge (ka), [3]=🔄 Umformungen (qf/qa)
+  const done=id=>{const pr=gTp(id);return TOPICS.find(t=>t.id===id)?.chapters.some((_,ci)=>pr[ci]?.done);};
+  return BOT_KB.formeln.filter((_,i)=>{
+    if(i===0)return done('qb');
+    if(i===1)return done('kr');
+    if(i===2)return done('ka');
+    if(i===3)return done('qf')||done('qa');
+    return false;
+  });
+}
+
+function botFormeln(){
+  botClear();
+  const groups=unlockedFormulaGroups();
+  const totalGroups=BOT_KB.formeln.length;
+  if(groups.length===0){
+    botMsg('Du hast noch keine Formeln entdeckt! 🔒<br><br>Schließe Kapitel ab, um nach und nach alle Formeln freizuschalten. Fang mit <b>Grundlagen quadratischer Funktionen</b> an!');
+    botChoices([
+      {label:'📐 Themen erklären', fn:"botCat('themen')"},
+      {label:'🏠 Hauptmenü', fn:'botRender()', cls:'back'},
+    ]);
+    return;
+  }
+  const locked=totalGroups-groups.length;
+  if(locked>0){
+    const intro=document.createElement('div');intro.className='bot-msg';
+    const ib=document.createElement('div');ib.className='bot-bubble';
+    ib.innerHTML=`📋 <b>Deine Formeln (${groups.length}/${totalGroups} freigeschaltet)</b><br><small style="color:var(--mu)">Weitere ${locked} Gruppe${locked>1?'n':''} warten – lerne mehr Kapitel!</small>`;
+    const ia=document.createElement('div');ia.className='bot-msg-avatar';ia.textContent='🤖';
+    intro.appendChild(ia);intro.appendChild(ib);
+    document.getElementById('bot-messages').appendChild(intro);
+  }
+  groups.forEach(group=>{
+    const div=document.createElement('div');div.className='bot-msg';
+    const bubble=document.createElement('div');bubble.className='bot-bubble';
+    bubble.innerHTML=`<b>${group.label}</b><div class="bot-formula">${group.lines.join('<br>')}</div>`;
+    const avatar=document.createElement('div');avatar.className='bot-msg-avatar';avatar.textContent='🤖';
+    div.appendChild(avatar);div.appendChild(bubble);
+    document.getElementById('bot-messages').appendChild(div);
+  });
+  if(locked>0){
+    const lockDiv=document.createElement('div');lockDiv.className='bot-msg';
+    const lockBubble=document.createElement('div');lockBubble.className='bot-bubble';
+    lockBubble.innerHTML=`<span style="color:var(--mu)">🔒 ${locked} weitere Gruppe${locked>1?'n':''} noch gesperrt – schließe mehr Kapitel ab!</span>`;
+    const la=document.createElement('div');la.className='bot-msg-avatar';la.textContent='🤖';
+    lockDiv.appendChild(la);lockDiv.appendChild(lockBubble);
+    document.getElementById('bot-messages').appendChild(lockDiv);
+  }
+  document.getElementById('bot-messages').scrollTop=9999;
+  botChoices([
+    {label:'📐 Thema erklären lassen', fn:"botCat('themen')"},
+    {label:'🏠 Hauptmenü', fn:'botRender()', cls:'back'},
+  ]);
+}
+
+function botShowQuizHint(){
+  closeBot();
+  setTimeout(()=>reqHint(),200);
+}
+
+// Detect if current question is about identifying/choosing the right formula
+function isFormulaQuestion(){
+  if(!QL||QI===undefined)return false;
+  const q=QL[QI];
+  if(!q)return false;
+  const txt=(q.q||'').toLowerCase();
+  // match, sort about formulas, or MC where options contain formula-like text
+  if(q.type==='match'||q.type==='sort')return false; // these get separate handling
+  const formulaKeywords=['welche formel','richtige formel','formel für','was berechnet','was ist die formel','ordne','zuordnen','formel zuord'];
+  if(formulaKeywords.some(k=>txt.includes(k)))return true;
+  // MC where answer options look like formulas (contain π, ², =, x_S)
+  if(q.type==='mc'&&q.opts){
+    const formulaOpts=q.opts.filter(o=>/π|²|x_S|f\(x\)|=.*r|=.*a/.test(o));
+    if(formulaOpts.length>=2)return true;
+  }
+  return false;
+}
+
+function botQuizHint(){
+  if(QT&&QCH){
+    botCtx={topicId:QT.id||QLP, chapName:QCH.name, qText:QL[QI]?.q||'', hideFormula:isFormulaQuestion()};
+  }
+  openBot();
+}
+
+function renderBotPage(){
+  const grid=document.getElementById('bot-page-grid');
+  if(!grid)return;
+  grid.innerHTML=BOT_KB.categories.map(c=>`
+    <div class="bot-cat-card" onclick="botPageCat('${c.id}')">
+      <div class="bot-cat-icon">${c.icon}</div>
+      <div class="bot-cat-name">${c.name}</div>
+      <div class="bot-cat-desc">${c.desc}</div>
+    </div>`).join('');
+}
+function botPageCat(id){
+  openBot();
+  setTimeout(()=>botCat(id),100);
+}
+
+const CHANGELOG=[
+  {v:'1.8', date:'März 2026', title:'Item-Shop & Matheloin 🛒', latest:true, items:[
+    'Punkte heißen jetzt Matheloin (🪙 ML) – 1:1 Umrechnung bestehender Punkte',
+    'Neuer 🛒 Shop-Tab mit 50 Avataren und 8 Namensrahmen in 4 Seltenheitsstufen',
+    'Shop rotiert alle 5 Minuten – immer 5 zufällige Angebote gleichzeitig',
+    'Gekaufte Items im Inventar ausrüstbar – Avatar & Rahmen erscheinen in der Rangliste',
+    'Stats-Tab zeigt jetzt Score und Matheloin getrennt an',
+  ]},
+  {v:'1.7', date:'März 2026', title:'Online-Rangliste 🌍', items:[
+    'Neuer 🏆 Rangliste-Tab mit weltweiter Bestenliste via Supabase',
+    'Eigenen Punktestand mit Namen eintragen und öffentlich anzeigen',
+    'Top 50 Spieler mit Medaillen 🥇🥈🥉 und eigenem Eintrag hervorgehoben',
+    'Zeigt automatisch „Du" neben dem eigenen Namen',
+    'Konfiguration direkt im Code: zwei Zeilen mit Supabase-URL & API-Key',
+    'Zeigt freundlichen Hinweis wenn Supabase noch nicht eingerichtet ist',
+  ]},
+  {v:'1.6', date:'März 2026', title:'Neues Punktesystem 💎', items:[
+    'Finaltests geben jetzt Punkte pro richtiger Antwort: Leicht=5, Mittel=10, Schwer=15 Pkt',
+    'Legendenpfad-Kapitel: Leichter Weg=3, Mittlerer Weg=4, Schwerer Weg=5 Pkt pro Antwort',
+    'Tipp-Abzug überall: 1 Punkt weniger bei Nutzung des Tipps',
+    'Minesweeper Leicht/Mittel/Schwer jetzt am Ende des jeweiligen Legendenpfades freigeschaltet',
+    'Minesweeper-Unlock-Karten direkt in den Legendenpfad-Spalten sichtbar',
+    'Punkte werden direkt im Ergebnis-Screen des Finaltests angezeigt',
+  ]},
+  {v:'1.5', date:'März 2026', title:'Errungenschaften geben Punkte 🏆', items:[
+    'Jede Errungenschaft gibt jetzt Bonuspunkte direkt auf den Punktestand',
+    'Toast-Nachricht zeigt z.B. „🔥 Auf Feuer! +5 Pkt" beim Freischalten',
+    'Kleine Errungenschaften: +2–5 Pkt (Erster Punkt, Perfektes Kapitel, Tipp-frei …)',
+    'Mittlere Errungenschaften: +10–15 Pkt (Finaltest, Legendentest, Alles gelernt …)',
+    'Große Errungenschaften: +20–30 Pkt (Alle Finaltests, Legendenpfade, Mathe-Meister)',
+    'Punktebelohnung im Stats-Tab bei jeder Errungenschaft sichtbar (+X Pkt)',
+  ]},
+  {v:'1.4', date:'März 2026', title:'MathBot & Update-Log 🤖', items:[
+    'Neuer persönlicher Mathe-Assistent – immer als 🤖-Button erreichbar',
+    'Eigener MathBot-Tab in der Navigation',
+    'Im Quiz: kontextsensitive Motivation + passende Formel zum aktuellen Kapitel',
+    'Formeln werden bei Formel-Erkennungs-Fragen bewusst versteckt',
+    'Themen erklären: 6 Themen mit je 3–4 ausführlichen Fragen & Antworten',
+    'Fortschritts-Anzeige: dynamische Auswertung aus echtem Spielstand',
+    'Formelblatt: alle Formeln nach Thema gegliedert auf einen Blick',
+    'Aufgaben-Tipp-Button im Quiz jetzt direkt mit MathBot verbunden',
+    'Viele Animationen: schwebendes Icon, Shimmer-Header, Slide-in-Choices',
+    'Neuer Update-Log Tab (dieser hier!)',
+  ]},
+  {v:'1.3', date:'März 2026', title:'Aufräumen 🧹', items:[
+    'Nullstellen vollständig aus allen Kapiteln, Finaltests & Legendenpfaden entfernt',
+    'Alle betroffenen Fragen durch Scheitelpunkt-, Kreis- & Optimierungsaufgaben ersetzt',
+    '"Scheitelpunkt berechnen" und "Scheitelpunkt & Punkt" ersetzen Nullstellen-Kapitel',
+    'FT1: 4 Fragen neu (Parabel aus S+P, Scheitelpunkt+Öffnung, max. Höhe, y_S)',
+    'FT2: 5 Fragen neu (Scheitel auf x-Achse, Scheitelpunktform-Begriff, y-Achsenabschnitt)',
+    'FT3: Sort & Match ohne Nullstellen/Faktorform',
+    'Legendenpfad Schwer: "Ungleichungen" → "Vergleich von Parabeln"',
+    'Videos v24/v25 (Nullstellen) entfernt',
+  ]},
+  {v:'1.2', date:'Februar 2026', title:'Legendenpfade & Minesweeper-Ultra 🗺️', items:[
+    'Legendenpfade nach dem Finaltest: Leichter 🌿, Mittlerer ⚡ und Schwerer 🔥 Weg',
+    'Je 8 Kapitel pro Pfad, sequenziell freigeschaltet',
+    'Legendentest am Ende jedes Pfades (10 Fragen, ≥80% Bestehensgrenze)',
+    'Minesweeper Ultra-Modus (20×20, 70 Minen) nach allen 3 Legendentests freigeschaltet',
+    'Neue Errungenschaften: 🌿⚡🔥 je Pfad, 👑 Legendär (alle Pfade), 🏅 Legendentest',
+    'Mobile: automatische Pfad-Auswahl-Tabs bei ≤600px',
+    '3-Wege-Verzweigung nach Finaltest-Knoten immer sichtbar',
+  ]},
+  {v:'1.1', date:'Januar 2026', title:'Finaltests & Errungenschaften 🎯', items:[
+    '3 Finaltests: Schwer (FT1, 20 Fragen), Mittel (FT2, 20 Fragen), Leicht (FT3, Sort/Match/MC)',
+    'Notensystem 1–6, Bestehensgrenze 80%, unbegrenzte Versuche',
+    '16 Errungenschaften gesamt: Punkte, Serien, Perfekt, Finaltest, Meister uvm.',
+    'Errungenschafts-Benachrichtigungen mit Toast-Animation',
+    'Fehlerverfolgung pro Thema für gezielte Wiederholung',
+    'Minesweeper als Belohnungsspiel: 🟢 Leicht, 🟡 Mittel, 🔴 Schwer',
+    'Bestzeiten-Tracking pro Minesweeper-Modus',
+    'Video-Empfehlungen basierend auf Lernfortschritt und Fehlern',
+    'Update-Banner: einmalige Anzeige bei neuen Versionen',
+  ]},
+  {v:'1.0', date:'Dezember 2025', title:'Erste Version 🚀', items:[
+    'App-Start: MathePro 9 für Klasse 9 – Quadratische Funktionen & Kreisberechnungen',
+    '6 Themen: Grundlagen, Scheitelpunktform, Funktionsgleichung, Kreis, Kreisausschnitt, Anwendungen',
+    '24 Kapitel mit je 3 Lernfragen (72 Fragen gesamt)',
+    'Roadmap-Ansicht mit sequenziellem Freischalten',
+    'Punktesystem mit Bonus für fehlerfreie Antworten',
+    'Streak-Tracking (Aufeinanderfolgende richtige Antworten)',
+    'Tipp-System: Hinweis gegen 1 Punkt Abzug',
+    'Stats-Tab: Fortschrittsbalken, Punkte, Kapitel-Übersicht',
+    'Videos-Tab mit Lernvideo-Empfehlungen',
+    'Einstellungen: Themes (Dark/Ocean/Sunset/Hell), Akzentfarben, Schriftarten',
+    'Taschenrechner-Tab mit Inline-Rechner in Aufgaben',
+    'LocalStorage: Spielstand wird gespeichert (Key: mp9v4)',
+  ]},
+];
+
+function renderChangelog(){
+  const el=document.getElementById('changelog-content');
+  if(!el)return;
+  el.innerHTML=CHANGELOG.map((e,i)=>`
+    <div class="cl-entry${e.latest?' latest':''}">
+      <div class="cl-version">Version ${e.v} · ${e.date}</div>
+      <div class="cl-title">${e.title}</div>
+      <ul class="cl-items">${e.items.map(it=>`<li>${it}</li>`).join('')}</ul>
+    </div>`).join('');
+}
+
+// ===================== SHOP =====================
+const SHOP_ITEMS = [
+  // AVATARE (50 Stück)
+  {id:'av01',type:'avatar',name:'Astronaut',icon:'👨‍🚀',price:0,rarity:'common'},
+  {id:'av02',type:'avatar',name:'Zauberer',icon:'🧙',price:60,rarity:'common'},
+  {id:'av03',type:'avatar',name:'Ninja',icon:'🥷',price:60,rarity:'common'},
+  {id:'av04',type:'avatar',name:'Roboter',icon:'🤖',price:80,rarity:'common'},
+  {id:'av05',type:'avatar',name:'Einhorn',icon:'🦄',price:100,rarity:'rare'},
+  {id:'av06',type:'avatar',name:'Drache',icon:'🐉',price:120,rarity:'rare'},
+  {id:'av07',type:'avatar',name:'Fuchs',icon:'🦊',price:60,rarity:'common'},
+  {id:'av08',type:'avatar',name:'Löwe',icon:'🦁',price:80,rarity:'common'},
+  {id:'av09',type:'avatar',name:'Tiger',icon:'🐯',price:80,rarity:'common'},
+  {id:'av10',type:'avatar',name:'Pinguin',icon:'🐧',price:60,rarity:'common'},
+  {id:'av11',type:'avatar',name:'Alien',icon:'👽',price:100,rarity:'rare'},
+  {id:'av12',type:'avatar',name:'Geist',icon:'👻',price:80,rarity:'common'},
+  {id:'av13',type:'avatar',name:'Vampire',icon:'🧛',price:120,rarity:'rare'},
+  {id:'av14',type:'avatar',name:'Meerjungfrau',icon:'🧜',price:120,rarity:'rare'},
+  {id:'av15',type:'avatar',name:'Elfe',icon:'🧝',price:100,rarity:'rare'},
+  {id:'av16',type:'avatar',name:'Held',icon:'🦸',price:100,rarity:'rare'},
+  {id:'av17',type:'avatar',name:'Schurke',icon:'🦹',price:100,rarity:'rare'},
+  {id:'av18',type:'avatar',name:'Zauberin',icon:'🧙‍♀️',price:80,rarity:'common'},
+  {id:'av19',type:'avatar',name:'Pilot',icon:'👨‍✈️',price:80,rarity:'common'},
+  {id:'av20',type:'avatar',name:'Wissenschaftler',icon:'🧑‍🔬',price:80,rarity:'common'},
+  {id:'av21',type:'avatar',name:'Hacker',icon:'🧑‍💻',price:100,rarity:'rare'},
+  {id:'av22',type:'avatar',name:'Koch',icon:'👨‍🍳',price:60,rarity:'common'},
+  {id:'av23',type:'avatar',name:'Arzt',icon:'👨‍⚕️',price:60,rarity:'common'},
+  {id:'av24',type:'avatar',name:'Detektiv',icon:'🕵️',price:100,rarity:'rare'},
+  {id:'av25',type:'avatar',name:'Cowboy',icon:'🤠',price:80,rarity:'common'},
+  {id:'av26',type:'avatar',name:'Pirat',icon:'🏴‍☠️',price:100,rarity:'rare'},
+  {id:'av27',type:'avatar',name:'König',icon:'🤴',price:150,rarity:'epic'},
+  {id:'av28',type:'avatar',name:'Königin',icon:'👸',price:150,rarity:'epic'},
+  {id:'av29',type:'avatar',name:'Samurai',icon:'⚔️',price:120,rarity:'rare'},
+  {id:'av30',type:'avatar',name:'Hexe',icon:'🧟‍♀️',price:100,rarity:'rare'},
+  {id:'av31',type:'avatar',name:'Dino',icon:'🦕',price:80,rarity:'common'},
+  {id:'av32',type:'avatar',name:'Hai',icon:'🦈',price:80,rarity:'common'},
+  {id:'av33',type:'avatar',name:'Oktopus',icon:'🐙',price:80,rarity:'common'},
+  {id:'av34',type:'avatar',name:'Katze',icon:'🐱',price:60,rarity:'common'},
+  {id:'av35',type:'avatar',name:'Hund',icon:'🐶',price:60,rarity:'common'},
+  {id:'av36',type:'avatar',name:'Panda',icon:'🐼',price:80,rarity:'common'},
+  {id:'av37',type:'avatar',name:'Affe',icon:'🐵',price:60,rarity:'common'},
+  {id:'av38',type:'avatar',name:'Frosch',icon:'🐸',price:60,rarity:'common'},
+  {id:'av39',type:'avatar',name:'Eule',icon:'🦉',price:80,rarity:'common'},
+  {id:'av40',type:'avatar',name:'Phönix',icon:'🦅',price:150,rarity:'epic'},
+  {id:'av41',type:'avatar',name:'Kristall',icon:'💎',price:200,rarity:'epic'},
+  {id:'av42',type:'avatar',name:'Flamme',icon:'🔥',price:120,rarity:'rare'},
+  {id:'av43',type:'avatar',name:'Blitz',icon:'⚡',price:120,rarity:'rare'},
+  {id:'av44',type:'avatar',name:'Stern',icon:'🌟',price:150,rarity:'epic'},
+  {id:'av45',type:'avatar',name:'Regenbogen',icon:'🌈',price:200,rarity:'epic'},
+  {id:'av46',type:'avatar',name:'Schädel',icon:'💀',price:100,rarity:'rare'},
+  {id:'av47',type:'avatar',name:'Mathe-Gott',icon:'🧮',price:250,rarity:'legendary'},
+  {id:'av48',type:'avatar',name:'Trophäe',icon:'🏆',price:250,rarity:'legendary'},
+  {id:'av49',type:'avatar',name:'Rakete',icon:'🚀',price:150,rarity:'epic'},
+  {id:'av50',type:'avatar',name:'Galaxis',icon:'🌌',price:300,rarity:'legendary'},
+  // RAHMEN (8 Stück)
+  {id:'fr01',type:'frame',name:'Kein Rahmen',icon:'⬜',price:0,rarity:'common',color:'transparent'},
+  {id:'fr02',type:'frame',name:'Cyan',icon:'🔷',price:80,rarity:'common',color:'#6ee7f7'},
+  {id:'fr03',type:'frame',name:'Lila',icon:'🟣',price:80,rarity:'common',color:'#a78bfa'},
+  {id:'fr04',type:'frame',name:'Gold',icon:'🟡',price:150,rarity:'rare',color:'#fbbf24'},
+  {id:'fr05',type:'frame',name:'Feuer',icon:'🔴',price:150,rarity:'rare',color:'#f87171'},
+  {id:'fr06',type:'frame',name:'Smaragd',icon:'💚',price:150,rarity:'rare',color:'#34d399'},
+  {id:'fr07',type:'frame',name:'Diamant',icon:'💎',price:250,rarity:'epic',color:'#38bdf8'},
+  {id:'fr08',type:'frame',name:'Regenbogen',icon:'🌈',price:350,rarity:'legendary',color:'rainbow'},
+];
+
+const RARITY_LABEL={common:'Normal',rare:'Selten',epic:'Episch',legendary:'Legendär'};
+const RARITY_COLOR={common:'var(--mu)',rare:'#6ee7f7',epic:'#a78bfa',legendary:'#fbbf24'};
+
+// Shop rotation state
+let shopRotation=[];
+let shopTimerInterval=null;
+let shopNextRotate=0;
+
+function getShopSeed(){
+  // Rotate every 5 minutes, seed based on time slot
+  return Math.floor(Date.now()/(5*60*1000));
+}
+
+function seededRandom(seed){
+  let x=Math.sin(seed)*10000;return x-Math.floor(x);
+}
+
+function getRotation(seed){
+  const avatars=SHOP_ITEMS.filter(i=>i.type==='avatar'&&i.price>0);
+  const frames=SHOP_ITEMS.filter(i=>i.type==='frame'&&i.price>0);
+  // Pick 4 avatars + 1 frame using seeded shuffle
+  const shuffled=[...avatars].sort((a,b)=>seededRandom(seed+a.id.charCodeAt(2))-0.5);
+  const picked=shuffled.slice(0,4);
+  const frame=frames[Math.floor(seededRandom(seed+99)*frames.length)];
+  return [...picked,frame];
+}
+
+function initShop(){
+  document.getElementById('shop-ml-display').textContent=S.ml||0;
+  const seed=getShopSeed();
+  shopRotation=getRotation(seed);
+  shopNextRotate=(seed+1)*5*60*1000;
+  renderShopRotation();
+  renderInventory();
+  renderEquipped();
+  startShopTimer();
+}
+
+function startShopTimer(){
+  if(shopTimerInterval)clearInterval(shopTimerInterval);
+  shopTimerInterval=setInterval(()=>{
+    const now=Date.now();
+    const remaining=Math.max(0,shopNextRotate-now);
+    const m=Math.floor(remaining/60000);
+    const s=Math.floor((remaining%60000)/1000);
+    const el=document.getElementById('shop-timer');
+    if(el)el.textContent=`Rotation in ${m}:${String(s).padStart(2,'0')}`;
+    if(remaining<=0){
+      // Rotate
+      const newSeed=getShopSeed();
+      shopRotation=getRotation(newSeed);
+      shopNextRotate=(newSeed+1)*5*60*1000;
+      renderShopRotation();
+    }
+  },1000);
+}
+
+function renderShopRotation(){
+  const grid=document.getElementById('shop-rotation');
+  if(!grid)return;
+  grid.innerHTML=shopRotation.map((item,i)=>{
+    const owned=(S.inv||[]).includes(item.id);
+    const equipped=S.eq&&(S.eq.avatar===item.id||S.eq.frame===item.id||S.eq.theme===item.id);
+    const canAfford=(S.ml||0)>=item.price;
+    let badge='';
+    if(equipped)badge=`<span class="shop-card-badge eq-badge">AN</span>`;
+    else if(owned)badge=`<span class="shop-card-badge owned-badge">✓</span>`;
+    const rarityColor=RARITY_COLOR[item.rarity]||'var(--mu)';
+    return `<div class="shop-card${owned?' owned':''}${equipped?' equipped':''}"
+      style="animation-delay:${i*0.06}s;border-color:${equipped?'#fbbf24':owned?'var(--ac3)':'var(--bd)'}"
+      onclick="${owned?`equipItem('${item.id}')`:`buyItem('${item.id}')`}">
+      ${badge}
+      <span class="shop-card-avatar">${item.icon}</span>
+      <div class="shop-card-name">${item.name}</div>
+      <div class="shop-card-price${item.price===0?' free':''}" style="color:${owned?'var(--ac3)':canAfford?'#fbbf24':'var(--red)'}">
+        ${equipped?'Ausgerüstet':owned?'Ausrüsten':item.price===0?'Gratis':'🪙 '+item.price}
+      </div>
+      <div style="font-size:.52rem;color:${rarityColor};margin-top:2px;font-family:var(--fm)">${RARITY_LABEL[item.rarity]}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderInventory(){
+  const grid=document.getElementById('shop-inventory');
+  if(!grid)return;
+  const owned=SHOP_ITEMS.filter(i=>(S.inv||[]).includes(i.id)||(i.price===0&&i.type==='avatar'&&i.id==='av01'));
+  if(!owned.length){
+    grid.innerHTML='<div style="color:var(--mu);font-size:.78rem;grid-column:1/-1;padding:10px 0">Noch nichts gekauft.</div>';
+    return;
+  }
+  grid.innerHTML=owned.map((item,i)=>{
+    const equipped=S.eq&&(S.eq.avatar===item.id||S.eq.frame===item.id||S.eq.theme===item.id);
+    return `<div class="shop-card${equipped?' equipped':''}"
+      style="animation-delay:${i*0.05}s;border-color:${equipped?'#fbbf24':'var(--ac3)'}"
+      onclick="equipItem('${item.id}')">
+      ${equipped?`<span class="shop-card-badge eq-badge">AN</span>`:''}
+      <span class="shop-card-avatar">${item.icon}</span>
+      <div class="shop-card-name">${item.name}</div>
+      <div class="shop-card-price free">${equipped?'Ausgerüstet':'Ausrüsten'}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderEquipped(){
+  const row=document.getElementById('shop-equipped');
+  if(!row)return;
+  const eqAvatar=SHOP_ITEMS.find(i=>i.id===S.eq?.avatar)||SHOP_ITEMS.find(i=>i.id==='av01');
+  const eqFrame=SHOP_ITEMS.find(i=>i.id===S.eq?.frame);
+  row.innerHTML=`
+    <div class="shop-eq-slot">
+      <div class="shop-eq-slot-icon">${eqAvatar?eqAvatar.icon:'👤'}</div>
+      <div class="shop-eq-slot-info">
+        <div class="shop-eq-slot-label">Avatar</div>
+        <div class="shop-eq-slot-name">${eqAvatar?eqAvatar.name:'Keiner'}</div>
+        ${eqAvatar&&eqAvatar.id!=='av01'?`<button class="shop-eq-unequip" onclick="unequip('avatar')">ablegen</button>`:''}
+      </div>
+    </div>
+    <div class="shop-eq-slot">
+      <div class="shop-eq-slot-icon">${eqFrame?eqFrame.icon:'🔲'}</div>
+      <div class="shop-eq-slot-info">
+        <div class="shop-eq-slot-label">Rahmen</div>
+        <div class="shop-eq-slot-name">${eqFrame?eqFrame.name:'Kein Rahmen'}</div>
+        ${eqFrame?`<button class="shop-eq-unequip" onclick="unequip('frame')">ablegen</button>`:''}
+      </div>
+    </div>`;
+}
+
+function buyItem(id){
+  const item=SHOP_ITEMS.find(i=>i.id===id);
+  if(!item)return;
+  if((S.inv||[]).includes(id)){equipItem(id);return;}
+  if((S.ml||0)<item.price){showToast('Nicht genug Matheloin! 🪙','warn');return;}
+  if(!confirm(`${item.icon} ${item.name} kaufen für 🪙 ${item.price} ML?`))return;
+  S.ml=(S.ml||0)-item.price;
+  if(!S.inv)S.inv=[];
+  S.inv.push(id);
+  equipItem(id,true);
+  showToast(`${item.icon} ${item.name} gekauft!`,'pts');
+  sS();updateUI();
+  document.getElementById('shop-ml-display').textContent=S.ml;
+  renderShopRotation();
+  renderInventory();
+}
+
+function equipItem(id,silent=false){
+  const item=SHOP_ITEMS.find(i=>i.id===id);
+  if(!item)return;
+  if(!S.eq)S.eq={avatar:null,frame:null,theme:null};
+  S.eq[item.type]=id;
+  sS();
+  if(!silent)showToast(`${item.icon} ${item.name} ausgerüstet!`,'pts');
+  renderShopRotation();
+  renderInventory();
+  renderEquipped();
+}
+
+function unequip(type){
+  if(!S.eq)return;
+  if(type==='avatar')S.eq.avatar='av01'; // default
+  else S.eq[type]=null;
+  sS();
+  renderEquipped();
+  renderInventory();
+  renderShopRotation();
+}
+
+function getEquippedAvatar(){
+  if(!S.eq?.avatar)return SHOP_ITEMS.find(i=>i.id==='av01');
+  return SHOP_ITEMS.find(i=>i.id===S.eq.avatar)||SHOP_ITEMS.find(i=>i.id==='av01');
+}
+function getEquippedFrame(){
+  if(!S.eq?.frame)return null;
+  return SHOP_ITEMS.find(i=>i.id===S.eq.frame)||null;
+}
+
+// ===================== LEADERBOARD =====================
+// ── Supabase Konfiguration ──────────────────────────────
+// Trage hier deine Werte aus supabase.com → Project Settings → API ein:
+const SUPABASE_URL = 'https://thpafglipqsceoucutsh.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_ITeg6u5dnIWDhGkP9Yth_Q_SOcsUZXk';
+// ────────────────────────────────────────────────────────
+
+const LB_CONFIGURED = SUPABASE_URL !== 'DEINE_SUPABASE_URL' && SUPABASE_KEY !== 'DEIN_SUPABASE_ANON_KEY';
+const LB_TABLE = 'scores';
+
+function initLeaderboard(){
+  const myScoreEl=document.getElementById('lb-my-score');
+  if(myScoreEl){
+    myScoreEl.style.display='flex';
+    document.getElementById('lb-my-pts-val').textContent=(S.tp||0)+' Pkt';
+  }
+  const av=getEquippedAvatar();
+  const submitBtn=document.getElementById('lb-submit-btn');
+  if(submitBtn&&av)submitBtn.textContent=av.icon+' Eintragen';
+  if(!LB_CONFIGURED){
+    document.getElementById('lb-config-banner').style.display='block';
+    document.getElementById('lb-list').innerHTML='';
+    document.getElementById('lb-refresh-btn').style.display='none';
+    return;
+  }
+  document.getElementById('lb-config-banner').style.display='none';
+  document.getElementById('lb-refresh-btn').style.display='inline-block';
+  loadLeaderboard();
+}
+
+async function loadLeaderboard(){
+  if(!LB_CONFIGURED)return;
+  const listEl=document.getElementById('lb-list');
+  const loadEl=document.getElementById('lb-loading');
+  const errEl=document.getElementById('lb-error');
+  listEl.innerHTML='';loadEl.style.display='block';errEl.style.display='none';
+  try{
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/${LB_TABLE}?select=name,pts,avatar,frame,created_at&order=pts.desc&limit=50`,{
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    });
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    loadEl.style.display='none';
+    if(!data.length){listEl.innerHTML='<div class="lb-empty">🏁 Noch keine Einträge – sei der Erste!</div>';return;}
+    const myName=localStorage.getItem('mp9_lb_name')||'';
+    const medals=['🥇','🥈','🥉'];
+    const rankCls=['gold','silver','bronze'];
+    const entryCls=['lb-top1','lb-top2','lb-top3'];
+    listEl.innerHTML=data.map((row,i)=>{
+      const isMe=myName&&row.name===myName;
+      const rank=i<3?`<span class="lb-rank ${rankCls[i]}">${medals[i]}</span>`:`<span class="lb-rank">${i+1}</span>`;
+      const date=new Date(row.created_at).toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'});
+      // Avatar & frame from shop items
+      const avItem=SHOP_ITEMS.find(it=>it.id===row.avatar)||SHOP_ITEMS.find(it=>it.id==='av01');
+      const frItem=SHOP_ITEMS.find(it=>it.id===row.frame);
+      const frameColor=frItem?frItem.color:'transparent';
+      const avatarStyle=frameColor==='rainbow'
+        ?'background:linear-gradient(135deg,#f87171,#fbbf24,#34d399,#6ee7f7,#a78bfa);border-radius:50%;padding:2px;display:inline-block'
+        :frameColor!=='transparent'
+          ?`background:${frameColor};border-radius:50%;padding:2px;display:inline-block`
+          :'display:inline-block';
+      return `<div class="lb-entry${isMe?' lb-me':''}${i<3?' '+entryCls[i]:''}">
+        ${rank}
+        <span style="${avatarStyle};font-size:1.1rem;flex-shrink:0;line-height:1">${avItem?avItem.icon:'👤'}</span>
+        <div class="lb-name">${esc(row.name)}${isMe?'<span class="lb-me-tag">Du</span>':''}</div>
+        <div class="lb-date">${date}</div>
+        <div class="lb-pts">${row.pts} Pkt</div>
+      </div>`;
+    }).join('');
+  }catch(e){
+    loadEl.style.display='none';
+    errEl.style.display='block';
+    errEl.textContent='⚠️ Laden fehlgeschlagen: '+e.message+' – Internetverbindung prüfen.';
+  }
+}
+
+function openSubmitModal(){
+  if(!LB_CONFIGURED){showToast('Supabase nicht eingerichtet','warn');return;}
+  const saved=localStorage.getItem('mp9_lb_name')||'';
+  document.getElementById('lb-name-input').value=saved;
+  const av=getEquippedAvatar();
+  const fr=getEquippedFrame();
+  document.getElementById('lb-submit-pts-display').textContent=
+    (av?av.icon:'👤')+' '+(S.tp||0)+' Punkte'+(fr?' · '+fr.icon+' '+fr.name:'');
+  document.getElementById('lb-submit-confirm').disabled=false;
+  document.getElementById('lb-submit-confirm').textContent='✓ Eintragen';
+  document.getElementById('m-lb-submit').classList.add('show');
+  setTimeout(()=>document.getElementById('lb-name-input').focus(),100);
+}
+
+async function submitScore(){
+  const nameEl=document.getElementById('lb-name-input');
+  const name=(nameEl.value||'').trim();
+  if(!name){nameEl.style.borderColor='var(--red)';nameEl.focus();return;}
+  const btn=document.getElementById('lb-submit-confirm');
+  btn.disabled=true;btn.textContent='⏳ Wird eingetragen…';
+  const av=getEquippedAvatar();
+  const fr=getEquippedFrame();
+  try{
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/${LB_TABLE}`,{
+      method:'POST',
+      headers:{
+        'apikey':SUPABASE_KEY,
+        'Authorization':'Bearer '+SUPABASE_KEY,
+        'Content-Type':'application/json',
+        'Prefer':'return=minimal'
+      },
+      body:JSON.stringify({name,pts:S.tp||0,avatar:av?av.id:null,frame:fr?fr.id:null})
+    });
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    localStorage.setItem('mp9_lb_name',name);
+    closeM('m-lb-submit');
+    showToast('🏆 Eingetragen!','pts');
+    // Mark button as submitted
+    const submitBtn=document.getElementById('lb-submit-btn');
+    if(submitBtn){submitBtn.textContent='✅ Eingetragen';submitBtn.classList.add('submitted');}
+    loadLeaderboard();
+  }catch(e){
+    btn.disabled=false;btn.textContent='✓ Eintragen';
+    showToast('⚠️ Fehler: '+e.message,'warn');
+  }
+}
+
 // ===================== UPDATE NOTIFICATION =====================
 const UPDATES=[
-  {v:'1.3',title:'Nullstellen entfernt 🧹',msg:'Das Thema Nullstellen wurde vollständig aus allen Kapiteln, Finaltests und Legendenpfaden entfernt – es ist kein Teil eures Schulstoffs. Alle betroffenen Fragen wurden durch passende Aufgaben zu Scheitelpunkt, Kreisberechnungen & Optimierung ersetzt.'},
+  {v:'1.3',title:'Aufräumen 🧹',msg:'Nullstellen vollständig entfernt und durch passende Aufgaben ersetzt.'},
+  {v:'1.4',title:'MathBot & Update-Log 🤖',msg:'Animierter Mathe-Assistent, Formel-Unterdrückung bei Formel-Fragen, neuer Update-Log Tab.'},
+  {v:'1.5',title:'Errungenschaften geben Punkte! 🏆',msg:'Jede Errungenschaft bringt jetzt Bonuspunkte – von +2 bis +30 Pkt.'},
+  {v:'1.6',title:'Neues Punktesystem 💎',msg:'Finaltests & Legendenpfade geben jetzt Punkte pro richtiger Antwort. Minesweeper Leicht/Mittel/Schwer wird jetzt über die Legendenpfade freigeschaltet.'},
+  {v:'1.7',title:'Online-Rangliste 🌍',msg:'Neu: Weltweite Rangliste via Supabase! Trage deinen Punktestand ein und vergleiche dich mit anderen Spielern.'},
+  {v:'1.8',title:'Item-Shop & Matheloin 🛒',msg:'Punkte heißen jetzt Matheloin (ML) und können im Shop ausgegeben werden. 50 Avatare, 8 Rahmen – alle 5 Min rotiert der Shop!'},
 ];
 function checkUpdates(){
   const seen=localStorage.getItem('mp9_seen_update')||'';
