@@ -575,6 +575,49 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
 .shop-eq-slot-label{font-size:.6rem;color:var(--mu);font-family:var(--fm);text-transform:uppercase;letter-spacing:.8px}
 .shop-eq-slot-name{font-size:.8rem;font-weight:700;margin-top:2px}
 .shop-eq-unequip{font-size:.6rem;color:var(--red);background:none;border:none;cursor:pointer;font-family:var(--fm);padding:0;margin-top:2px}
+/* BATTLES */
+.battle-tutorial-box{
+  background:linear-gradient(135deg,rgba(110,231,247,.07),rgba(167,139,250,.05));
+  border:1px solid rgba(110,231,247,.25);border-radius:var(--r);
+  padding:16px;margin-bottom:16px}
+.battles-list{display:flex;flex-direction:column;gap:8px;min-height:32px}
+.battle-empty{font-size:.78rem;color:var(--mu);padding:10px 0;font-style:italic}
+.battle-card{
+  background:var(--sf);border:1px solid var(--bd);border-radius:12px;
+  padding:13px 15px;animation:cl-in .3s both;transition:border-color .2s}
+.battle-card.bc-pending{border-left:3px solid #6ee7f7}
+.battle-card.bc-active{border-left:3px solid #fbbf24}
+.battle-card.bc-finished-win{border-left:3px solid #34d399;background:rgba(52,211,153,.04)}
+.battle-card.bc-finished-lose{border-left:3px solid #f87171;background:rgba(248,113,113,.04)}
+.battle-card.bc-finished-draw{border-left:3px solid #94a3b8}
+.battle-card.bc-expired{border-left:3px solid #475569;opacity:.6}
+.bc-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.bc-avatar{font-size:1.2rem;flex-shrink:0}
+.bc-names{flex:1;min-width:0}
+.bc-vs{font-size:.82rem;font-weight:800}
+.bc-topic{font-size:.68rem;color:var(--mu);font-family:var(--fm);margin-top:1px}
+.bc-time{font-size:.62rem;color:var(--mu);font-family:var(--fm);flex-shrink:0}
+.bc-score-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.bc-score-box{flex:1;background:var(--sf2);border-radius:8px;padding:7px 10px;text-align:center}
+.bc-score-label{font-size:.6rem;color:var(--mu);font-family:var(--fm);text-transform:uppercase}
+.bc-score-val{font-size:1.1rem;font-weight:800;margin-top:2px}
+.bc-score-pending{font-size:.75rem;color:var(--mu);font-style:italic}
+.bc-actions{display:flex;gap:6px;flex-wrap:wrap}
+.bc-btn{font-size:.72rem;padding:7px 12px;border-radius:9px;border:none;cursor:pointer;font-family:var(--fd);font-weight:700;transition:all .18s}
+.bc-btn.start{background:var(--ac);color:#0a0e1a}
+.bc-btn.start:hover{opacity:.85}
+.bc-btn.read{background:var(--ac3);color:#0a0e1a}
+.bc-btn.read:hover{opacity:.85}
+.bc-btn.decline{background:rgba(248,113,113,.15);color:#f87171;border:1px solid rgba(248,113,113,.3)}
+.battle-topic-btn{
+  display:flex;align-items:center;gap:10px;width:100%;
+  background:var(--sf);border:1px solid var(--bd);border-radius:10px;
+  padding:11px 14px;margin-bottom:8px;cursor:pointer;
+  font-family:var(--fd);text-align:left;transition:all .18s}
+.battle-topic-btn:hover{border-color:var(--ac);background:rgba(110,231,247,.05);transform:translateX(3px)}
+.battle-topic-icon{font-size:1.3rem;flex-shrink:0}
+.battle-topic-title{font-size:.82rem;font-weight:700;flex:1}
+.battle-topic-badge{font-size:.62rem;font-family:var(--fm);color:var(--mu)}
 /* LEADERBOARD */
 .lb-config-box{
   background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);
@@ -633,6 +676,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
 @keyframes cl-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .cl-entry.latest{border-color:rgba(110,231,247,.45);background:linear-gradient(135deg,rgba(110,231,247,.05),transparent)}
 .cl-entry.latest::before{content:'NEU';position:absolute;top:10px;right:12px;font-size:.55rem;font-family:var(--fm);font-weight:800;color:var(--ac);letter-spacing:1px;background:rgba(110,231,247,.12);border:1px solid rgba(110,231,247,.3);border-radius:20px;padding:2px 7px}
+.cl-entry.cl-teaser{border-color:rgba(251,191,36,.35);background:linear-gradient(135deg,rgba(251,191,36,.04),transparent);border-style:dashed}
+.cl-entry.cl-teaser::before{content:'BALD';position:absolute;top:10px;right:12px;font-size:.55rem;font-family:var(--fm);font-weight:800;color:#fbbf24;letter-spacing:1px;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3);border-radius:20px;padding:2px 7px}
 .cl-version{font-size:.7rem;font-family:var(--fm);color:var(--mu);margin-bottom:4px;letter-spacing:.5px}
 .cl-title{font-size:.95rem;font-weight:800;margin-bottom:8px}
 .cl-items{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:4px}
@@ -653,6 +698,15 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
 .toggle input:checked+.toggle-track{background:var(--ac)}
 .toggle-thumb{position:absolute;top:3px;left:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:transform .25s;pointer-events:none}
 .toggle input:checked~.toggle-thumb{transform:translateX(20px)}
+/* Animated Theme Canvas */
+#theme-canvas{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;opacity:0;
+  transition:opacity .8s ease}
+#theme-canvas.active{opacity:1}
+body{position:relative}
+.page,.nav-wrap,.modal-overlay{position:relative;z-index:1}
+
 /* Theme previews */
 .theme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:4px}
 .theme-btn{border-radius:10px;border:2px solid transparent;padding:10px 8px;cursor:pointer;transition:all .22s;text-align:center;position:relative;overflow:hidden}
@@ -734,6 +788,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
 </style>
 </head>
 <body>
+<canvas id="theme-canvas"></canvas>
 
 <nav>
   <span class="nl">∑ MathePro 9</span>
@@ -746,6 +801,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
   <button class="nt" onclick="showPage('bot')">🤖 MathBot</button>
   <button class="nt" onclick="showPage('changelog')">📋 Updates</button>
   <button class="nt" onclick="showPage('leaderboard')">🏆 Rangliste</button>
+  <button class="nt" id="nav-battles" onclick="showPage('battles')">⚔️ Battles <span id="battle-badge" style="display:none;background:#f87171;color:#fff;border-radius:8px;padding:0 5px;font-size:.6rem;margin-left:2px">!</span></button>
   <button class="nt" onclick="showPage('shop')">🛒 Shop</button>
   <div class="nscore">🪙<span class="sb" id="tscore">0 ML</span></div>
 </nav>
@@ -1018,6 +1074,99 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
   </div>
 </div>
 
+<!-- BATTLES -->
+<div class="page" id="page-battles">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+    <div class="sect" style="margin-bottom:0">⚔️ Battles</div>
+    <button class="btns" onclick="loadBattles()" style="font-size:.72rem;padding:6px 12px">🔄 Aktualisieren</button>
+  </div>
+  <div style="font-size:.75rem;color:var(--mu);margin-bottom:16px">Fordere Spieler aus der Rangliste heraus · Gewinner erhält <b style="color:#fbbf24">69 ML</b> · Battles verfallen nach 24h</div>
+
+  <!-- Tutorial Banner -->
+  <div id="battle-tutorial" class="battle-tutorial-box" style="display:none">
+    <div style="display:flex;align-items:flex-start;gap:10px">
+      <div style="font-size:1.6rem;flex-shrink:0">📖</div>
+      <div>
+        <div style="font-weight:800;font-size:.85rem;margin-bottom:6px">So funktionieren Battles!</div>
+        <div style="font-size:.75rem;color:var(--mu);line-height:1.7">
+          1️⃣ <b>Rangliste</b> öffnen → Spieler anklicken → <b>⚔️ Battle herausfordern</b><br>
+          2️⃣ Ein <b>Thema</b> auswählen (6 verfügbar)<br>
+          3️⃣ Du löst sofort <b>10 Fragen</b> zum Thema<br>
+          4️⃣ Der Gegner sieht das Battle hier und kann auf <b>Battle beginnen</b> klicken<br>
+          5️⃣ Er bekommt <b>exakt dieselben Fragen</b><br>
+          6️⃣ Wer mehr richtige Antworten hat gewinnt <b style="color:#fbbf24">69 ML</b> 🏆<br>
+          7️⃣ Battle als <b>gelesen markieren</b> um die Belohnung zu erhalten
+        </div>
+        <button onclick="dismissBattleTutorial()" style="margin-top:10px;font-size:.7rem;background:none;border:1px solid var(--bd);border-radius:8px;padding:4px 12px;color:var(--mu);cursor:pointer">✓ Verstanden</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auto-refresh countdown -->
+  <div style="font-size:.68rem;color:var(--mu);margin-bottom:12px;font-family:var(--fm)">Automatische Aktualisierung in <span id="battle-refresh-countdown" style="color:var(--ac)">3:00</span></div>
+
+  <!-- Loading / Error -->
+  <div id="battles-loading" style="display:none;text-align:center;padding:20px;color:var(--mu);font-size:.82rem"><div class="lb-spinner"></div>Lade Battles…</div>
+  <div id="battles-error" style="display:none" class="lb-error-box"></div>
+
+  <!-- Pending (incoming challenges) -->
+  <div class="sect-sm">📬 Ausstehende Herausforderungen</div>
+  <div id="battles-pending" class="battles-list"></div>
+
+  <!-- Active (you already played, waiting for opponent) -->
+  <div class="sect-sm" style="margin-top:16px">⏳ Laufende Battles</div>
+  <div id="battles-active" class="battles-list"></div>
+
+  <!-- Finished -->
+  <div class="sect-sm" style="margin-top:16px">✅ Fertige Battles</div>
+  <div id="battles-finished" class="battles-list"></div>
+</div>
+
+<!-- Battle Challenge Modal: topic selection -->
+<div class="mov" id="m-battle-challenge">
+  <div class="mbox">
+    <div class="mttl">⚔️ Battle herausfordern</div>
+    <div id="battle-challenge-opponent" style="font-size:.82rem;color:var(--mu);margin-bottom:14px;text-align:center"></div>
+    <div style="font-size:.8rem;font-weight:700;margin-bottom:10px">Wähle ein Thema:</div>
+    <div id="battle-topic-list"></div>
+    <button class="btnw" onclick="closeM('m-battle-challenge')" style="margin-top:10px;width:100%">Abbrechen</button>
+  </div>
+</div>
+
+<!-- Battle Quiz Modal -->
+<div class="mov" id="m-battle-quiz">
+  <div class="mbox" style="max-height:90vh;overflow-y:auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div class="mttl" style="margin:0">⚔️ Battle läuft!</div>
+      <div style="font-family:var(--fm);font-size:.8rem;color:var(--ac)">Frage <span id="bq-num">1</span>/10</div>
+    </div>
+    <div style="font-size:.72rem;color:var(--mu);margin-bottom:6px" id="bq-topic"></div>
+    <div style="background:var(--sf2);border-radius:8px;height:5px;margin-bottom:14px">
+      <div id="bq-progress" style="height:100%;border-radius:8px;background:var(--ac);transition:width .3s;width:0%"></div>
+    </div>
+    <div id="bq-question" style="font-size:.92rem;font-weight:700;margin-bottom:14px;line-height:1.5"></div>
+    <div id="bq-options"></div>
+    <div id="bq-feedback" style="display:none;margin-top:10px;padding:10px;border-radius:10px;font-size:.8rem"></div>
+    <button id="bq-next-btn" onclick="battleNextQ()" style="display:none;margin-top:10px;width:100%" class="btna">Weiter →</button>
+  </div>
+</div>
+
+<!-- Battle Result Modal -->
+<div class="mov" id="m-battle-result">
+  <div class="mbox" style="text-align:center">
+    <div id="br-emoji" style="font-size:3rem;margin-bottom:8px"></div>
+    <div class="mttl" id="br-title"></div>
+    <div style="font-size:.82rem;color:var(--mu);margin-bottom:16px" id="br-subtitle"></div>
+    <div style="background:var(--sf2);border-radius:12px;padding:14px;margin-bottom:16px">
+      <div style="font-size:.7rem;color:var(--mu);margin-bottom:6px;font-family:var(--fm);text-transform:uppercase">Dein Ergebnis</div>
+      <div style="font-size:2rem;font-weight:800;color:var(--ac)" id="br-score"></div>
+      <div style="font-size:.72rem;color:var(--mu);margin-top:4px">von 10 Fragen richtig</div>
+    </div>
+    <div id="br-waiting" style="font-size:.78rem;color:var(--mu)"></div>
+    <button class="btna" onclick="closeM('m-battle-result');showPage('battles')" style="margin-top:14px;width:100%">Zu meinen Battles →</button>
+  </div>
+</div>
+
 <!-- SHOP -->
 <div class="page" id="page-shop">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
@@ -1026,8 +1175,18 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
   </div>
   <div style="font-size:.75rem;color:var(--mu);margin-bottom:16px">Shop rotiert alle 5 Min · <span id="shop-timer" style="color:var(--ac);font-family:var(--fm)"></span></div>
 
+  <!-- Animated Themes: Free -->
+  <div class="sect-sm" style="margin-top:20px">🆓 Gratis Animierte Designs</div>
+  <div style="font-size:.72rem;color:var(--mu);margin-bottom:10px">Kostenlos verfügbar – direkt anwenden!</div>
+  <div id="shop-free-themes" class="shop-grid"></div>
+
+  <!-- Animated Themes: Shop -->
+  <div class="sect-sm" style="margin-top:20px">✨ Premium Animierte Designs</div>
+  <div style="font-size:.72rem;color:var(--mu);margin-bottom:10px">Kaufe mit ML um sie freizuschalten.</div>
+  <div id="shop-premium-themes" class="shop-grid"></div>
+
   <!-- Shop rotation -->
-  <div class="sect-sm">🔄 Heutige Angebote</div>
+  <div class="sect-sm" style="margin-top:20px">🔄 Heutige Angebote</div>
   <div id="shop-rotation" class="shop-grid"></div>
 
   <!-- Inventory -->
@@ -1725,7 +1884,7 @@ function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nt').forEach(t=>t.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
-  const tabs={home:0,tools:1,stats:2,videos:3,settings:4,bot:6,changelog:7,leaderboard:8,shop:9};
+  const tabs={home:0,tools:1,stats:2,videos:3,settings:4,bot:6,changelog:7,leaderboard:8,shop:9,battles:10};
   const allT=document.querySelectorAll('.nt');
   if(tabs[id]!==undefined)allT[tabs[id]].classList.add('active');
   if(id==='minesweeper'){allT[5]?.classList.add('active');renderMsModes();}
@@ -1737,6 +1896,7 @@ function showPage(id){
   if(id==='changelog')renderChangelog();
   if(id==='leaderboard')initLeaderboard();
   if(id==='shop')initShop();
+  if(id==='battles')initBattlesPage();
   // show/hide ms nav
   const msNav=document.getElementById('nav-ms');
   if(msNav)msNav.style.display=msModeUnlocked()>0?'inline-flex':'none';
@@ -2824,6 +2984,23 @@ const THEMES={
   ocean:{bg:'#0a1220',sf:'#0d1b35',sf2:'#0f2548',bd:'#1a3460',txt:'#ddeeff',mu:'#4a7090'},
   sunset:{bg:'#1a0e0a',sf:'#251410',sf2:'#341c14',bd:'#4a2a1e',txt:'#ffe8d8',mu:'#8a5040'},
   light:{bg:'#f0f4f8',sf:'#ffffff',sf2:'#e8ecf0',bd:'#cbd5e1',txt:'#1e293b',mu:'#64748b'},
+  // ── GRATIS ANIMIERTE DESIGNS ─────────────────────────
+  aurora:{bg:'#050d12',sf:'#0a1a20',sf2:'#0f2530',bd:'#1a3a4a',txt:'#e0f8ff',mu:'#4a8090',anim:'aurora'},
+  neon:{bg:'#050510',sf:'#0a0a1a',sf2:'#0f0f28',bd:'#1a1a40',txt:'#f0eaff',mu:'#5a4a8a',anim:'neon'},
+  lava:{bg:'#120500',sf:'#1e0800',sf2:'#2e1000',bd:'#4a1800',txt:'#ffe8d0',mu:'#8a4020',anim:'lava'},
+  matrix:{bg:'#000a00',sf:'#001200',sf2:'#001a00',bd:'#002a00',txt:'#c0ffcc',mu:'#3a7a40',anim:'matrix'},
+  cosmos:{bg:'#03030f',sf:'#07071e',sf2:'#0c0c2e',bd:'#14143e',txt:'#e8e0ff',mu:'#5050a0',anim:'cosmos'},
+  // ── SHOP ANIMIERTE DESIGNS (freigeschaltet via shopThemes) ───
+  hologram:{bg:'#020d10',sf:'#051820',sf2:'#092530',bd:'#104050',txt:'#d0ffff',mu:'#407080',anim:'hologram'},
+  fire:{bg:'#0f0200',sf:'#1e0400',sf2:'#2d0600',bd:'#3c0a00',txt:'#ffd8b0',mu:'#a03010',anim:'fire'},
+  storm:{bg:'#050a12',sf:'#0a1220',sf2:'#101c30',bd:'#1a2e4a',txt:'#d0e8ff',mu:'#4060a0',anim:'storm'},
+  sakura:{bg:'#120a10',sf:'#1e1020',sf2:'#2e1830',bd:'#3e2040',txt:'#ffe0f0',mu:'#805080',anim:'sakura'},
+  glitch:{bg:'#040408',sf:'#080810',sf2:'#0c0c18',bd:'#181830',txt:'#e0f8e0',mu:'#408040',anim:'glitch'},
+  deep:{bg:'#000510',sf:'#000a1e',sf2:'#00102e',bd:'#001840',txt:'#b0d8ff',mu:'#2a5080',anim:'deep'},
+  volcano:{bg:'#0d0000',sf:'#1a0000',sf2:'#260000',bd:'#3a0000',txt:'#ffc8a0',mu:'#803020',anim:'volcano'},
+  arctic:{bg:'#050d14',sf:'#0a1a28',sf2:'#10283c',bd:'#183c58',txt:'#e8f8ff',mu:'#4878a0',anim:'arctic'},
+  cyber:{bg:'#030508',sf:'#050a10',sf2:'#080f18',bd:'#101e30',txt:'#a0ffee',mu:'#208070',anim:'cyber'},
+  galaxy:{bg:'#02020e',sf:'#04041c',sf2:'#06062a',bd:'#0e0e3e',txt:'#ece8ff',mu:'#484898',anim:'galaxy'},
 };
 
 let CFG={theme:'dark',ac:'#6ee7f7',ac2:'#a78bfa',ac3:'#34d399',layout:'desktop',fontSize:100,anim:true,grid:true,compact:false};
@@ -2858,6 +3035,8 @@ function applyCFG(){
   if(CFG.compact){document.body.classList.add('compact');}else{document.body.classList.remove('compact');}
   // Layout
   applyLayout(CFG.layout);
+  // Animated theme
+  startAnimatedTheme(t.anim||null);
 }
 
 function applyLayout(l){
@@ -3295,7 +3474,23 @@ function botPageCat(id){
 }
 
 const CHANGELOG=[
-  {v:'1.8', date:'März 2026', title:'Item-Shop & Matheloin 🛒', latest:true, items:[
+  {v:'2.0', date:'Demnächst', title:'Lernpfad-Erweiterung 🗺️', latest:false, teaser:true, items:[
+    '🔜 In Kürze: Massive Erweiterung des Lernpfades mit neuen Themen und Kapiteln',
+    '🔜 Mehr Legendenpfade, neue Fragetypen und erweiterte Inhalte für Klasse 9',
+    'Diese Version ist noch in Entwicklung – stay tuned! 👀',
+  ]},
+  {v:'1.9', date:'März 2026', title:'Multiplayer Battles ⚔️', latest:true, items:[
+    'Neuer ⚔️ Battles-Tab – fordere andere Spieler aus der Rangliste heraus',
+    'Wähle eines von 6 Themen für dein Battle – 10 Fragen je Battle',
+    'Herausforderer macht den Test sofort, Gegner antwortet in seinem eigenen Tempo',
+    'Battles verfallen automatisch nach 24 Stunden wenn der Gegner nicht antwortet',
+    'Gewinner erhält 69 Matheloin nach dem Lesen des Ergebnisses',
+    'Auto-Refresh alle 3 Minuten + manueller Refresh-Button',
+    'Battle-Tutorial erklärt das System beim ersten Besuch',
+    'Fertige Battles verschwinden erst wenn beide Spieler als gelesen markiert haben',
+    '15 animierte Hintergrund-Designs: 5 gratis (Aurora, Neon, Lava, Matrix, Kosmos) + 10 im Shop',
+  ]},
+  {v:'1.8', date:'März 2026', title:'Item-Shop & Matheloin 🛒', items:[
     'Punkte heißen jetzt Matheloin (🪙 ML) – 1:1 Umrechnung bestehender Punkte',
     'Neuer 🛒 Shop-Tab mit 50 Avataren und 8 Namensrahmen in 4 Seltenheitsstufen',
     'Shop rotiert alle 5 Minuten – immer 5 zufällige Angebote gleichzeitig',
@@ -3388,8 +3583,8 @@ function renderChangelog(){
   const el=document.getElementById('changelog-content');
   if(!el)return;
   el.innerHTML=CHANGELOG.map((e,i)=>`
-    <div class="cl-entry${e.latest?' latest':''}">
-      <div class="cl-version">Version ${e.v} · ${e.date}</div>
+    <div class="cl-entry${e.latest?' latest':''}${e.teaser?' cl-teaser':''}">
+      <div class="cl-version">${e.teaser?'🔜 Vorschau':'Version'} ${e.v} · ${e.date}</div>
       <div class="cl-title">${e.title}</div>
       <ul class="cl-items">${e.items.map(it=>`<li>${it}</li>`).join('')}</ul>
     </div>`).join('');
@@ -3457,6 +3652,26 @@ const SHOP_ITEMS = [
   {id:'fr06',type:'frame',name:'Smaragd',icon:'💚',price:150,rarity:'rare',color:'#34d399'},
   {id:'fr07',type:'frame',name:'Diamant',icon:'💎',price:250,rarity:'epic',color:'#38bdf8'},
   {id:'fr08',type:'frame',name:'Regenbogen',icon:'🌈',price:350,rarity:'legendary',color:'rainbow'},
+  // ── SHOP THEMES (10 kaufbare animierte Designs) ──
+  {id:'th_hologram',type:'theme',name:'Hologramm',icon:'🔷',price:120,rarity:'rare',themeId:'hologram',preview:'#051820'},
+  {id:'th_fire',type:'theme',name:'Feuer',icon:'🔥',price:150,rarity:'rare',themeId:'fire',preview:'#1e0400'},
+  {id:'th_storm',type:'theme',name:'Gewitter',icon:'⛈️',price:150,rarity:'rare',themeId:'storm',preview:'#0a1220'},
+  {id:'th_sakura',type:'theme',name:'Kirschblüte',icon:'🌸',price:180,rarity:'epic',themeId:'sakura',preview:'#1e1020'},
+  {id:'th_glitch',type:'theme',name:'Glitch',icon:'📺',price:180,rarity:'epic',themeId:'glitch',preview:'#080810'},
+  {id:'th_deep',type:'theme',name:'Tiefsee',icon:'🌊',price:200,rarity:'epic',themeId:'deep',preview:'#000a1e'},
+  {id:'th_volcano',type:'theme',name:'Vulkan',icon:'🌋',price:200,rarity:'epic',themeId:'volcano',preview:'#1a0000'},
+  {id:'th_arctic',type:'theme',name:'Arktis',icon:'❄️',price:220,rarity:'epic',themeId:'arctic',preview:'#0a1a28'},
+  {id:'th_cyber',type:'theme',name:'Cyber',icon:'💾',price:250,rarity:'legendary',themeId:'cyber',preview:'#050a10'},
+  {id:'th_galaxy',type:'theme',name:'Galaxie',icon:'🌌',price:300,rarity:'legendary',themeId:'galaxy',preview:'#04041c'},
+];
+
+// Gratis animierte Designs (immer verfügbar)
+const FREE_ANIM_THEMES=[
+  {id:'aurora',name:'Aurora',icon:'🌌',themeId:'aurora',preview:'#0a1a20'},
+  {id:'neon',name:'Neon',icon:'💡',themeId:'neon',preview:'#0a0a1a'},
+  {id:'lava',name:'Lava',icon:'🌋',themeId:'lava',preview:'#1e0800'},
+  {id:'matrix',name:'Matrix',icon:'🟩',themeId:'matrix',preview:'#001200'},
+  {id:'cosmos',name:'Kosmos',icon:'✨',themeId:'cosmos',preview:'#07071e'},
 ];
 
 const RARITY_LABEL={common:'Normal',rare:'Selten',epic:'Episch',legendary:'Legendär'};
@@ -3494,6 +3709,8 @@ function initShop(){
   renderShopRotation();
   renderInventory();
   renderEquipped();
+  renderFreeThemes();
+  renderPremiumThemes();
   startShopTimer();
 }
 
@@ -3514,6 +3731,51 @@ function startShopTimer(){
       renderShopRotation();
     }
   },1000);
+}
+
+function renderFreeThemes(){
+  const grid=document.getElementById('shop-free-themes');
+  if(!grid)return;
+  grid.innerHTML=FREE_ANIM_THEMES.map((t,i)=>{
+    const active=CFG.theme===t.themeId;
+    return `<div class="shop-card${active?' equipped':''}"
+      style="animation-delay:${i*0.06}s;border-color:${active?'#fbbf24':'var(--bd)'};cursor:pointer"
+      onclick="applyAnimTheme('${t.themeId}')">
+      ${active?`<span class="shop-card-badge eq-badge">AN</span>`:''}
+      <span class="shop-card-avatar" style="filter:drop-shadow(0 0 6px ${t.preview}88)">${t.icon}</span>
+      <div class="shop-card-name">${t.name}</div>
+      <div class="shop-card-price free">Gratis</div>
+    </div>`;
+  }).join('');
+}
+
+function renderPremiumThemes(){
+  const grid=document.getElementById('shop-premium-themes');
+  if(!grid)return;
+  const themeItems=SHOP_ITEMS.filter(i=>i.type==='theme');
+  grid.innerHTML=themeItems.map((item,i)=>{
+    const owned=(S.inv||[]).includes(item.id);
+    const active=CFG.theme===item.themeId;
+    const canAfford=(S.ml||0)>=item.price;
+    const rarityColor=RARITY_COLOR[item.rarity]||'var(--mu)';
+    return `<div class="shop-card${active?' equipped':''}${owned&&!active?' owned':''}"
+      style="animation-delay:${i*0.05}s;border-color:${active?'#fbbf24':owned?'var(--ac3)':'var(--bd)'}"
+      onclick="${owned?`applyAnimTheme('${item.themeId}')`:`buyItem('${item.id}')`}">
+      ${active?`<span class="shop-card-badge eq-badge">AN</span>`:owned?`<span class="shop-card-badge owned-badge">✓</span>`:''}
+      <span class="shop-card-avatar" style="filter:drop-shadow(0 0 8px ${item.preview}aa)">${item.icon}</span>
+      <div class="shop-card-name">${item.name}</div>
+      <div class="shop-card-price${owned?' free':''}" style="color:${active?'#fbbf24':owned?'var(--ac3)':canAfford?'#fbbf24':'var(--red)'}">
+        ${active?'Aktiv':owned?'Anwenden':('🪙 '+item.price)}
+      </div>
+      <div style="font-size:.52rem;color:${rarityColor};margin-top:2px;font-family:var(--fm)">${RARITY_LABEL[item.rarity]}</div>
+    </div>`;
+  }).join('');
+}
+
+function applyAnimTheme(themeId){
+  CFG.theme=themeId;saveCFG();applyCFG();
+  renderFreeThemes();renderPremiumThemes();
+  showToast('🎨 Design aktiviert!','pts');
 }
 
 function renderShopRotation(){
@@ -3589,24 +3851,29 @@ function renderEquipped(){
 function buyItem(id){
   const item=SHOP_ITEMS.find(i=>i.id===id);
   if(!item)return;
-  if((S.inv||[]).includes(id)){equipItem(id);return;}
+  if((S.inv||[]).includes(id)){
+    if(item.type==='theme')applyAnimTheme(item.themeId);
+    else equipItem(id);
+    return;
+  }
   if((S.ml||0)<item.price){showToast('Nicht genug Matheloin! 🪙','warn');return;}
   if(!confirm(`${item.icon} ${item.name} kaufen für 🪙 ${item.price} ML?`))return;
   S.ml=(S.ml||0)-item.price;
   if(!S.inv)S.inv=[];
   S.inv.push(id);
-  equipItem(id,true);
+  if(item.type==='theme'){applyAnimTheme(item.themeId);}
+  else equipItem(id,true);
   showToast(`${item.icon} ${item.name} gekauft!`,'pts');
   sS();updateUI();
   document.getElementById('shop-ml-display').textContent=S.ml;
-  renderShopRotation();
-  renderInventory();
+  renderShopRotation();renderInventory();renderPremiumThemes();
 }
 
 function equipItem(id,silent=false){
   const item=SHOP_ITEMS.find(i=>i.id===id);
   if(!item)return;
   if(!S.eq)S.eq={avatar:null,frame:null,theme:null};
+  if(item.type==='theme'){applyAnimTheme(item.themeId);return;}
   S.eq[item.type]=id;
   sS();
   if(!silent)showToast(`${item.icon} ${item.name} ausgerüstet!`,'pts');
@@ -3617,7 +3884,7 @@ function equipItem(id,silent=false){
 
 function unequip(type){
   if(!S.eq)return;
-  if(type==='avatar')S.eq.avatar='av01'; // default
+  if(type==='avatar')S.eq.avatar='av01';
   else S.eq[type]=null;
   sS();
   renderEquipped();
@@ -3632,6 +3899,349 @@ function getEquippedAvatar(){
 function getEquippedFrame(){
   if(!S.eq?.frame)return null;
   return SHOP_ITEMS.find(i=>i.id===S.eq.frame)||null;
+}
+
+// ===================== ANIMATED THEMES =====================
+let _animRAF=null;let _animCtx=null;let _animParticles=[];
+
+function startAnimatedTheme(type){
+  const canvas=document.getElementById('theme-canvas');
+  if(!canvas)return;
+  // Stop previous
+  if(_animRAF){cancelAnimationFrame(_animRAF);_animRAF=null;}
+  _animParticles=[];
+  if(!type){canvas.classList.remove('active');return;}
+  canvas.classList.add('active');
+  canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+  _animCtx=canvas.getContext('2d');
+  const ctx=_animCtx;
+  const W=()=>canvas.width,H=()=>canvas.height;
+  // Resize handler
+  window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;},{passive:true});
+
+  const themes={
+    aurora:()=>{
+      // Flowing aurora bands
+      let t=0;
+      const bands=[
+        {y:.3,c1:'rgba(0,255,180,.07)',c2:'rgba(100,220,255,.12)',speed:.0003,amp:.08},
+        {y:.5,c1:'rgba(120,0,255,.05)',c2:'rgba(0,200,255,.08)',speed:.0005,amp:.06},
+        {y:.7,c1:'rgba(0,180,255,.06)',c2:'rgba(80,255,200,.09)',speed:.0002,amp:.07},
+      ];
+      const tick=()=>{
+        ctx.clearRect(0,0,W(),H());t+=1;
+        bands.forEach(b=>{
+          const gy=H()*b.y+Math.sin(t*b.speed*1000)*H()*b.amp;
+          const g=ctx.createLinearGradient(0,gy-80,0,gy+80);
+          g.addColorStop(0,'transparent');g.addColorStop(.5,b.c1);g.addColorStop(1,'transparent');
+          ctx.fillStyle=g;
+          ctx.beginPath();
+          ctx.moveTo(0,gy-80);
+          for(let x=0;x<=W();x+=20){
+            const y=gy+Math.sin(x*.005+t*b.speed*1000+b.y*10)*40;
+            ctx.lineTo(x,y);
+          }
+          ctx.lineTo(W(),H());ctx.lineTo(0,H());ctx.closePath();
+          ctx.fill();
+        });
+        _animRAF=requestAnimationFrame(tick);
+      };tick();
+    },
+    neon:()=>{
+      // Neon grid lines pulsing
+      let t=0;
+      const tick=()=>{
+        ctx.clearRect(0,0,W(),H());t+=.012;
+        const colors=['rgba(180,0,255,','rgba(0,220,255,','rgba(255,0,180,'];
+        const gSize=60;
+        for(let x=0;x<W();x+=gSize){
+          const pulse=Math.sin(t+x*.02)*.5+.5;
+          ctx.strokeStyle=colors[0]+(.04*pulse)+')';
+          ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H());ctx.stroke();
+        }
+        for(let y=0;y<H();y+=gSize){
+          const pulse=Math.sin(t*1.3+y*.02)*.5+.5;
+          ctx.strokeStyle=colors[1]+(.04*pulse)+')';
+          ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W(),y);ctx.stroke();
+        }
+        // Floating orbs
+        if(_animParticles.length<8)_animParticles.push({x:Math.random()*W(),y:Math.random()*H(),r:Math.random()*60+30,c:colors[Math.floor(Math.random()*3)],s:Math.random()*.003+.001,o:Math.random()*Math.PI*2});
+        _animParticles.forEach(p=>{
+          p.o+=p.s;
+          const pulse=Math.sin(p.o)*.5+.5;
+          const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);
+          g.addColorStop(0,p.c+(pulse*.06)+')');g.addColorStop(1,'transparent');
+          ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+        });
+        _animRAF=requestAnimationFrame(tick);
+      };tick();
+    },
+    lava:()=>{
+      // Rising lava bubbles
+      let t=0;
+      const spawnBubble=()=>({x:Math.random()*W(),y:H()+20,r:Math.random()*18+6,speed:Math.random()*.4+.2,o:Math.random()*.08+.03,wobble:Math.random()*2-1,c:Math.random()<.5?'rgba(255,80,0,':'rgba(255,160,0,'});
+      while(_animParticles.length<20)_animParticles.push(spawnBubble());
+      const tick=()=>{
+        ctx.clearRect(0,0,W(),H());t+=.01;
+        // Bottom glow
+        const g=ctx.createLinearGradient(0,H()*.7,0,H());
+        g.addColorStop(0,'transparent');g.addColorStop(1,'rgba(255,60,0,.08)');
+        ctx.fillStyle=g;ctx.fillRect(0,0,W(),H());
+        _animParticles.forEach((p,i)=>{
+          p.y-=p.speed;p.x+=Math.sin(t*2+i)*p.wobble*.3;
+          if(p.y<-p.r)_animParticles[i]=spawnBubble();
+          const grad=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);
+          grad.addColorStop(0,p.c+p.o+')');grad.addColorStop(1,'transparent');
+          ctx.fillStyle=grad;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+        });
+        _animRAF=requestAnimationFrame(tick);
+      };tick();
+    },
+    matrix:()=>{
+      // Falling green symbols
+      const cols=Math.floor(W()/16);
+      const drops=Array.from({length:cols},()=>Math.random()*H()/14|0);
+      const chars='01アイウエオカキクケコ∑∫√πΔΩ';
+      let t=0;
+      const tick=()=>{
+        ctx.fillStyle='rgba(0,10,0,.06)';ctx.fillRect(0,0,W(),H());
+        t++;if(t%2!==0){_animRAF=requestAnimationFrame(tick);return;}
+        ctx.font='13px monospace';
+        drops.forEach((y,i)=>{
+          const ch=chars[Math.floor(Math.random()*chars.length)];
+          const bright=Math.random()>.95;
+          ctx.fillStyle=bright?'rgba(180,255,180,.9)':'rgba(0,180,40,.45)';
+          ctx.fillText(ch,i*16,y*14);
+          if(y*14>H()&&Math.random()>.97)drops[i]=0;
+          else drops[i]++;
+        });
+        _animRAF=requestAnimationFrame(tick);
+      };tick();
+    },
+    cosmos:()=>{
+      // Slow moving stars + nebula
+      while(_animParticles.length<120)_animParticles.push({x:Math.random()*W(),y:Math.random()*H(),r:Math.random()*1.5+.2,speed:Math.random()*.15+.02,twinkle:Math.random()*Math.PI*2,tSpeed:Math.random()*.02+.005});
+      let t=0;
+      const tick=()=>{
+        ctx.clearRect(0,0,W(),H());t+=.005;
+        // Nebula clouds
+        [[.3,.4,'rgba(80,0,160,'],[.6,.6,'rgba(0,60,160,'],[.7,.3,'rgba(120,0,80,']].forEach(([rx,ry,c])=>{
+          const g=ctx.createRadialGradient(W()*rx,H()*ry,0,W()*rx,H()*ry,Math.min(W(),H())*.35);
+          g.addColorStop(0,c+'.06)');g.addColorStop(1,'transparent');
+          ctx.fillStyle=g;ctx.fillRect(0,0,W(),H());
+        });
+        // Stars
+        _animParticles.forEach(p=>{
+          p.x-=p.speed;if(p.x<0){p.x=W();p.y=Math.random()*H();}
+          p.twinkle+=p.tSpeed;
+          const alpha=.3+Math.sin(p.twinkle)*.25;
+          ctx.fillStyle=`rgba(220,200,255,${alpha})`;
+          ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+        });
+        _animRAF=requestAnimationFrame(tick);
+      };tick();
+    },
+    hologram:()=>{
+      let t=0;
+      const tick=()=>{
+        ctx.clearRect(0,0,W(),H());t+=.015;
+        // Scan lines
+        for(let y=0;y<H();y+=4){
+          const pulse=Math.sin(t*2+y*.03)*.5+.5;
+          ctx.fillStyle=`rgba(0,255,240,${pulse*.025})`;
+          ctx.fillRect(0,y,W(),2);
+        }
+        // Glowing vertical bars that sweep
+        [.25,.5,.75].forEach((pos,i)=>{
+          const x=((pos+t*.05*(i+1))%1)*W();
+          const g=ctx.createLinearGradient(x-30,0,x+30,0);
+          g.addColorStop(0,'transparent');g.addColorStop(.5,'rgba(0,255,220,.06)');g.addColorStop(1,'transparent');
+          ctx.fillStyle=g;ctx.fillRect(x-30,0,60,H());
+        });
+        _animRAF=requestAnimationFrame(tick);
+      };tick();
+    },
+    fire:()=>{
+      // Fire particle system
+      const spawnFire=()=>({x:Math.random()*W(),y:H()+10,vx:(Math.random()-.5)*1.5,vy:-(Math.random()*2+1),life:1,r:Math.random()*12+4});
+      while(_animParticles.length<60)_animParticles.push(spawnFire());
+      const tick=()=>{
+        ctx.clearRect(0,0,W(),H());
+        _animParticles.forEach((p,i)=>{
+          p.x+=p.vx;p.y+=p.vy;p.life-=.008;p.r*=.99;
+          if(p.life<=0||p.y<0)_animParticles[i]=spawnFire();
+          const a=p.life*.1;
+          const hue=p.life>0.6?0:p.life>0.3?20:40;
+          const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);
+          g.addColorStop(0,`hsla(${hue},100%,60%,${a})`);g.addColorStop(1,'transparent');
+          ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+        });
+        _animRAF=requestAnimationFrame(tick);
+      };tick();
+    },
+    storm:()=>{
+      // Lightning bolts + rain
+      let t=0;let nextBolt=60;let bolt=null;
+      const spawnRain=()=>({x:Math.random()*W(),y:-10,speed:Math.random()*4+3,len:Math.random()*15+8});
+      while(_animParticles.length<80)_animParticles.push(spawnRain());
+      const tick=()=>{
+        ctx.clearRect(0,0,W(),H());t++;
+        // Rain
+        ctx.strokeStyle='rgba(100,150,255,.18)';ctx.lineWidth=1;
+        _animParticles.forEach((p,i)=>{
+          ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x-2,p.y+p.len);ctx.stroke();
+          p.y+=p.speed;if(p.y>H())_animParticles[i]=spawnRain();
+        });
+        // Lightning
+        if(t>nextBolt){
+          bolt={x:Math.random()*W(),segs:Math.floor(Math.random()*6+4),life:12};
+          nextBolt=t+Math.floor(Math.random()*120+60);
+        }
+        if(bolt&&bolt.life>0){
+          bolt.life--;
+          ctx.strokeStyle=`rgba(180,200,255,${bolt.life/15})`;ctx.lineWidth=2;
+          ctx.beginPath();let bx=bolt.x,by=0;ctx.moveTo(bx,by);
+          for(let s=0;s<bolt.segs;s++){bx+=(Math.random()-.5)*80;by+=H()/bolt.segs;ctx.lineTo(bx,by);}
+          ctx.stroke();
+        }
+        _animRAF=requestAnimationFrame(tick);
+      };tick();
+    },
+    sakura:()=>{
+      // Falling cherry blossoms
+      const spawnPetal=()=>({x:Math.random()*W(),y:-20,r:Math.random()*6+3,speed:Math.random()*1+.5,drift:Math.random()*2-1,rot:Math.random()*Math.PI*2,rotSpeed:(Math.random()-.5)*.04,wobble:Math.random()*Math.PI*2,wobbleSpeed:Math.random()*.02+.01});
+      while(_animParticles.length<40)_animParticles.push(spawnPetal());
+      const tick=()=>{
+        ctx.clearRect(0,0,W(),H());
+        _animParticles.forEach((p,i)=>{
+          p.y+=p.speed;p.wobble+=p.wobbleSpeed;p.x+=p.drift+Math.sin(p.wobble)*.5;p.rot+=p.rotSpeed;
+          if(p.y>H()+20)_animParticles[i]=spawnPetal();
+          ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);
+          // Draw petal
+          ctx.fillStyle='rgba(255,180,210,.18)';
+          ctx.beginPath();ctx.ellipse(0,0,p.r,p.r*.6,0,0,Math.PI*2);ctx.fill();
+          ctx.restore();
+        });
+        _animRAF=requestAnimationFrame(tick);
+      };tick();
+    },
+    glitch:()=>{
+      let t=0;let nextGlitch=40;let glitchLines=[];
+      const tick=()=>{
+        ctx.clearRect(0,0,W(),H());t++;
+        if(t>nextGlitch){
+          glitchLines=Array.from({length:Math.floor(Math.random()*8+2)},()=>({y:Math.random()*H(),h:Math.random()*8+2,life:Math.floor(Math.random()*12+4),c:Math.random()<.5?'rgba(0,255,100,':'rgba(255,0,100,'}));
+          nextGlitch=t+Math.floor(Math.random()*80+30);
+        }
+        glitchLines=glitchLines.filter(l=>l.life-->0);
+        glitchLines.forEach(l=>{
+          ctx.fillStyle=l.c+(l.life/12*.08)+')';
+          ctx.fillRect(0,l.y,W(),l.h);
+        });
+        // Scanline
+        const sl=(t*3)%H();
+        const g=ctx.createLinearGradient(0,sl-10,0,sl+10);
+        g.addColorStop(0,'transparent');g.addColorStop(.5,'rgba(0,255,120,.04)');g.addColorStop(1,'transparent');
+        ctx.fillStyle=g;ctx.fillRect(0,sl-10,W(),20);
+        _animRAF=requestAnimationFrame(tick);
+      };tick();
+    },
+    deep:()=>{
+      // Bioluminescent particles rising
+      const spawnDeep=()=>({x:Math.random()*W(),y:H()+20,speed:Math.random()*.4+.1,r:Math.random()*4+1,o:Math.random()*.12+.04,pulse:Math.random()*Math.PI*2,pulseSpeed:Math.random()*.02+.01,c:Math.random()<.5?'rgba(0,150,255,':'rgba(0,200,180,'});
+      while(_animParticles.length<50)_animParticles.push(spawnDeep());
+      const tick=()=>{
+        ctx.clearRect(0,0,W(),H());
+        _animParticles.forEach((p,i)=>{
+          p.y-=p.speed;p.pulse+=p.pulseSpeed;if(p.y<-10)_animParticles[i]=spawnDeep();
+          const a=p.o*(Math.sin(p.pulse)*.4+.6);
+          const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*3);
+          g.addColorStop(0,p.c+a+')');g.addColorStop(1,'transparent');
+          ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,p.r*3,0,Math.PI*2);ctx.fill();
+        });
+        _animRAF=requestAnimationFrame(tick);
+      };tick();
+    },
+    volcano:()=>{
+      // Ember sparks shooting up
+      const spawnEmber=()=>{const cx=W()/2;return{x:cx+(Math.random()-.5)*80,y:H(),vx:(Math.random()-.5)*3,vy:-(Math.random()*4+2),life:1,r:Math.random()*3+1};};
+      while(_animParticles.length<80)_animParticles.push(spawnEmber());
+      const tick=()=>{
+        ctx.clearRect(0,0,W(),H());
+        // Base glow
+        const bg=ctx.createRadialGradient(W()/2,H(),0,W()/2,H(),W()*.5);
+        bg.addColorStop(0,'rgba(255,40,0,.06)');bg.addColorStop(1,'transparent');
+        ctx.fillStyle=bg;ctx.fillRect(0,0,W(),H());
+        _animParticles.forEach((p,i)=>{
+          p.x+=p.vx;p.y+=p.vy;p.vy+=.04;p.life-=.006;
+          if(p.life<=0||p.y>H())_animParticles[i]=spawnEmber();
+          const hue=p.life>0.5?10:30;
+          ctx.fillStyle=`hsla(${hue},100%,60%,${p.life*.15})`;
+          ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+        });
+        _animRAF=requestAnimationFrame(tick);
+      };tick();
+    },
+    arctic:()=>{
+      // Falling snowflakes
+      const spawnSnow=()=>({x:Math.random()*W(),y:-10,r:Math.random()*3+1,speed:Math.random()*.8+.3,drift:Math.random()*.4-.2,wobble:Math.random()*Math.PI*2,ws:Math.random()*.01+.005});
+      while(_animParticles.length<60)_animParticles.push(spawnSnow());
+      const tick=()=>{
+        ctx.clearRect(0,0,W(),H());
+        // Top glow
+        const g=ctx.createLinearGradient(0,0,0,H()*.4);
+        g.addColorStop(0,'rgba(100,200,255,.04)');g.addColorStop(1,'transparent');
+        ctx.fillStyle=g;ctx.fillRect(0,0,W(),H());
+        _animParticles.forEach((p,i)=>{
+          p.y+=p.speed;p.wobble+=p.ws;p.x+=p.drift+Math.sin(p.wobble)*.3;
+          if(p.y>H()+10)_animParticles[i]=spawnSnow();
+          ctx.fillStyle=`rgba(200,235,255,.25)`;
+          ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+        });
+        _animRAF=requestAnimationFrame(tick);
+      };tick();
+    },
+    cyber:()=>{
+      // Data stream lines
+      let t=0;
+      const streams=Array.from({length:20},(_,i)=>({x:(i/20)*W()+Math.random()*W()/20,y:Math.random()*H(),speed:Math.random()*2+1,len:Math.random()*60+20,c:Math.random()<.6?'rgba(0,255,200,':'rgba(100,255,220,',o:Math.random()*.08+.03}));
+      const tick=()=>{
+        ctx.clearRect(0,0,W(),H());t+=.01;
+        streams.forEach(s=>{
+          s.y+=s.speed;if(s.y>H()+s.len)s.y=-s.len;
+          const g=ctx.createLinearGradient(s.x,s.y-s.len,s.x,s.y);
+          g.addColorStop(0,'transparent');g.addColorStop(1,s.c+s.o+')');
+          ctx.fillStyle=g;ctx.fillRect(s.x-1,s.y-s.len,2,s.len);
+        });
+        _animRAF=requestAnimationFrame(tick);
+      };tick();
+    },
+    galaxy:()=>{
+      // Rotating spiral stars
+      let t=0;
+      while(_animParticles.length<200){
+        const angle=Math.random()*Math.PI*2;
+        const dist=Math.random()*Math.min(W(),H())*.45;
+        _animParticles.push({angle,dist,speed:(.0005/Math.max(dist,1))*500,r:Math.random()*1.2+.2,c:Math.random()<.3?'rgba(255,220,180,':'rgba(200,180,255,'});
+      }
+      const tick=()=>{
+        ctx.clearRect(0,0,W(),H());t+=.002;
+        const cx=W()/2,cy=H()/2;
+        _animParticles.forEach(p=>{
+          p.angle+=p.speed;
+          const x=cx+Math.cos(p.angle+p.dist*.003)*p.dist;
+          const y=cy+Math.sin(p.angle+p.dist*.003)*p.dist*.5;
+          const alpha=.2+Math.sin(t*3+p.angle)*.15;
+          ctx.fillStyle=p.c+alpha+')';
+          ctx.beginPath();ctx.arc(x,y,p.r,0,Math.PI*2);ctx.fill();
+        });
+        _animRAF=requestAnimationFrame(tick);
+      };tick();
+    },
+  };
+
+  if(themes[type])themes[type]();
+  else canvas.classList.remove('active');
 }
 
 // ===================== LEADERBOARD =====================
@@ -3701,12 +4311,13 @@ async function loadLeaderboard(){
         :frameColor!=='transparent'
           ?`background:${frameColor};border-radius:50%;padding:2px;display:inline-block`
           :'display:inline-block';
-      return `<div class="lb-entry${isMe?' lb-me':''}${i<3?' '+entryCls[i]:''}">
+      return `<div class="lb-entry${isMe?' lb-me':''}${i<3?' '+entryCls[i]:''}" style="cursor:${isMe?'default':'pointer'}" ${isMe?'':` onclick="openBattleChallenge('${esc(row.name)}')"`}>
         ${rank}
         <span style="${avatarStyle};font-size:1.1rem;flex-shrink:0;line-height:1">${avItem?avItem.icon:'👤'}</span>
         <div class="lb-name">${esc(row.name)}${isMe?'<span class="lb-me-tag">Du</span>':''}</div>
         <div class="lb-date">${date}</div>
         <div class="lb-pts">${row.pts} ML</div>
+        ${isMe?'':'<div style="font-size:.62rem;color:var(--ac);font-family:var(--fm);flex-shrink:0">⚔️</div>'}
       </div>`;
     }).join('');
   }catch(e){
@@ -3766,6 +4377,409 @@ async function submitScore(){
   }
 }
 
+// ===================== BATTLES =====================
+const BATTLE_TOPICS=[
+  {id:'qb',label:'Grundlagen Parabeln',icon:'📐',color:'#6ee7f7'},
+  {id:'qf',label:'Scheitelpunktform',icon:'🔄',color:'#a78bfa'},
+  {id:'qa',label:'Funktionsgleichung',icon:'📌',color:'#34d399'},
+  {id:'kr',label:'Kreisfläche & Umfang',icon:'⭕',color:'#f97316'},
+  {id:'ka',label:'Bogenlänge & Ausschnitt',icon:'🥧',color:'#f43f5e'},
+  {id:'sk',label:'Anwendungsaufgaben',icon:'🌍',color:'#eab308'},
+];
+
+// Battle question bank: 10 questions per topic drawn from BOT_KB
+const BATTLE_QB={
+  qb:[
+    {q:'Normalform einer quadratischen Funktion?',opts:['f(x)=mx+b','f(x)=ax²+bx+c','f(x)=a/x','f(x)=ax³'],cor:1},
+    {q:'Was bewirkt a>1 in f(x)=ax²?',opts:['Streckung','Stauchung','Spiegelung','Verschiebung'],cor:0},
+    {q:'Wo liegt der Scheitelpunkt von f(x)=x²?',opts:['S(1|0)','S(0|1)','S(0|0)','S(-1|0)'],cor:2},
+    {q:'a<0 bedeutet: Parabel öffnet sich…',opts:['nach oben','nach unten','nach links','nach rechts'],cor:1},
+    {q:'y-Achsenabschnitt von f(x)=3x²-2x+5?',opts:['y=3','y=-2','y=5','y=0'],cor:2},
+    {q:'f(2) für f(x)=x²-3x+1?',opts:['-1','3','5','0'],cor:0},
+    {q:'Formel für x_S aus f(x)=ax²+bx+c?',opts:['b/(2a)','-b/(2a)','-c/a','2a/b'],cor:1},
+    {q:'x_S für f(x)=2x²-8x+3?',opts:['2','4','-2','1'],cor:0},
+    {q:'S(0|-4), a=1. Gleichung?',opts:['f(x)=x²+4','f(x)=x²-4','f(x)=(x-4)²','f(x)=x²'],cor:1},
+    {q:'Parabel mit a=0,5 ist … als Normalparabel.',opts:['schmaler','gleich','breiter','gespiegelt'],cor:2},
+  ],
+  qf:[
+    {q:'Scheitelpunktform lautet?',opts:['ax²+bx+c','a(x-d)²+e','(x-r)(x-s)','ax+b'],cor:1},
+    {q:'Scheitelpunkt von f(x)=2(x-3)²+5?',opts:['S(-3|5)','S(3|-5)','S(3|5)','S(-3|-5)'],cor:2},
+    {q:'f(x)=-(x+2)²-1 → Scheitelpunkt?',opts:['S(2|-1)','S(-2|-1)','S(-2|1)','S(2|1)'],cor:1},
+    {q:'Scheitelpunkt von f(x)=x²-4x+7?',opts:['S(2|3)','S(-2|3)','S(2|-3)','S(4|7)'],cor:0},
+    {q:'Normalform von f(x)=(x+2)²-1?',opts:['x²+4x+3','x²+4x-3','x²-4x+3','x²+2x+3'],cor:0},
+    {q:'f(x)=x²+4x+1 → y-Wert des Scheitels?',opts:['1','-3','3','-1'],cor:1},
+    {q:'f(x)=-x²+2x+3 → Scheitelpunkt?',opts:['S(1|4)','S(-1|4)','S(1|2)','S(2|3)'],cor:0},
+    {q:'Normalform von f(x)=3(x-1)²+2?',opts:['3x²-6x+5','3x²-6x-1','3x²+6x+5','3x²-2x+5'],cor:0},
+    {q:'Scheitelpunkt von f(x)=2x²+4x-6?',opts:['S(-1|-8)','S(1|0)','S(-1|0)','S(2|-6)'],cor:0},
+    {q:'(x-3)²-4 in Normalform?',opts:['x²-6x+5','x²-6x+13','x²+6x+5','x²-3x+5'],cor:0},
+  ],
+  qa:[
+    {q:'Wie viele Punkte für ax²+bx+c eindeutig?',opts:['1','2','3','4'],cor:2},
+    {q:'P(0|4) auf Parabel → was gilt?',opts:['a=4','b=4','c=4','a+b+c=0'],cor:2},
+    {q:'Schnellste Methode mit Scheitel + Punkt?',opts:['3-Punkte-LGS','Scheitelpunktform','Normalform','Ableiten'],cor:1},
+    {q:'S(2|3), P(0|7) → a=?',opts:['1','2','-1','3'],cor:0},
+    {q:'S(1|0), P(0|3) → a=?',opts:['3','1','-3','0'],cor:0},
+    {q:'S(0|-2), P(1|1) → a=?',opts:['3','1','-1','2'],cor:0},
+    {q:'Was entsteht beim Einsetzen dreier Punkte?',opts:['Tabelle','LGS','Quadratische Gl.','Bruchterm'],cor:1},
+    {q:'Brücke f(x)=-0,05x²+5 → Höhe der Mitte?',opts:['5m','0m','10m','0,05m'],cor:0},
+    {q:'h(t)=-5t²+20t+1 → Wann maximal?',opts:['t=1s','t=2s','t=4s','t=5s'],cor:1},
+    {q:'G(x)=-2x²+40x-50 → Gewinnmaximum bei?',opts:['x=10','x=20','x=5','x=40'],cor:0},
+  ],
+  kr:[
+    {q:'Formel für den Umfang eines Kreises?',opts:['U=πr²','U=2πr','U=πd²','U=r²π'],cor:1},
+    {q:'Formel für die Kreisfläche?',opts:['A=2πr','A=πd','A=πr²','A=r²/π'],cor:2},
+    {q:'r=5cm → Umfang (gerundet)?',opts:['31,4cm','25,1cm','78,5cm','15,7cm'],cor:0},
+    {q:'Radius verdoppelt → Fläche wird …',opts:['doppelt','dreifach','vierfach','gleich'],cor:2},
+    {q:'U=12π cm → Radius?',opts:['r=6cm','r=12cm','r=3cm','r=4cm'],cor:0},
+    {q:'d=10cm → Flächeninhalt (gerundet)?',opts:['78,5cm²','31,4cm²','314cm²','15,7cm²'],cor:0},
+    {q:'Quadrat 4×4 mit einbeschriebenem Kreis → r=?',opts:['r=4cm','r=2cm','r=8cm','r=1cm'],cor:1},
+    {q:'Kreisbeet r=4m → Fläche (gerundet)?',opts:['50,3m²','25,1m²','12,6m²','201m²'],cor:0},
+    {q:'A=100π cm² → Radius?',opts:['r=10cm','r=5cm','r=20cm','r=100cm'],cor:0},
+    {q:'Springbrunnen U≈18,85m → r≈?',opts:['r≈2m','r≈3m','r≈4m','r≈6m'],cor:1},
+  ],
+  ka:[
+    {q:'Formel für Bogenlänge?',opts:['πr²·α/360°','2πr·α/360°','πr·α/180°','r·α'],cor:1},
+    {q:'r=6cm, α=90° → Bogenlänge (gerundet)?',opts:['9,42cm','18,85cm','6,28cm','3,14cm'],cor:0},
+    {q:'Formel für Kreisausschnitt-Fläche?',opts:['2πr·α/360°','πr²·α/360°','πr·α/180°','r²·α'],cor:1},
+    {q:'r=4cm, α=180° → Fläche (gerundet)?',opts:['25,13cm²','50,27cm²','12,57cm²','6,28cm²'],cor:0},
+    {q:'Winkel eines Viertelkreises?',opts:['180°','45°','90°','120°'],cor:2},
+    {q:'b=2πr/3 → α=?',opts:['60°','90°','120°','180°'],cor:2},
+    {q:'r=6cm, α=60° → Fläche? (π≈3,14)',opts:['18,85cm²','12,57cm²','6,28cm²','37,7cm²'],cor:0},
+    {q:'Uhrzeiger l=8cm dreht 15min → Bogenlänge?',opts:['6,28cm','12,57cm','3,14cm','25,13cm'],cor:1},
+    {q:'Torte r=15cm, 6 Stücke → Fläche/Stück?',opts:['117,8cm²','706,9cm²','235,6cm²','58,9cm²'],cor:0},
+    {q:'α=120°, b=4π cm → r=?',opts:['r=6cm','r=4cm','r=8cm','r=3cm'],cor:0},
+  ],
+  sk:[
+    {q:'G(x)=-x²+8x-7 → Maximaler Gewinn?',opts:['G=9','G=7','G=8','G=0'],cor:0},
+    {q:'h(t)=-5t²+20t+1 → Höhe nach t=1?',opts:['16m','15m','21m','1m'],cor:0},
+    {q:'h(t)=-5t²+20t → Wann Boden (t>0)?',opts:['t=2s','t=4s','t=5s','t=3s'],cor:1},
+    {q:'Brunnen r=2,5m → Zaunlänge?',opts:['15,71m','19,63m','7,85m','31,42m'],cor:0},
+    {q:'Fahrrad r=35cm → Weg pro Umdrehung?',opts:['2,20m','1,10m','3,46m','0,55m'],cor:0},
+    {q:'Kreisbahn r=100m → Runde (gerundet)?',opts:['628m','314m','200m','1000m'],cor:0},
+    {q:'Dach f(x)=-0,5x²+4,5 → Max. Höhe?',opts:['4,5m','0m','9m','0,5m'],cor:0},
+    {q:'h(x)=-0,1x²+2x → Wie weit fliegt Strahl?',opts:['x=20m','x=10m','x=5m','x=2m'],cor:0},
+    {q:'Ball h(t)=-5t²+30t → Max. Höhe?',opts:['45m','30m','60m','15m'],cor:0},
+    {q:'Parabel f(x)=-x²+6x-5 → Scheitelpunkt?',opts:['S(3|4)','S(3|-5)','S(6|-5)','S(1|0)'],cor:0},
+  ],
+};
+
+// Battle state
+let battleState={challengeOpponent:null,quizQuestions:[],quizIdx:0,quizScore:0,quizTopicId:null,activeBattleId:null};
+let battleRefreshTimer=null;
+let battleCountdownInterval=null;
+
+function initBattlesPage(){
+  if(!LB_CONFIGURED){
+    document.getElementById('battles-error').style.display='block';
+    document.getElementById('battles-error').textContent='⚠️ Supabase nicht eingerichtet – Online-Battles nicht verfügbar.';
+    return;
+  }
+  // Tutorial
+  const seen=localStorage.getItem('mp9_battle_tutorial_seen');
+  document.getElementById('battle-tutorial').style.display=seen?'none':'block';
+  // Load
+  loadBattles();
+  // Auto-refresh every 3 min
+  if(battleRefreshTimer)clearInterval(battleRefreshTimer);
+  startBattleCountdown();
+  battleRefreshTimer=setInterval(()=>{loadBattles();startBattleCountdown();},3*60*1000);
+}
+
+function startBattleCountdown(){
+  if(battleCountdownInterval)clearInterval(battleCountdownInterval);
+  let secs=180;
+  const el=document.getElementById('battle-refresh-countdown');
+  battleCountdownInterval=setInterval(()=>{
+    secs--;
+    if(el)el.textContent=`${Math.floor(secs/60)}:${String(secs%60).padStart(2,'0')}`;
+    if(secs<=0)clearInterval(battleCountdownInterval);
+  },1000);
+}
+
+function dismissBattleTutorial(){
+  localStorage.setItem('mp9_battle_tutorial_seen','1');
+  document.getElementById('battle-tutorial').style.display='none';
+}
+
+async function loadBattles(){
+  if(!LB_CONFIGURED)return;
+  const myName=localStorage.getItem('mp9_lb_name')||'';
+  if(!myName){
+    document.getElementById('battles-pending').innerHTML='<div class="battle-empty">Trage deinen Namen in der Rangliste ein um Battles nutzen zu können.</div>';
+    return;
+  }
+  document.getElementById('battles-loading').style.display='block';
+  document.getElementById('battles-error').style.display='none';
+  try{
+    // Expire old battles (cleanup)
+    const expireRes=await fetch(`${SUPABASE_URL}/rest/v1/battles?created_at=lt.${new Date(Date.now()-24*60*60*1000).toISOString()}&status=eq.pending`,{
+      method:'DELETE',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'}
+    });
+    // Fetch all battles involving me
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/battles?or=(challenger_name.eq.${encodeURIComponent(myName)},opponent_name.eq.${encodeURIComponent(myName)})&order=created_at.desc&limit=40`,{
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    });
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    document.getElementById('battles-loading').style.display='none';
+    renderBattles(data,myName);
+    // Update badge
+    const pending=data.filter(b=>b.status==='pending'&&b.opponent_name===myName);
+    const badge=document.getElementById('battle-badge');
+    if(badge){badge.style.display=pending.length?'inline':'none';}
+  }catch(e){
+    document.getElementById('battles-loading').style.display='none';
+    document.getElementById('battles-error').style.display='block';
+    document.getElementById('battles-error').textContent='⚠️ Fehler: '+e.message;
+  }
+}
+
+function renderBattles(data,myName){
+  const pending=data.filter(b=>b.status==='pending'&&b.opponent_name===myName);
+  const active=data.filter(b=>b.status==='pending'&&b.challenger_name===myName);
+  const finished=data.filter(b=>b.status==='finished');
+
+  const renderCard=(b)=>{
+    const iAmChallenger=b.challenger_name===myName;
+    const opponent=iAmChallenger?b.opponent_name:b.challenger_name;
+    const topic=BATTLE_TOPICS.find(t=>t.id===b.topic_id)||{icon:'❓',label:'Unbekannt',color:'var(--mu)'};
+    const age=timeAgo(b.created_at);
+    const myScore=iAmChallenger?b.challenger_score:b.opponent_score;
+    const oppScore=iAmChallenger?b.opponent_score:b.challenger_score;
+
+    if(b.status==='pending'&&!iAmChallenger){
+      // Incoming challenge
+      return `<div class="battle-card bc-pending">
+        <div class="bc-header">
+          <div class="bc-avatar">${topic.icon}</div>
+          <div class="bc-names">
+            <div class="bc-vs">⚔️ <b>${esc(b.challenger_name)}</b> fordert dich heraus!</div>
+            <div class="bc-topic" style="color:${topic.color}">${topic.label}</div>
+          </div>
+          <div class="bc-time">${age}</div>
+        </div>
+        <div class="bc-score-row">
+          <div class="bc-score-box"><div class="bc-score-label">${esc(b.challenger_name)}</div><div class="bc-score-val" style="color:var(--ac)">${b.challenger_score}/10</div></div>
+          <div style="font-size:.8rem;color:var(--mu)">vs</div>
+          <div class="bc-score-box"><div class="bc-score-label">Du</div><div class="bc-score-pending">Noch nicht gespielt</div></div>
+        </div>
+        <div class="bc-actions">
+          <button class="bc-btn start" onclick="startBattleAsOpponent('${b.id}','${b.topic_id}','${esc(b.challenger_name)}')">⚔️ Battle beginnen</button>
+          <button class="bc-btn decline" onclick="declineBattle('${b.id}')">✗ Ablehnen</button>
+        </div>
+      </div>`;
+    }
+    if(b.status==='pending'&&iAmChallenger){
+      // Waiting for opponent
+      return `<div class="battle-card bc-active">
+        <div class="bc-header">
+          <div class="bc-avatar">${topic.icon}</div>
+          <div class="bc-names">
+            <div class="bc-vs">⚔️ Du vs <b>${esc(opponent)}</b></div>
+            <div class="bc-topic" style="color:${topic.color}">${topic.label}</div>
+          </div>
+          <div class="bc-time">${age}</div>
+        </div>
+        <div class="bc-score-row">
+          <div class="bc-score-box"><div class="bc-score-label">Du</div><div class="bc-score-val" style="color:var(--ac)">${b.challenger_score}/10</div></div>
+          <div style="font-size:.8rem;color:var(--mu)">vs</div>
+          <div class="bc-score-box"><div class="bc-score-label">${esc(opponent)}</div><div class="bc-score-pending">Wartet…</div></div>
+        </div>
+        <div style="font-size:.68rem;color:var(--mu);font-style:italic">⏳ Warte auf ${esc(opponent)}</div>
+      </div>`;
+    }
+    if(b.status==='finished'){
+      const myS=iAmChallenger?b.challenger_score:b.opponent_score;
+      const oppS=iAmChallenger?b.opponent_score:b.challenger_score;
+      const iWon=myS>oppS;const isDraw=myS===oppS;
+      const cls=isDraw?'bc-finished-draw':iWon?'bc-finished-win':'bc-finished-lose';
+      const myReadKey=iAmChallenger?'challenger_read':'opponent_read';
+      const iRead=iAmChallenger?b.challenger_read:b.opponent_read;
+      return `<div class="battle-card ${cls}">
+        <div class="bc-header">
+          <div class="bc-avatar">${isDraw?'🤝':iWon?'🏆':'😔'}</div>
+          <div class="bc-names">
+            <div class="bc-vs">${isDraw?'Unentschieden':iWon?'Du hast gewonnen!':'Du hast verloren'} – vs <b>${esc(opponent)}</b></div>
+            <div class="bc-topic" style="color:${topic.color}">${topic.label}</div>
+          </div>
+          <div class="bc-time">${age}</div>
+        </div>
+        <div class="bc-score-row">
+          <div class="bc-score-box"><div class="bc-score-label">Du</div><div class="bc-score-val" style="color:${iWon?'#34d399':isDraw?'var(--ac)':'#f87171'}">${myS}/10</div></div>
+          <div style="font-size:.8rem;color:var(--mu)">vs</div>
+          <div class="bc-score-box"><div class="bc-score-label">${esc(opponent)}</div><div class="bc-score-val" style="color:${!iWon&&!isDraw?'#34d399':isDraw?'var(--ac)':'#f87171'}">${oppS}/10</div></div>
+        </div>
+        ${!iRead?`<div class="bc-actions"><button class="bc-btn read" onclick="markBattleRead('${b.id}','${myReadKey}',${iWon})">✓ Als gelesen markieren${iWon?' (+69 ML)':''}</button></div>`:'<div style="font-size:.68rem;color:var(--mu);font-style:italic">✓ Gelesen</div>'}
+      </div>`;
+    }
+    return '';
+  };
+
+  const pendEl=document.getElementById('battles-pending');
+  const actEl=document.getElementById('battles-active');
+  const finEl=document.getElementById('battles-finished');
+  pendEl.innerHTML=pending.length?pending.map(renderCard).join(''):'<div class="battle-empty">Keine ausstehenden Herausforderungen.</div>';
+  actEl.innerHTML=active.length?active.map(renderCard).join(''):'<div class="battle-empty">Keine laufenden Battles.</div>';
+  finEl.innerHTML=finished.length?finished.map(renderCard).join(''):'<div class="battle-empty">Noch keine fertigen Battles.</div>';
+}
+
+function timeAgo(iso){
+  const diff=Date.now()-new Date(iso).getTime();
+  const m=Math.floor(diff/60000);
+  if(m<1)return 'gerade eben';
+  if(m<60)return `vor ${m} Min`;
+  const h=Math.floor(m/60);
+  if(h<24)return `vor ${h} Std`;
+  return `vor ${Math.floor(h/24)} Tag(en)`;
+}
+
+function openBattleChallenge(opponentName){
+  if(!LB_CONFIGURED){showToast('Supabase nicht eingerichtet','warn');return;}
+  const myName=localStorage.getItem('mp9_lb_name')||'';
+  if(!myName){showToast('Trage zuerst deinen Namen in der Rangliste ein!','warn');return;}
+  if(opponentName===myName){showToast('Du kannst dich nicht selbst herausfordern 😄','warn');return;}
+  battleState.challengeOpponent=opponentName;
+  document.getElementById('battle-challenge-opponent').textContent=`Herausforderung für: ${opponentName}`;
+  const list=document.getElementById('battle-topic-list');
+  list.innerHTML=BATTLE_TOPICS.map(t=>`
+    <button class="battle-topic-btn" onclick="startBattleAsChallenger('${t.id}','${opponentName}')">
+      <span class="battle-topic-icon">${t.icon}</span>
+      <span class="battle-topic-title">${t.label}</span>
+      <span class="battle-topic-badge">10 Fragen</span>
+    </button>`).join('');
+  document.getElementById('m-battle-challenge').classList.add('show');
+}
+
+async function startBattleAsChallenger(topicId,opponentName){
+  closeM('m-battle-challenge');
+  const myName=localStorage.getItem('mp9_lb_name')||'';
+  // Build quiz
+  const qs=shuffleArray([...BATTLE_QB[topicId]]).slice(0,10);
+  battleState={challengeOpponent:opponentName,quizQuestions:qs,quizIdx:0,quizScore:0,quizTopicId:topicId,activeBattleId:null,role:'challenger'};
+  // Create battle row in Supabase first
+  try{
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/battles`,{
+      method:'POST',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=representation'},
+      body:JSON.stringify({challenger_name:myName,opponent_name:opponentName,topic_id:topicId,status:'pending',challenger_score:0,opponent_score:null,challenger_read:false,opponent_read:false,question_seed:JSON.stringify(qs.map(q=>q.q))})
+    });
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const rows=await res.json();
+    battleState.activeBattleId=rows[0]?.id||null;
+  }catch(e){showToast('⚠️ Fehler beim Erstellen: '+e.message,'warn');return;}
+  openBattleQuiz();
+}
+
+function startBattleAsOpponent(battleId,topicId,challengerName){
+  const qs=shuffleArray([...BATTLE_QB[topicId]]).slice(0,10);
+  battleState={quizQuestions:qs,quizIdx:0,quizScore:0,quizTopicId:topicId,activeBattleId:battleId,role:'opponent',challengeOpponent:challengerName};
+  openBattleQuiz();
+}
+
+function shuffleArray(arr){
+  for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
+  return arr;
+}
+
+function openBattleQuiz(){
+  const topic=BATTLE_TOPICS.find(t=>t.id===battleState.quizTopicId);
+  document.getElementById('bq-topic').textContent=topic?`${topic.icon} ${topic.label}`:'';
+  battleState.quizIdx=0;battleState.quizScore=0;
+  renderBattleQuestion();
+  document.getElementById('m-battle-quiz').classList.add('show');
+}
+
+function renderBattleQuestion(){
+  const idx=battleState.quizIdx;
+  const q=battleState.quizQuestions[idx];
+  document.getElementById('bq-num').textContent=idx+1;
+  document.getElementById('bq-progress').style.width=((idx/10)*100)+'%';
+  document.getElementById('bq-question').textContent=q.q;
+  document.getElementById('bq-feedback').style.display='none';
+  document.getElementById('bq-next-btn').style.display='none';
+  document.getElementById('bq-options').innerHTML=q.opts.map((o,i)=>`
+    <button class="obtn" style="width:100%;margin-bottom:6px;text-align:left"
+      onclick="answerBattleQ(${i})">${o}</button>`).join('');
+}
+
+function answerBattleQ(chosen){
+  const q=battleState.quizQuestions[battleState.quizIdx];
+  const correct=chosen===q.cor;
+  if(correct)battleState.quizScore++;
+  // Disable all buttons
+  document.querySelectorAll('#bq-options .obtn').forEach((b,i)=>{
+    b.disabled=true;
+    if(i===q.cor)b.style.background='rgba(52,211,153,.2)';
+    else if(i===chosen&&!correct)b.style.background='rgba(248,113,113,.2)';
+  });
+  const fb=document.getElementById('bq-feedback');
+  fb.style.display='block';
+  fb.style.background=correct?'rgba(52,211,153,.1)':'rgba(248,113,113,.1)';
+  fb.textContent=correct?'✓ Richtig!':'✗ Falsch';
+  document.getElementById('bq-next-btn').style.display='block';
+  document.getElementById('bq-next-btn').textContent=battleState.quizIdx<9?'Weiter →':'Auswertung →';
+}
+
+async function battleNextQ(){
+  battleState.quizIdx++;
+  if(battleState.quizIdx<10){renderBattleQuestion();return;}
+  // Quiz finished
+  document.getElementById('m-battle-quiz').classList.remove('show');
+  const score=battleState.quizScore;
+  // Save score to Supabase
+  if(battleState.activeBattleId){
+    const field=battleState.role==='challenger'?{challenger_score:score}:{opponent_score:score,status:'finished'};
+    try{
+      await fetch(`${SUPABASE_URL}/rest/v1/battles?id=eq.${battleState.activeBattleId}`,{
+        method:'PATCH',
+        headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},
+        body:JSON.stringify(field)
+      });
+    }catch(e){showToast('⚠️ Speichern fehlgeschlagen','warn');}
+  }
+  // Show result
+  document.getElementById('br-score').textContent=score;
+  if(battleState.role==='challenger'){
+    document.getElementById('br-emoji').textContent='⚔️';
+    document.getElementById('br-title').textContent='Battle gestartet!';
+    document.getElementById('br-subtitle').textContent=`Du hast ${score}/10 richtig. Warte auf ${battleState.challengeOpponent}!`;
+    document.getElementById('br-waiting').textContent='';
+  }else{
+    document.getElementById('br-emoji').textContent=score>=5?'🏆':'😔';
+    document.getElementById('br-title').textContent=score>=5?'Gut gespielt!':'Weiter üben!';
+    document.getElementById('br-subtitle').textContent=`Du vs ${battleState.challengeOpponent}`;
+    document.getElementById('br-waiting').textContent='Ergebnis in den Battles sichtbar.';
+  }
+  document.getElementById('m-battle-result').classList.add('show');
+}
+
+async function markBattleRead(battleId,field,isWinner){
+  try{
+    await fetch(`${SUPABASE_URL}/rest/v1/battles?id=eq.${battleId}`,{
+      method:'PATCH',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({[field]:true})
+    });
+    if(isWinner){
+      S.ml=(S.ml||0)+69;sS();updateUI();
+      showToast('🏆 +69 ML – Gewinner-Belohnung!','pts');
+    }else{showToast('✓ Als gelesen markiert','pts');}
+    loadBattles();
+  }catch(e){showToast('⚠️ Fehler: '+e.message,'warn');}
+}
+
+async function declineBattle(battleId){
+  try{
+    await fetch(`${SUPABASE_URL}/rest/v1/battles?id=eq.${battleId}`,{
+      method:'DELETE',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    });
+    showToast('Battle abgelehnt','warn');
+    loadBattles();
+  }catch(e){showToast('⚠️ Fehler','warn');}
+}
+
 // ===================== UPDATE NOTIFICATION =====================
 const UPDATES=[
   {v:'1.3',title:'Aufräumen 🧹',msg:'Nullstellen vollständig entfernt und durch passende Aufgaben ersetzt.'},
@@ -3774,6 +4788,7 @@ const UPDATES=[
   {v:'1.6',title:'Neues Punktesystem 💎',msg:'Finaltests & Legendenpfade geben jetzt Punkte pro richtiger Antwort. Minesweeper Leicht/Mittel/Schwer wird jetzt über die Legendenpfade freigeschaltet.'},
   {v:'1.7',title:'Online-Rangliste 🌍',msg:'Neu: Weltweite Rangliste via Supabase! Trage deinen Punktestand ein und vergleiche dich mit anderen Spielern.'},
   {v:'1.8',title:'Item-Shop & Matheloin 🛒',msg:'Punkte heißen jetzt Matheloin (ML) und können im Shop ausgegeben werden. 50 Avatare, 8 Rahmen – alle 5 Min rotiert der Shop!'},
+  {v:'1.9',title:'Multiplayer Battles ⚔️',msg:'Neu: Fordere andere Spieler zum Battle heraus! 10 Fragen, 6 Themen – Gewinner erhält 69 ML. Plus: 15 animierte Designs im Shop. Vorschau auf v2.0 im Update-Log!'},
 ];
 function checkUpdates(){
   const seen=localStorage.getItem('mp9_seen_update')||'';
