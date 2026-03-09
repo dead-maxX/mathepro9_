@@ -575,6 +575,12 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.93);backdrop-fil
 .shop-eq-slot-label{font-size:.6rem;color:var(--mu);font-family:var(--fm);text-transform:uppercase;letter-spacing:.8px}
 .shop-eq-slot-name{font-size:.8rem;font-weight:700;margin-top:2px}
 .shop-eq-unequip{font-size:.6rem;color:var(--red);background:none;border:none;cursor:pointer;font-family:var(--fm);padding:0;margin-top:2px}
+/* AUTH */
+#auth-screen input:focus{border-color:var(--ac)!important;box-shadow:0 0 0 2px rgba(110,231,247,.15)}
+.admin-user-card{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:11px 14px;display:flex;align-items:center;gap:10px}
+.admin-stat-box{background:var(--sf);border-radius:10px;padding:12px;text-align:center}
+.admin-stat-val{font-size:1.4rem;font-weight:800;color:var(--ac)}
+.admin-stat-lbl{font-size:.65rem;color:var(--mu);font-family:var(--fm);margin-top:2px}
 /* BATTLES */
 .battle-tutorial-box{
   background:linear-gradient(135deg,rgba(110,231,247,.07),rgba(167,139,250,.05));
@@ -786,9 +792,126 @@ body{position:relative}
 .btns{background:var(--sf2);border:1px solid var(--bd);color:var(--txt);border-radius:9px;padding:9px 20px;font-family:var(--fd);font-size:.86rem;cursor:pointer}
 .btnw{background:var(--warn);color:#fff;border:none;border-radius:9px;padding:9px 20px;font-family:var(--fd);font-size:.86rem;font-weight:700;cursor:pointer}
 </style>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="efb09008-fa59-4557-9176-540aa23971fc"></script>
 </head>
 <body>
 <canvas id="theme-canvas"></canvas>
+
+<!-- AUTH SCREEN -->
+<div id="auth-screen" style="position:fixed;inset:0;background:#0a0e1a;z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px">
+  <div style="width:100%;max-width:400px">
+    <!-- Logo -->
+    <div style="text-align:center;margin-bottom:28px">
+      <div style="font-size:2.4rem;font-weight:900;font-family:var(--fd);background:linear-gradient(135deg,var(--ac),var(--ac3));-webkit-background-clip:text;-webkit-text-fill-color:transparent">∑ MathePro 9</div>
+      <div style="font-size:.78rem;color:var(--mu);margin-top:4px;font-family:var(--fm)">Klasse 9 · Quadratische Funktionen & Kreisberechnungen</div>
+    </div>
+
+    <!-- Tab switcher -->
+    <div style="display:flex;background:var(--sf);border-radius:12px;padding:4px;margin-bottom:20px;gap:4px" id="auth-tabs">
+      <button onclick="switchAuthTab('login')" id="auth-tab-login" style="flex:1;padding:10px;border:none;border-radius:9px;font-family:var(--fd);font-weight:700;font-size:.82rem;cursor:pointer;background:var(--ac);color:#0a0e1a;transition:all .2s">Anmelden</button>
+      <button onclick="switchAuthTab('register')" id="auth-tab-register" style="flex:1;padding:10px;border:none;border-radius:9px;font-family:var(--fd);font-weight:700;font-size:.82rem;cursor:pointer;background:transparent;color:var(--mu);transition:all .2s">Registrieren</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <div id="auth-login-form">
+      <div style="margin-bottom:12px">
+        <label style="font-size:.75rem;color:var(--mu);font-family:var(--fm);display:block;margin-bottom:5px">BENUTZERNAME</label>
+        <input id="login-name" type="text" placeholder="Dein Name" maxlength="20"
+          style="width:100%;background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:12px 14px;color:var(--txt);font-family:var(--fd);font-size:.9rem;box-sizing:border-box;outline:none">
+      </div>
+      <div style="margin-bottom:20px">
+        <label style="font-size:.75rem;color:var(--mu);font-family:var(--fm);display:block;margin-bottom:5px">ACCOUNT-CODE (4 Ziffern)</label>
+        <input id="login-code" type="password" placeholder="••••" maxlength="4" inputmode="numeric"
+          style="width:100%;background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:12px 14px;color:var(--txt);font-family:var(--fm);font-size:1.1rem;box-sizing:border-box;outline:none;letter-spacing:4px">
+      </div>
+      <button onclick="doLogin()" style="width:100%;padding:14px;background:var(--ac);color:#0a0e1a;border:none;border-radius:12px;font-family:var(--fd);font-weight:800;font-size:.92rem;cursor:pointer">Anmelden →</button>
+      <div id="login-error" style="display:none;margin-top:10px;padding:10px;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.3);border-radius:8px;font-size:.78rem;color:#f87171;text-align:center"></div>
+    </div>
+
+    <!-- REGISTER FORM -->
+    <div id="auth-register-form" style="display:none">
+      <div style="margin-bottom:12px">
+        <label style="font-size:.75rem;color:var(--mu);font-family:var(--fm);display:block;margin-bottom:5px">BENUTZERNAME</label>
+        <input id="reg-name" type="text" placeholder="Wähle einen Namen" maxlength="20"
+          style="width:100%;background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:12px 14px;color:var(--txt);font-family:var(--fd);font-size:.9rem;box-sizing:border-box;outline:none">
+      </div>
+      <div style="margin-bottom:12px">
+        <label style="font-size:.75rem;color:var(--mu);font-family:var(--fm);display:block;margin-bottom:5px">ACCOUNT-CODE ERSTELLEN (4 Ziffern)</label>
+        <input id="reg-code" type="password" placeholder="••••" maxlength="4" inputmode="numeric"
+          style="width:100%;background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:12px 14px;color:var(--txt);font-family:var(--fm);font-size:1.1rem;box-sizing:border-box;outline:none;letter-spacing:4px">
+        <div style="font-size:.68rem;color:var(--mu);margin-top:4px">⚠️ Diesen Code gut merken – er kann nicht wiederhergestellt werden!</div>
+      </div>
+      <div style="margin-bottom:12px">
+        <label style="font-size:.75rem;color:var(--mu);font-family:var(--fm);display:block;margin-bottom:5px">ZUGANGS-CODE (vom Developer)</label>
+        <input id="reg-access" type="password" placeholder="••••••" maxlength="6" inputmode="numeric"
+          style="width:100%;background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:12px 14px;color:var(--txt);font-family:var(--fm);font-size:1.1rem;box-sizing:border-box;outline:none;letter-spacing:4px">
+      </div>
+      <button onclick="doRegister()" style="width:100%;padding:14px;background:var(--ac3);color:#0a0e1a;border:none;border-radius:12px;font-family:var(--fd);font-weight:800;font-size:.92rem;cursor:pointer">Account erstellen →</button>
+      <div id="reg-error" style="display:none;margin-top:10px;padding:10px;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.3);border-radius:8px;font-size:.78rem;color:#f87171;text-align:center"></div>
+    </div>
+
+    <div style="text-align:center;margin-top:16px;font-size:.68rem;color:var(--mu)">MathePro 9 · Nur für eingeladene Nutzer</div>
+  </div>
+</div>
+
+<!-- TRANSFER MODAL: offer to import local progress -->
+<div class="mov" id="m-transfer">
+  <div class="mbox" style="text-align:center">
+    <div style="font-size:2rem;margin-bottom:8px">📦</div>
+    <div class="mttl">Lokalen Fortschritt übernehmen?</div>
+    <div style="font-size:.8rem;color:var(--mu);margin-bottom:16px">Es wurde ein lokaler Spielstand gefunden. Möchtest du ihn in deinen neuen Account importieren?</div>
+    <div style="background:var(--sf2);border-radius:10px;padding:12px;margin-bottom:16px;font-size:.78rem" id="transfer-info"></div>
+    <div style="display:flex;gap:8px">
+      <button class="btnw" onclick="skipTransfer()" style="flex:1">Nein danke</button>
+      <button class="btna" onclick="doTransfer()" style="flex:1">✓ Übernehmen</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="mov" id="m-admin">
+  <div class="mbox" style="max-height:90vh;overflow-y:auto;min-width:min(500px,90vw)">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div class="mttl" style="margin:0">⚙️ Admin-Panel</div>
+      <button onclick="closeM('m-admin')" style="background:none;border:none;color:var(--mu);font-size:1.2rem;cursor:pointer">✕</button>
+    </div>
+    <div style="font-size:.72rem;color:var(--mu);margin-bottom:16px;font-family:var(--fm)">Eingeloggt als Admin</div>
+
+    <!-- Stats -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px" id="admin-stats"></div>
+
+    <!-- Zugangscode ändern -->
+    <div style="background:var(--sf);border-radius:10px;padding:14px;margin-bottom:14px">
+      <div style="font-size:.8rem;font-weight:700;margin-bottom:10px">🔑 Zugangscode ändern</div>
+      <div style="display:flex;gap:8px">
+        <input id="admin-new-code" type="text" placeholder="Neuer 6-stelliger Code" maxlength="6" inputmode="numeric"
+          style="flex:1;background:var(--sf2);border:1px solid var(--bd);border-radius:8px;padding:9px 12px;color:var(--txt);font-family:var(--fm);font-size:.9rem;outline:none">
+        <button onclick="adminChangeCode()" class="btns" style="padding:9px 14px;font-size:.78rem">Ändern</button>
+      </div>
+    </div>
+
+    <!-- User list -->
+    <div style="font-size:.8rem;font-weight:700;margin-bottom:8px">👥 Nutzer (<span id="admin-user-count">…</span>)</div>
+    <div id="admin-user-list" style="display:flex;flex-direction:column;gap:6px"></div>
+  </div>
+</div>
+
+<!-- ADMIN EDIT USER MODAL -->
+<div class="mov" id="m-admin-edit">
+  <div class="mbox">
+    <div class="mttl">✏️ Nutzer bearbeiten</div>
+    <div style="font-size:.82rem;color:var(--mu);margin-bottom:14px" id="admin-edit-name"></div>
+    <div style="margin-bottom:12px">
+      <label style="font-size:.72rem;color:var(--mu);font-family:var(--fm);display:block;margin-bottom:4px">PUNKTE</label>
+      <input id="admin-edit-pts" type="number" style="width:100%;background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:9px 12px;color:var(--txt);font-family:var(--fm);font-size:.9rem;box-sizing:border-box;outline:none">
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btnw" onclick="closeM('m-admin-edit')" style="flex:1">Abbrechen</button>
+      <button class="btna" onclick="adminSaveEdit()" style="flex:1">Speichern</button>
+    </div>
+  </div>
+</div>
+
 
 <nav>
   <span class="nl">∑ MathePro 9</span>
@@ -804,6 +927,8 @@ body{position:relative}
   <button class="nt" id="nav-battles" onclick="showPage('battles')">⚔️ Battles <span id="battle-badge" style="display:none;background:#f87171;color:#fff;border-radius:8px;padding:0 5px;font-size:.6rem;margin-left:2px">!</span></button>
   <button class="nt" onclick="showPage('shop')">🛒 Shop</button>
   <div class="nscore">🪙<span class="sb" id="tscore">0 ML</span></div>
+  <button class="nt" id="nav-admin" onclick="openAdminPanel()" style="display:none;color:#fbbf24">⚙️ Admin</button>
+  <button class="nt" onclick="doLogout()" style="color:#f87171">🚪 Logout</button>
 </nav>
 
 <!-- MATHBOT FLOATING BUTTON -->
@@ -4596,17 +4721,27 @@ async function submitScore(){
   const btn=document.getElementById('lb-submit-confirm');
   btn.disabled=true;btn.textContent='⏳ Wird eingetragen…';
   try{
-    // Upsert: update if name exists, insert if not
-    const res=await fetch(`${SUPABASE_URL}/rest/v1/${LB_TABLE}`,{
-      method:'POST',
-      headers:{
-        'apikey':SUPABASE_KEY,
-        'Authorization':'Bearer '+SUPABASE_KEY,
-        'Content-Type':'application/json',
-        'Prefer':'resolution=merge-duplicates,return=minimal'
-      },
-      body:JSON.stringify({name,pts:S.tp||0})
+    // Check if entry with this name already exists
+    const checkRes=await fetch(`${SUPABASE_URL}/rest/v1/${LB_TABLE}?name=eq.${encodeURIComponent(name)}&select=id`,{
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
     });
+    const existing=await checkRes.json();
+    let res;
+    if(existing&&existing.length>0){
+      // Update existing entry
+      res=await fetch(`${SUPABASE_URL}/rest/v1/${LB_TABLE}?name=eq.${encodeURIComponent(name)}`,{
+        method:'PATCH',
+        headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+        body:JSON.stringify({pts:S.tp||0})
+      });
+    }else{
+      // Insert new entry
+      res=await fetch(`${SUPABASE_URL}/rest/v1/${LB_TABLE}`,{
+        method:'POST',
+        headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+        body:JSON.stringify({name,pts:S.tp||0})
+      });
+    }
     if(!res.ok){
       const errBody=await res.text().catch(()=>'');
       throw new Error(`HTTP ${res.status}${errBody?' – '+errBody.slice(0,120):''}`);
@@ -5304,6 +5439,316 @@ function showBattleNotifBanner(count,battle){
   },6700);
 }
 
+// ===================== AUTH SYSTEM =====================
+const ACCESS_CODE='482951';
+const ADMIN_CODE='739264';
+let _currentUser=null; // {id, name, pts}
+let _adminEditTarget=null;
+let _dynamicAccessCode=null; // can be changed by admin
+
+function getAccessCode(){return _dynamicAccessCode||ACCESS_CODE;}
+
+function switchAuthTab(tab){
+  const isLogin=tab==='login';
+  document.getElementById('auth-login-form').style.display=isLogin?'block':'none';
+  document.getElementById('auth-register-form').style.display=isLogin?'none':'block';
+  const tl=document.getElementById('auth-tab-login');
+  const tr=document.getElementById('auth-tab-register');
+  tl.style.background=isLogin?'var(--ac)':'transparent';
+  tl.style.color=isLogin?'#0a0e1a':'var(--mu)';
+  tr.style.background=isLogin?'transparent':'var(--ac3)';
+  tr.style.color=isLogin?'var(--mu)':'#0a0e1a';
+}
+
+async function doLogin(){
+  const name=(document.getElementById('login-name').value||'').trim();
+  const code=(document.getElementById('login-code').value||'').trim();
+  const errEl=document.getElementById('login-error');
+  errEl.style.display='none';
+  if(!name||!code){showAuthError('login','Bitte Name und Code eingeben.');return;}
+  // Check admin code
+  if(code===ADMIN_CODE){
+    // Admin login – create temp session
+    _currentUser={id:-1,name:'Admin',pts:0,isAdmin:true};
+    finishLogin();
+    return;
+  }
+  try{
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/users?name=eq.${encodeURIComponent(name)}&select=id,name,pts,progress`,{
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    });
+    const data=await res.json();
+    if(!data||data.length===0){showAuthError('login','Name nicht gefunden. Bitte zuerst registrieren.');return;}
+    const user=data[0];
+    if(user.account_code===undefined){
+      // fetch with code
+    }
+    // Re-fetch with code check
+    const res2=await fetch(`${SUPABASE_URL}/rest/v1/users?name=eq.${encodeURIComponent(name)}&account_code=eq.${encodeURIComponent(code)}&select=id,name,pts,progress`,{
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    });
+    const data2=await res2.json();
+    if(!data2||data2.length===0){showAuthError('login','Falscher Account-Code.');return;}
+    _currentUser=data2[0];
+    // Update last_seen
+    fetch(`${SUPABASE_URL}/rest/v1/users?id=eq.${_currentUser.id}`,{
+      method:'PATCH',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({last_seen:new Date().toISOString()})
+    }).catch(()=>{});
+    // Load progress from server
+    if(_currentUser.progress){
+      try{const sp=JSON.parse(_currentUser.progress);S=Object.assign(S,sp);}catch(e){}
+    }
+    finishLogin();
+  }catch(e){showAuthError('login','Fehler: '+e.message);}
+}
+
+async function doRegister(){
+  const name=(document.getElementById('reg-name').value||'').trim();
+  const code=(document.getElementById('reg-code').value||'').trim();
+  const access=(document.getElementById('reg-access').value||'').trim();
+  if(!name||!code||!access){showAuthError('register','Alle Felder ausfüllen.');return;}
+  if(!/^\d{4}$/.test(code)){showAuthError('register','Account-Code muss genau 4 Ziffern haben.');return;}
+  if(access!==getAccessCode()){showAuthError('register','Falscher Zugangscode.');return;}
+  if(name.length<2){showAuthError('register','Name muss mindestens 2 Zeichen haben.');return;}
+  try{
+    // Check if name taken
+    const chk=await fetch(`${SUPABASE_URL}/rest/v1/users?name=eq.${encodeURIComponent(name)}&select=id`,{
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    });
+    const existing=await chk.json();
+    if(existing&&existing.length>0){showAuthError('register','Dieser Name ist bereits vergeben.');return;}
+    // Create user
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/users`,{
+      method:'POST',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=representation'},
+      body:JSON.stringify({name,account_code:code,pts:0,progress:null,last_seen:new Date().toISOString()})
+    });
+    if(!res.ok){const e=await res.text();throw new Error(e.slice(0,100));}
+    const created=await res.json();
+    _currentUser=created[0];
+    // Also insert into scores
+    fetch(`${SUPABASE_URL}/rest/v1/scores`,{
+      method:'POST',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({name,pts:0})
+    }).catch(()=>{});
+    // Check for local progress to transfer
+    const local=localStorage.getItem('mp9v4');
+    if(local){
+      try{
+        const lp=JSON.parse(local);
+        const totalPts=lp.tp||0;
+        if(totalPts>0){
+          document.getElementById('transfer-info').innerHTML=
+            `<b>${name}</b> · Lokaler Fortschritt gefunden<br>
+             <span style="color:var(--ac);font-weight:700">${totalPts} ML</span> · ${Object.keys(lp.tprog||{}).length} Themen begonnen`;
+          document.getElementById('m-transfer').classList.add('show');
+          return;
+        }
+      }catch(e){}
+    }
+    finishLogin();
+  }catch(e){showAuthError('register','Fehler: '+e.message);}
+}
+
+function doTransfer(){
+  // Import local progress into account
+  const local=localStorage.getItem('mp9v4');
+  if(local){
+    try{
+      const lp=JSON.parse(local);
+      S=Object.assign(S,lp);
+      saveProgressToServer();
+    }catch(e){}
+  }
+  closeM('m-transfer');
+  finishLogin();
+}
+
+function skipTransfer(){
+  closeM('m-transfer');
+  finishLogin();
+}
+
+function finishLogin(){
+  localStorage.setItem('mp9_session',JSON.stringify({name:_currentUser.name,id:_currentUser.id}));
+  localStorage.setItem('mp9_lb_name',_currentUser.name);
+  document.getElementById('auth-screen').style.display='none';
+  if(_currentUser.isAdmin){
+    document.getElementById('nav-admin').style.display='inline-flex';
+  }
+  updateUI();renderRM();buildTC();setTimeout(initG,100);checkUpdates();
+  setTimeout(()=>{updateOnlineStatus();checkBattleNotification();},1500);
+  setInterval(updateOnlineStatus,4*60*1000);
+  setInterval(saveProgressToServer,2*60*1000);
+  const _msNav=document.getElementById('nav-ms');if(_msNav&&msModeUnlocked()>0)_msNav.style.display='inline-flex';
+}
+
+async function saveProgressToServer(){
+  if(!_currentUser||_currentUser.isAdmin||!_currentUser.id)return;
+  try{
+    await fetch(`${SUPABASE_URL}/rest/v1/users?id=eq.${_currentUser.id}`,{
+      method:'PATCH',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({pts:S.tp||0,progress:JSON.stringify(S),last_seen:new Date().toISOString()})
+    });
+    // Update scores table too
+    await fetch(`${SUPABASE_URL}/rest/v1/scores?name=eq.${encodeURIComponent(_currentUser.name)}`,{
+      method:'PATCH',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({pts:S.tp||0})
+    });
+  }catch(e){}
+}
+
+function doLogout(){
+  if(!confirm('Wirklich ausloggen? Dein Fortschritt wird gespeichert.'))return;
+  saveProgressToServer().then(()=>{
+    localStorage.removeItem('mp9_session');
+    _currentUser=null;
+    location.reload();
+  });
+}
+
+function showAuthError(form,msg){
+  const id=form==='login'?'login-error':'reg-error';
+  const el=document.getElementById(id);
+  el.textContent=msg;el.style.display='block';
+}
+
+async function checkAutoLogin(){
+  const session=localStorage.getItem('mp9_session');
+  if(!session)return false;
+  try{
+    const {name,id}=JSON.parse(session);
+    if(!name||!id)return false;
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/users?id=eq.${id}&name=eq.${encodeURIComponent(name)}&select=id,name,pts,progress`,{
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    });
+    const data=await res.json();
+    if(!data||data.length===0){localStorage.removeItem('mp9_session');return false;}
+    _currentUser=data[0];
+    if(_currentUser.progress){
+      try{const sp=JSON.parse(_currentUser.progress);S=Object.assign(S,sp);}catch(e){}
+    }
+    fetch(`${SUPABASE_URL}/rest/v1/users?id=eq.${_currentUser.id}`,{
+      method:'PATCH',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({last_seen:new Date().toISOString()})
+    }).catch(()=>{});
+    localStorage.setItem('mp9_lb_name',_currentUser.name);
+    document.getElementById('auth-screen').style.display='none';
+    setInterval(saveProgressToServer,2*60*1000);
+    return true;
+  }catch(e){return false;}
+}
+
+// Override sS to also save to server
+const _origSS=sS;
+window.sS=function(){
+  localStorage.setItem('mp9v4',JSON.stringify(S));
+  if(_currentUser&&!_currentUser.isAdmin)saveProgressToServer();
+};
+
+// ===================== ADMIN PANEL =====================
+function openAdminPanel(){
+  if(!_currentUser?.isAdmin){
+    const code=prompt('Admin-Code eingeben:');
+    if(code!==ADMIN_CODE){showToast('Falscher Code','warn');return;}
+    _currentUser={..._currentUser,isAdmin:true};
+    document.getElementById('nav-admin').style.display='inline-flex';
+  }
+  loadAdminPanel();
+  document.getElementById('m-admin').classList.add('show');
+}
+
+async function loadAdminPanel(){
+  const listEl=document.getElementById('admin-user-list');
+  const statsEl=document.getElementById('admin-stats');
+  const countEl=document.getElementById('admin-user-count');
+  listEl.innerHTML='<div style="color:var(--mu);font-size:.8rem">Lade…</div>';
+  try{
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/users?select=id,name,pts,last_seen,created_at&order=pts.desc`,{
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    });
+    const users=await res.json();
+    countEl.textContent=users.length;
+    const online=users.filter(u=>u.last_seen&&Date.now()-new Date(u.last_seen).getTime()<5*60*1000).length;
+    statsEl.innerHTML=`
+      <div class="admin-stat-box"><div class="admin-stat-val">${users.length}</div><div class="admin-stat-lbl">Nutzer gesamt</div></div>
+      <div class="admin-stat-box"><div class="admin-stat-val" style="color:#34d399">${online}</div><div class="admin-stat-lbl">Jetzt online</div></div>
+      <div class="admin-stat-box"><div class="admin-stat-val" style="color:#fbbf24">${getAccessCode()}</div><div class="admin-stat-lbl">Zugangscode</div></div>
+      <div class="admin-stat-box"><div class="admin-stat-val" style="color:#a78bfa">${users.reduce((a,u)=>a+(u.pts||0),0)}</div><div class="admin-stat-lbl">ML gesamt</div></div>`;
+    listEl.innerHTML=users.map(u=>{
+      const isOnline=u.last_seen&&Date.now()-new Date(u.last_seen).getTime()<5*60*1000;
+      const date=u.created_at?new Date(u.created_at).toLocaleDateString('de-DE'):'–';
+      return `<div class="admin-user-card">
+        <div style="font-size:1.1rem">${isOnline?'🟢':'⚫'}</div>
+        <div style="flex:1">
+          <div style="font-weight:700;font-size:.85rem">${esc(u.name)}</div>
+          <div style="font-size:.65rem;color:var(--mu);font-family:var(--fm)">Dabei seit ${date} · ${u.pts||0} ML</div>
+        </div>
+        <button onclick="adminEditUser(${u.id},'${esc(u.name)}',${u.pts||0})" style="background:rgba(110,231,247,.1);border:1px solid rgba(110,231,247,.2);border-radius:7px;padding:5px 10px;color:var(--ac);font-size:.7rem;cursor:pointer;font-family:var(--fd)">✏️</button>
+        <button onclick="adminDeleteUser(${u.id},'${esc(u.name)}')" style="background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.2);border-radius:7px;padding:5px 10px;color:#f87171;font-size:.7rem;cursor:pointer;font-family:var(--fd);margin-left:4px">🗑️</button>
+      </div>`;
+    }).join('');
+  }catch(e){listEl.innerHTML=`<div style="color:#f87171;font-size:.8rem">Fehler: ${e.message}</div>`;}
+}
+
+function adminEditUser(id,name,pts){
+  _adminEditTarget={id,name};
+  document.getElementById('admin-edit-name').textContent=name;
+  document.getElementById('admin-edit-pts').value=pts;
+  document.getElementById('m-admin-edit').classList.add('show');
+}
+
+async function adminSaveEdit(){
+  if(!_adminEditTarget)return;
+  const pts=parseInt(document.getElementById('admin-edit-pts').value)||0;
+  try{
+    await fetch(`${SUPABASE_URL}/rest/v1/users?id=eq.${_adminEditTarget.id}`,{
+      method:'PATCH',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({pts})
+    });
+    await fetch(`${SUPABASE_URL}/rest/v1/scores?name=eq.${encodeURIComponent(_adminEditTarget.name)}`,{
+      method:'PATCH',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({pts})
+    });
+    closeM('m-admin-edit');
+    showToast('✅ Gespeichert','pts');
+    loadAdminPanel();
+  }catch(e){showToast('Fehler: '+e.message,'warn');}
+}
+
+async function adminDeleteUser(id,name){
+  if(!confirm(`Nutzer "${name}" wirklich löschen?`))return;
+  try{
+    await fetch(`${SUPABASE_URL}/rest/v1/users?id=eq.${id}`,{
+      method:'DELETE',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    });
+    await fetch(`${SUPABASE_URL}/rest/v1/scores?name=eq.${encodeURIComponent(name)}`,{
+      method:'DELETE',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    });
+    showToast(`🗑️ ${name} gelöscht`,'warn');
+    loadAdminPanel();
+  }catch(e){showToast('Fehler: '+e.message,'warn');}
+}
+
+async function adminChangeCode(){
+  const newCode=(document.getElementById('admin-new-code').value||'').trim();
+  if(!/^\d{6}$/.test(newCode)){showToast('Code muss 6 Ziffern haben','warn');return;}
+  _dynamicAccessCode=newCode;
+  showToast(`✅ Zugangscode geändert zu: ${newCode}`,'pts');
+  document.getElementById('admin-new-code').value='';
+  loadAdminPanel();
+}
+
 // ===================== UPDATE NOTIFICATION =====================
 const UPDATES=[
   {v:'2.0',title:'Weg zum Ende 💀',msg:'Neuer Ultra-Pfad mit 13 Kapiteln + Ultra-Abschlusstest (1200 ML)! Online-Status in der Rangliste, Battle-Benachrichtigungen beim Start, und epische Abschluss-Animationen für alle Tests.'},
@@ -5336,11 +5781,23 @@ function closeUpdate(){
 }
 
 // ===================== INIT =====================
-lS();loadCFG();applyCFG();updateUI();renderRM();buildTC();setTimeout(initG,100);checkUpdates();
-setTimeout(()=>{updateOnlineStatus();checkBattleNotification();},1500);
-setInterval(updateOnlineStatus,4*60*1000);
-// show ms nav if already unlocked
-const _msNav=document.getElementById('nav-ms');if(_msNav&&msModeUnlocked()>0)_msNav.style.display='inline-flex';
+lS();loadCFG();applyCFG();
+
+async function initApp(){
+  const ok=await checkAutoLogin();
+  if(ok){
+    if(_currentUser?.isAdmin){
+      document.getElementById('nav-admin').style.display='inline-flex';
+    }
+    updateUI();renderRM();buildTC();setTimeout(initG,100);checkUpdates();
+    setTimeout(()=>{updateOnlineStatus();checkBattleNotification();},1500);
+    setInterval(updateOnlineStatus,4*60*1000);
+    const _msNav=document.getElementById('nav-ms');if(_msNav&&msModeUnlocked()>0)_msNav.style.display='inline-flex';
+  } else {
+    document.getElementById('auth-screen').style.display='flex';
+  }
+}
+initApp();
 </script>
 </body>
 </html>
