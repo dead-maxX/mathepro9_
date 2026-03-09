@@ -1956,8 +1956,8 @@ function lS(){try{const d=localStorage.getItem('mp9v4');if(d)S=JSON.parse(d);}ca
 }
 function sS(){localStorage.setItem('mp9v4',JSON.stringify(S));}
 function gTp(id){if(!S.tprog[id])S.tprog[id]={};return S.tprog[id];}
-function topicOk(i){if(i===0)return true;const p=TOPICS[i-1];const pr=gTp(p.id);return p.chapters.every((_,ci)=>pr[ci]?.done);}
-function chapOk(tid,ci){if(ci===0)return true;return !!gTp(tid)[ci-1]?.done;}
+function topicOk(i){if(DEV_MODE)return true;if(i===0)return true;const p=TOPICS[i-1];const pr=gTp(p.id);return p.chapters.every((_,ci)=>pr[ci]?.done);}
+function chapOk(tid,ci){if(DEV_MODE)return true;if(ci===0)return true;return !!gTp(tid)[ci-1]?.done;}
 function allDone(){return TOPICS.every(t=>{const pr=gTp(t.id);return t.chapters.every((_,ci)=>pr[ci]?.done);});}
 function doneChaps(){return TOPICS.reduce((s,t)=>{const pr=gTp(t.id);return s+t.chapters.filter((_,ci)=>pr[ci]?.done).length;},0);}
 function totalChaps(){return TOPICS.reduce((s,t)=>s+t.chapters.length,0);}
@@ -2149,9 +2149,14 @@ function showPage(id){
   if(id==='leaderboard')initLeaderboard();
   if(id==='shop')initShop();
   if(id==='battles')initBattlesPage();
-  // show/hide ms nav
+  // show/hide ms nav – hidden in DEV_MODE
   const msNav=document.getElementById('nav-ms');
-  if(msNav)msNav.style.display=msModeUnlocked()>0?'inline-flex':'none';
+  if(msNav)msNav.style.display=(!DEV_MODE&&msModeUnlocked()>0)?'inline-flex':'none';
+  // Block minesweeper in DEV_MODE
+  if(id==='minesweeper'&&DEV_MODE){
+    showToast('🚧 Minesweeper vorübergehend deaktiviert','warn');
+    showPage('home');
+  }
 }
 function showChaps(tid){
   const t=TOPICS.find(x=>x.id===tid),ti=TOPICS.indexOf(t);
@@ -3113,6 +3118,7 @@ let msCfg=null,msB=[],msRev=[],msFlg=[],msGO=false,msWon=false,msFst=true,msTv=0
 let msLongPress=null;
 
 function msModeUnlocked(){
+  if(DEV_MODE)return 0;
   const pt=S.ft?.passedTests||[false,false,false];
   const lftP=S.lft?.passed||[false,false,false];
   let count=0;
@@ -5443,6 +5449,7 @@ function showBattleNotifBanner(count,battle){
 const ACCESS_CODE='482951';
 const ADMIN_CODE='739264';
 let _currentUser=null; // {id, name, pts}
+const DEV_MODE=true; // set false to re-enable normal unlock logic
 let _adminEditTarget=null;
 let _dynamicAccessCode=null; // can be changed by admin
 
@@ -5523,32 +5530,52 @@ async function doRegister(){
   const name=(document.getElementById('reg-name').value||'').trim();
   const code=(document.getElementById('reg-code').value||'').trim();
   const access=(document.getElementById('reg-access').value||'').trim();
+  const errEl=document.getElementById('reg-error');
+  errEl.style.display='none';
   if(!name||!code||!access){showAuthError('register','Alle Felder ausfüllen.');return;}
   if(!/^\d{4}$/.test(code)){showAuthError('register','Account-Code muss genau 4 Ziffern haben.');return;}
   if(access!==getAccessCode()){showAuthError('register','Falscher Zugangscode.');return;}
   if(name.length<2){showAuthError('register','Name muss mindestens 2 Zeichen haben.');return;}
+  const btn=document.querySelector('#auth-register-form button');
+  if(btn){btn.disabled=true;btn.textContent='⏳ Wird erstellt…';}
   try{
     // Check if name taken
     const chk=await fetch(`${SUPABASE_URL}/rest/v1/users?name=eq.${encodeURIComponent(name)}&select=id`,{
       headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
     });
+    if(!chk.ok){
+      const errTxt=await chk.text().catch(()=>'');
+      if(chk.status===404||errTxt.includes('does not exist')||errTxt.includes('relation')){
+        throw new Error('Tabelle "users" nicht gefunden – bitte in Supabase anlegen!');
+      }
+      throw new Error('Verbindungsfehler ('+chk.status+'): '+errTxt.slice(0,80));
+    }
     const existing=await chk.json();
-    if(existing&&existing.length>0){showAuthError('register','Dieser Name ist bereits vergeben.');return;}
-    // Create user
+    if(Array.isArray(existing)&&existing.length>0){
+      if(btn){btn.disabled=false;btn.textContent='Account erstellen →';}
+      showAuthError('register','Dieser Name ist bereits vergeben. Bitte einen anderen wählen.');
+      return;
+    }
+    // Create user with 500 ML start bonus
+    const startPts=500;
     const res=await fetch(`${SUPABASE_URL}/rest/v1/users`,{
       method:'POST',
       headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=representation'},
-      body:JSON.stringify({name,account_code:code,pts:0,progress:null,last_seen:new Date().toISOString()})
+      body:JSON.stringify({name,account_code:code,pts:startPts,progress:null,last_seen:new Date().toISOString()})
     });
-    if(!res.ok){const e=await res.text();throw new Error(e.slice(0,100));}
+    if(!res.ok){const e=await res.text();throw new Error(e.slice(0,150));}
     const created=await res.json();
+    if(!created||!created[0]){throw new Error('Keine Antwort vom Server');}
     _currentUser=created[0];
+    // Give 500 ML start bonus in local state
+    S.tp=(S.tp||0)+startPts;
     // Also insert into scores
     fetch(`${SUPABASE_URL}/rest/v1/scores`,{
       method:'POST',
       headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
-      body:JSON.stringify({name,pts:0})
+      body:JSON.stringify({name,pts:startPts})
     }).catch(()=>{});
+    if(btn){btn.disabled=false;btn.textContent='Account erstellen →';}
     // Check for local progress to transfer
     const local=localStorage.getItem('mp9v4');
     if(local){
@@ -5564,8 +5591,12 @@ async function doRegister(){
         }
       }catch(e){}
     }
+    showToast('🎉 Willkommen! +500 ML Startbonus!','pts');
     finishLogin();
-  }catch(e){showAuthError('register','Fehler: '+e.message);}
+  }catch(e){
+    if(btn){btn.disabled=false;btn.textContent='Account erstellen →';}
+    showAuthError('register','Fehler: '+e.message);
+  }
 }
 
 async function doTransfer(){
@@ -5599,7 +5630,7 @@ function finishLogin(){
   setTimeout(()=>{updateOnlineStatus();checkBattleNotification();},1500);
   setInterval(updateOnlineStatus,4*60*1000);
   setInterval(saveProgressToServer,2*60*1000);
-  const _msNav=document.getElementById('nav-ms');if(_msNav&&msModeUnlocked()>0)_msNav.style.display='inline-flex';
+  const _msNav=document.getElementById('nav-ms');if(_msNav&&!DEV_MODE&&msModeUnlocked()>0)_msNav.style.display='inline-flex';
 }
 
 async function saveProgressToServer(){
@@ -5808,7 +5839,7 @@ async function initApp(){
     updateUI();renderRM();buildTC();setTimeout(initG,100);checkUpdates();
     setTimeout(()=>{updateOnlineStatus();checkBattleNotification();},1500);
     setInterval(updateOnlineStatus,4*60*1000);
-    const _msNav=document.getElementById('nav-ms');if(_msNav&&msModeUnlocked()>0)_msNav.style.display='inline-flex';
+    const _msNav=document.getElementById('nav-ms');if(_msNav&&!DEV_MODE&&msModeUnlocked()>0)_msNav.style.display='inline-flex';
   } else {
     document.getElementById('auth-screen').style.display='flex';
   }
