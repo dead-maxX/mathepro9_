@@ -5500,6 +5500,21 @@ async function doLogin(){
     if(_currentUser.progress){
       try{const sp=JSON.parse(_currentUser.progress);S=Object.assign(S,sp);}catch(e){}
     }
+    // If server has no progress yet but local exists, offer transfer
+    const hasServerProgress=_currentUser.progress&&JSON.parse(_currentUser.progress||'{}').tp>0;
+    const local=localStorage.getItem('mp9v4');
+    if(!hasServerProgress&&local){
+      try{
+        const lp=JSON.parse(local);
+        if(lp.tp>0){
+          document.getElementById('transfer-info').innerHTML=
+            `<b>${name}</b> · Lokaler Fortschritt gefunden<br>
+             <span style="color:var(--ac);font-weight:700">${lp.tp} ML</span> · ${Object.keys(lp.tprog||{}).length} Themen begonnen`;
+          document.getElementById('m-transfer').classList.add('show');
+          return;
+        }
+      }catch(e){}
+    }
     finishLogin();
   }catch(e){showAuthError('login','Fehler: '+e.message);}
 }
@@ -5553,18 +5568,19 @@ async function doRegister(){
   }catch(e){showAuthError('register','Fehler: '+e.message);}
 }
 
-function doTransfer(){
+async function doTransfer(){
   // Import local progress into account
   const local=localStorage.getItem('mp9v4');
   if(local){
     try{
       const lp=JSON.parse(local);
       S=Object.assign(S,lp);
-      saveProgressToServer();
     }catch(e){}
   }
   closeM('m-transfer');
   finishLogin();
+  // Save after finishLogin so _currentUser is set
+  setTimeout(()=>saveProgressToServer(),300);
 }
 
 function skipTransfer(){
