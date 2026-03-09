@@ -4595,16 +4595,15 @@ async function submitScore(){
   if(!name){nameEl.style.borderColor='var(--red)';nameEl.focus();return;}
   const btn=document.getElementById('lb-submit-confirm');
   btn.disabled=true;btn.textContent='⏳ Wird eingetragen…';
-  const av=getEquippedAvatar();
-  const fr=getEquippedFrame();
   try{
+    // Upsert: update if name exists, insert if not
     const res=await fetch(`${SUPABASE_URL}/rest/v1/${LB_TABLE}`,{
       method:'POST',
       headers:{
         'apikey':SUPABASE_KEY,
         'Authorization':'Bearer '+SUPABASE_KEY,
         'Content-Type':'application/json',
-        'Prefer':'return=minimal'
+        'Prefer':'resolution=merge-duplicates,return=minimal'
       },
       body:JSON.stringify({name,pts:S.tp||0})
     });
@@ -4615,7 +4614,6 @@ async function submitScore(){
     localStorage.setItem('mp9_lb_name',name);
     closeM('m-lb-submit');
     showToast('🏆 Eingetragen!','pts');
-    // Mark button as submitted
     const submitBtn=document.getElementById('lb-submit-btn');
     if(submitBtn){submitBtn.textContent='✅ Eingetragen';submitBtn.classList.add('submitted');}
     loadLeaderboard();
